@@ -4,6 +4,8 @@ public class Article {
     private String title;
 
     public Article(String author, String title){
+        this.author = author;
+        this.title = title;
 
     }
 
