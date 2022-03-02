@@ -33,7 +33,7 @@ public class AppController {
         articles.add(four);
         Article five = new Article("Carl Barks", "Dagobert - Sein Leben, Seine Milliarden");
         articles.add(five);
-        Article six = new Article("Ellon Musk", "Bitcoin and Cryptocurrency");
+        Article six = new Article("Elon Musk", "Bitcoin and Cryptocurrency");
         articles.add(six);
         Article seven = new Article("Satoshi Nakamoto", "How i invented blockchain and bitcoin");
         articles.add(seven);
