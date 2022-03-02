@@ -3,26 +3,26 @@ import java.util.List;
 
 public class AppController {
 
-    private List<Article> articles;
+    private ArrayList<Article> articles;
     private int articleCounter;
 
     public AppController(){
         articleCounter++;
     }
 
-    public void setArticles(List<Article> articles){
+    public void setArticles(ArrayList<Article> articles){
 
     }
     public int getArticleCount(){
         return articles.size();
     }
-    public List<Article> getTopHeadlinesAustria(){
+    public ArrayList<Article> getTopHeadlinesAustria(){
     }
-    public List<Article> getAllNewsBitcoin(){
+    public ArrayList<Article> getAllNewsBitcoin(){
     }
-    protected List<Article> filterList(String query, List<Article> articles){
+    protected ArrayList<Article> filterList(String query, ArrayList<Article> articles){
     }
-    private List<Article> generateMockList(){
+    private ArrayList<Article> generateMockList(){
         Article one =  new Article("Karl Marx", "Das Kapital");
         articles.add(one);
         Article two = new Article("Peter Molyneux", "Why i am a god");
