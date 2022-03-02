@@ -3,7 +3,7 @@ import java.util.List;
 
 public class AppController {
 
-    private ArrayList<Article> articles;
+    private List<Article> articles;
     private int articleCounter;
 
     public AppController(){
@@ -11,17 +11,18 @@ public class AppController {
     }
 
     public void setArticles(List<Article> articles){
+
     }
     public int getArticleCount(){
-        return articleCounter;
+        return articles.size();
     }
-    public ArrayList<Article> getTopHeadlinesAustria(){
+    public List<Article> getTopHeadlinesAustria(){
     }
-    public ArrayList<Article> getAllNewsBitcoin(){
+    public List<Article> getAllNewsBitcoin(){
     }
-    protected ArrayList<Article> filterList(String query, ArrayList<Article> articles){
+    protected List<Article> filterList(String query, List<Article> articles){
     }
-    private ArrayList<Article> generateMockList(){
+    private List<Article> generateMockList(){
     }
 
 }
