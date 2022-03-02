@@ -1,3 +1,5 @@
+package at.ac.fhcampuswien;
+
 import java.awt.*;
 
 public class App {
