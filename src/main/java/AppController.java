@@ -4,10 +4,8 @@ import java.util.List;
 public class AppController {
 
     private ArrayList<Article> articles;
-    private int articleCounter;
 
     public AppController(){
-        articleCounter++;
     }
 
     public void setArticles(ArrayList<Article> articles){
@@ -17,11 +15,15 @@ public class AppController {
         return articles.size();
     }
     public ArrayList<Article> getTopHeadlinesAustria(){
+        return null;
     }
-    public ArrayList<Article> getAllNewsBitcoin(){
+    public ArrayList<Article> getAllNewsBitcoin() {
+        return null;
     }
     protected ArrayList<Article> filterList(String query, ArrayList<Article> articles){
+        return null;
     }
+
     private ArrayList<Article> generateMockList(){
         Article one =  new Article("Karl Marx", "Das Kapital");
         articles.add(one);
@@ -37,6 +39,7 @@ public class AppController {
         articles.add(six);
         Article seven = new Article("Satoshi Nakamoto", "How i invented blockchain and bitcoin");
         articles.add(seven);
+        return articles;
     }
 
 }
