@@ -9,7 +9,6 @@ public class Menu {
 
     public static void start(){
 
-
     }
     private void handleinput(String input){
 
