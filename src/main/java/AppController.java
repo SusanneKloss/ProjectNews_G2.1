@@ -1,8 +1,9 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class AppController {
 
-    privat List<Article> articles;
+    private ArrayList<Article> articles;
     private int articleCounter;
 
     public AppController(){
@@ -14,13 +15,13 @@ public class AppController {
     public int getArticleCount(){
         return articleCounter;
     }
-    public List<Article> getTopHeadlinesAustria(){
+    public ArrayList<Article> getTopHeadlinesAustria(){
     }
-    public List<Article> getAllNewsBitcoin(){
+    public ArrayList<Article> getAllNewsBitcoin(){
     }
-    protected List<Article> filterList(String query, List<Article> articles){
+    protected ArrayList<Article> filterList(String query, ArrayList<Article> articles){
     }
-    private List<Article> generateMockList(){
+    private ArrayList<Article> generateMockList(){
     }
 
 }
