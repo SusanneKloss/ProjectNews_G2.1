@@ -1,0 +1,20 @@
+setArticles
+    compare author count to article-list size
+    compare titel count to article-list size
+    article-list size > 0
+
+getArticleCount
+    wird die richtige anzahl zurückgegeben
+    wenn liste leer, wird 0 zurückgegeben?
+    wird ein int zurückgegeben?
+
+getTopHeadlineAustria
+    ist die rückgabe eine list<articles>?
+    wird die richtige liste zurückgegeben?
+    überprüfen ob bei 'null' leerer liste zurückgegeben wird
+
+filterList
+    wird bei einem bestimmten filter die richtige anzahl ausgegeben?
+    wird bei der suche auch der richtige string erwischt?
+
+getAllNewsBitcoin
