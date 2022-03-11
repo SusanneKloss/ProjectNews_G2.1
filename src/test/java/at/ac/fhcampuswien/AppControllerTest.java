@@ -54,4 +54,24 @@ public class AppControllerTest {
         //assertion
         assertEquals(expectedCount, actualCount);
     }
+
+    @Test
+    @DisplayName("List of Articles with a title")
+    public void testSetArticles_Scenario3(){
+        //arrangement
+        actual = AppController.getMockList();
+        int expectedCount = actual.size();
+
+        //action
+        int actualCount = 0;
+        for (int i = 0; i < actual.size(); i++) {
+            Article article = actual.get(i);
+            if (article.getTitle().length() > 0) {
+                actualCount++;
+            }
+        }
+
+        //assertion
+        assertEquals(expectedCount, actualCount);
+    }
 }
