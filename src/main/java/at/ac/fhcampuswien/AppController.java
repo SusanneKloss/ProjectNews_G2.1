@@ -27,22 +27,23 @@ public class AppController {
         return null;
     }
 
-    private ArrayList<Article> generateMockList(){
+    private static ArrayList<Article> generateMockList(){
+        ArrayList<Article> mock = new ArrayList<>();
         Article one =  new Article("Karl Marx", "Das Kapital");
-        articles.add(one);
+        mock.add(one);
         Article two = new Article("Peter Molyneux", "Why i am a god");
-        articles.add(two);
+        mock.add(two);
         Article three = new Article("Angela Merkel", "Wie ich die Raute erfand");
-        articles.add(three);
+        mock.add(three);
         Article four = new Article("Donald Trump", "My orange hair");
-        articles.add(four);
+        mock.add(four);
         Article five = new Article("Carl Barks", "Dagobert - Sein Leben, Seine Milliarden");
-        articles.add(five);
+        mock.add(five);
         Article six = new Article("Elon Musk", "Bitcoin and Cryptocurrency");
-        articles.add(six);
+        mock.add(six);
         Article seven = new Article("Satoshi Nakamoto", "How i invented blockchain and bitcoin");
-        articles.add(seven);
-        return articles;
+        mock.add(seven);
+        return mock;
     }
 
 }
