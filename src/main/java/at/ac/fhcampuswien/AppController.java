@@ -11,9 +11,13 @@ public class AppController {
     public AppController(){
     }
 
-    public void setArticles(ArrayList<Article> articles){
-
+    public void setArticles(ArrayList<Article> articles) {
+        if (articles.size() != 0) {
+            this.articles = articles;
+        }
     }
+
+
     public int getArticleCount(){
         return articles.size();
     }
