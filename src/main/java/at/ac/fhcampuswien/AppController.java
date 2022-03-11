@@ -12,7 +12,18 @@ public class AppController {
     }
 
     public void setArticles(ArrayList<Article> articles) {
-        if (articles.size() != 0) {
+
+        //checking of passed parameter - Article objects with author and title (2 Strings) are counted
+        int count = 0;
+        for (int i = 0; i < articles.size(); i++) {
+            Article article = articles.get(i);
+            if (article.getTitle().length() > 0 && article.getAuthor().length() > 0) {
+                count++;
+            }
+        }
+
+        //list must not be empty and each Article object in the list must have author and title
+        if (articles.size() != 0 && count == articles.size()) {
             this.articles = articles;
         }
     }
