@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class AppControllerTest {
@@ -33,5 +34,24 @@ public class AppControllerTest {
 
         //assertion
         assertTrue(actual.size() > 0);
+    }
+
+    @Test
+    @DisplayName("List of Articles with an author")
+    public void testSetArticles_Scenario2(){
+        //arrangement
+        actual = AppController.getMockList();
+        int expectedCount = actual.size();
+
+        //action
+        int actualCount = 0;
+        for (Article article : actual) {
+            if (article.getAuthor().length() > 0) {
+                actualCount++;
+            }
+        }
+
+        //assertion
+        assertEquals(expectedCount, actualCount);
     }
 }
