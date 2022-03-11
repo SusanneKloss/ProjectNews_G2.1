@@ -3,17 +3,17 @@ setArticles
     compare titel count to article-list size
     article-list size > 0
 
-getArticleCount
+getArticleCount (magdalena)
     wird die richtige anzahl zurückgegeben
     wenn liste leer, wird 0 zurückgegeben?
     wird ein int zurückgegeben?
 
-getTopHeadlineAustria
+getTopHeadlineAustria (lena)
     ist die rückgabe eine list<articles>?
     wird die richtige liste zurückgegeben?
     überprüfen ob bei 'null' leerer liste zurückgegeben wird
 
-filterList
+filterList (hamza)
     wird bei einem bestimmten filter die richtige anzahl ausgegeben?
     wird bei der suche auch der richtige string erwischt?
 
