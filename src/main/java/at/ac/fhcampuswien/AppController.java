@@ -30,7 +30,10 @@ public class AppController {
 
 
     public int getArticleCount(){
-        return articles.size();
+        //articles = generateMockList();
+        if(this.articles == null){
+            return 0;}
+        else return articles.size();
     }
     public ArrayList<Article> getTopHeadlinesAustria(){
         return null;
@@ -59,6 +62,7 @@ public class AppController {
         Article seven = new Article("Satoshi Nakamoto", "How i invented blockchain and bitcoin");
         mock.add(seven);
         Article eight = new Article("Donald Trump", "Why all austrians live in trees.");
+        mock.add(eight);
         return mock;
     }
 
