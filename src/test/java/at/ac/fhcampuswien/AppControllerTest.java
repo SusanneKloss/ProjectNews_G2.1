@@ -22,7 +22,7 @@ public class AppControllerTest {
 
     @BeforeEach
     void setup(){
-        actual = new ArrayList<>();
+        actual = new ArrayList<>(); //hier nicht ArrayList<Articles> ???
     }
 
     @Test
@@ -73,5 +73,43 @@ public class AppControllerTest {
 
         //assertion
         assertEquals(expectedCount, actualCount);
+    }
+
+    @Test
+    @DisplayName("Is this a list of articles?")
+    public void testGetTopHeadlineAustria_Scenario1(){
+        //arrangement
+        actual = ac.getTopHeadlinesAustria();
+        boolean trueArticles = true;
+
+        //action
+        for (Object art : actual){
+            if (!(art instanceof Article)){
+                trueArticles = false; break;
+            }
+        }
+
+        //assertion
+        assertTrue(trueArticles);
+    }
+
+    @Test
+    @DisplayName("Did we get the right one?")
+    public void testGetTopHeadlineAustria_Scenario2(){
+        //arrangement
+
+        //action
+
+        //assertion
+    }
+
+    @Test
+    @DisplayName("Does null return an empty list?")
+    public void testGetTopHeadlineAustria_Scenario3(){
+        //arrangement
+
+        //action
+
+        //assertion
     }
 }

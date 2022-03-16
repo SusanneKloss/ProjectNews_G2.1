@@ -33,7 +33,7 @@ public class AppController {
         return articles.size();
     }
     public ArrayList<Article> getTopHeadlinesAustria(){
-        return null;
+        return generateMockList();
     }
     public ArrayList<Article> getAllNewsBitcoin() {
         return null;
