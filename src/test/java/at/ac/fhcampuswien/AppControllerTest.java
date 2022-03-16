@@ -6,9 +6,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AppControllerTest {
     private static AppController ac;
@@ -94,22 +94,26 @@ public class AppControllerTest {
     }
 
     @Test
-    @DisplayName("Did we get the right one?")
+    @DisplayName("Did we get the right list?")
     public void testGetTopHeadlineAustria_Scenario2(){
         //arrangement
+        actual = ac.getTopHeadlinesAustria();
 
         //action
 
         //assertion
+        assertEquals(1, actual.size());
     }
 
     @Test
     @DisplayName("Does null return an empty list?")
     public void testGetTopHeadlineAustria_Scenario3(){
         //arrangement
+        actual = ac.getTopHeadlinesAustria();
 
         //action
 
         //assertion
+        assertNotNull(actual);
     }
 }
