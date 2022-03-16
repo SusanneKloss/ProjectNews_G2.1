@@ -74,4 +74,18 @@ public class AppControllerTest {
         //assertion
         assertEquals(expectedCount, actualCount);
     }
+
+    //--------------Testing getArticleCount-------------
+
+    @Test
+    @DisplayName("Count correct?")
+    public void testGetArticleCount_scenario1(){
+        int expectedCount = AppController.getMockList().size();
+        int actualCount = ac.getArticleCount();
+
+        assertEquals(expectedCount, actualCount);
+    }
+
+
+
 }
