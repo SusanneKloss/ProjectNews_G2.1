@@ -62,6 +62,7 @@ public class AppControllerTest {
         actual = AppController.getMockList();
         int expectedCount = actual.size();
 
+
         //action
         int actualCount = 0;
         for (int i = 0; i < actual.size(); i++) {
