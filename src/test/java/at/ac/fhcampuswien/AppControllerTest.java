@@ -80,8 +80,8 @@ public class AppControllerTest {
     @Test
     @DisplayName("articleCount correct")
     public void testGetArticleCount_scenario1(){
-
-        int expectedCount = 8;
+        ac.setArticles(AppController.getMockList());
+        int expectedCount = AppController.getMockList().size();
         int actualCount = ac.getArticleCount();
 
         assertEquals(expectedCount, actualCount);
