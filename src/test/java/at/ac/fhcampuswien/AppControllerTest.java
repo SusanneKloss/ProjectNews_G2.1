@@ -28,12 +28,22 @@ public class AppControllerTest {
     @Test
     @DisplayName("Article List not empty")
     public void testSetArticles_Scenario1() {
+        ArrayList<Article> mock2 = new ArrayList<>();
+        Article one =  new Article("Karl Marx", "Das Kapital");
+        mock2.add(one);
+        Article two = new Article("Peter Molyneux", "Why i am a god");
+        mock2.add(two);
+        Article three = new Article("Angela Merkel", "Wie ich die Raute erfand");
+        mock2.add(three);
+        Article four = new Article("Donald Trump", "My orange hair");
+        mock2.add(four);
+
 
         //action
-        actual = AppController.getMockList();
+        ac.setArticles(mock2);
 
         //assertion
-        assertTrue(actual.size() > 0);
+        assertTrue(mock2.size() > 0);
     }
 
     @Test
