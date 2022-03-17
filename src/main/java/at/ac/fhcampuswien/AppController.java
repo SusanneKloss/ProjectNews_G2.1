@@ -12,6 +12,17 @@ public class AppController {
     }
 
     public void setArticles(ArrayList<Article> articles) {
+        /*//https://www.geeksforgeeks.org/null-pointer-exception-in-java/
+        try {
+            if(articles == null);
+        }
+        catch (NullPointerException exception){
+            System.out.println("NullPointerException");
+        }*/
+        //https://www.baeldung.com/java-avoid-null-check , 6.1 Avoiding Null Checks Through Coding Practices
+        if(articles == null){
+            throw new IllegalArgumentException();
+        }
 
         //checking of passed parameter - Article objects with author and title (2 Strings) are counted
 

@@ -149,4 +149,20 @@ public class AppControllerTest {
 
     }
 
+    @Test
+    @DisplayName("List of Article is null - IllegalArgumentException")
+    public void testSetArticles_Scenario6(){
+        //https://www.appsdeveloperblog.com/junit-test-expected-exception-example/
+        ArrayList<Article> mock2 = null;
+
+        try {
+            ac.setArticles(mock2);
+            fail();
+        }
+        catch (IllegalArgumentException exception){
+            assertTrue(exception instanceof IllegalArgumentException);
+        }
+
+    }
+
 }
