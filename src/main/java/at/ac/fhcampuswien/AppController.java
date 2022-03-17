@@ -16,8 +16,8 @@ public class AppController {
         //checking of passed parameter - Article objects with author and title (2 Strings) are counted
         int count = 0;
         for (int i = 0; i < articles.size(); i++) {
-            Article article = articles.get(i);
-            if (article.getTitle().length() > 0 && article.getAuthor().length() > 0) {
+            //Article article = articles.get(i);
+            if (articles.get(i) != null && articles.get(i).getTitle().length() > 0 && articles.get(i).getAuthor().length() > 0) {
                 count++;
             }
         }
