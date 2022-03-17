@@ -30,7 +30,6 @@ public class AppController {
 
 
     public int getArticleCount(){
-        //articles = generateMockList();
         if(this.articles == null){
             return 0;}
         else return articles.size();
