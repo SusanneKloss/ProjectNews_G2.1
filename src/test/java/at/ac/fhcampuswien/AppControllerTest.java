@@ -29,6 +29,7 @@ public class AppControllerTest {
     @DisplayName("Article List not empty")
     public void testSetArticles_Scenario1() {
         ArrayList<Article> mock2 = new ArrayList<>();
+
         Article one =  new Article("Karl Marx", "Das Kapital");
         mock2.add(one);
         Article two = new Article("Peter Molyneux", "Why i am a god");
@@ -37,7 +38,6 @@ public class AppControllerTest {
         mock2.add(three);
         Article four = new Article("Donald Trump", "My orange hair");
         mock2.add(four);
-
 
         //action
         ac.setArticles(mock2);
@@ -50,12 +50,22 @@ public class AppControllerTest {
     @DisplayName("List of Articles with an author")
     public void testSetArticles_Scenario2(){
         //arrangement
-        actual = AppController.getMockList();
-        int expectedCount = actual.size();
+        ArrayList<Article> mock2 = new ArrayList<>();
+        Article one =  new Article("Karl Marx", "Das Kapital");
+        mock2.add(one);
+        Article two = new Article("Peter Molyneux", "Why i am a god");
+        mock2.add(two);
+        Article three = new Article("Angela Merkel", "Wie ich die Raute erfand");
+        mock2.add(three);
+        Article four = new Article("Donald Trump", "My orange hair");
+        mock2.add(four);
+
+        ac.setArticles(mock2);
+        int expectedCount = mock2.size();
 
         //action
         int actualCount = 0;
-        for (Article article : actual) {
+        for (Article article : mock2) {
             if (article.getAuthor().length() > 0) {
                 actualCount++;
             }
@@ -69,13 +79,22 @@ public class AppControllerTest {
     @DisplayName("List of Articles with a title")
     public void testSetArticles_Scenario3(){
         //arrangement
-        actual = AppController.getMockList();
-        int expectedCount = actual.size();
+        ArrayList<Article> mock2 = new ArrayList<>();
+        Article one =  new Article("Karl Marx", "Das Kapital");
+        mock2.add(one);
+        Article two = new Article("Peter Molyneux", "Why i am a god");
+        mock2.add(two);
+        Article three = new Article("Angela Merkel", "Wie ich die Raute erfand");
+        mock2.add(three);
+        Article four = new Article("Donald Trump", "My orange hair");
+        mock2.add(four);
+
+        ac.setArticles(mock2);
+        int expectedCount = mock2.size();
 
         //action
         int actualCount = 0;
-        for (int i = 0; i < actual.size(); i++) {
-            Article article = actual.get(i);
+        for (Article article : mock2) {
             if (article.getTitle().length() > 0) {
                 actualCount++;
             }
