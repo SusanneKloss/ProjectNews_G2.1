@@ -14,6 +14,7 @@ public class AppController {
     public void setArticles(ArrayList<Article> articles) {
 
         //checking of passed parameter - Article objects with author and title (2 Strings) are counted
+
         int count = 0;
         for (int i = 0; i < articles.size(); i++) {
             //Article article = articles.get(i);

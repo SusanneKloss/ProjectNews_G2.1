@@ -7,8 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AppControllerTest {
     private static AppController ac;
@@ -132,6 +131,22 @@ public class AppControllerTest {
 
         //assertion
         assertEquals(expectedCount, actualCount);
+    }
+
+    @Test
+    @DisplayName("List of Article is null - NullPointerException")
+    public void testSetArticles_Scenario5(){
+        //https://www.appsdeveloperblog.com/junit-test-expected-exception-example/
+        ArrayList<Article> mock2 = null;
+
+        try {
+            ac.setArticles(mock2);
+            fail();
+        }
+        catch (NullPointerException exception){
+            assertTrue(exception instanceof NullPointerException);
+        }
+
     }
 
 }
