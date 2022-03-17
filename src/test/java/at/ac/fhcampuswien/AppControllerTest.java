@@ -103,4 +103,35 @@ public class AppControllerTest {
         //assertion
         assertEquals(expectedCount, actualCount);
     }
+
+    @Test
+    @DisplayName("List of Article objects")
+    public void testSetArticles_Scenario4(){
+        //arrangement
+        ArrayList<Article> mock2 = new ArrayList<>();
+        Article one =  new Article("Karl Marx", "Das Kapital");
+        mock2.add(one);
+        Article two = new Article("Peter Molyneux", "Why i am a god");
+        mock2.add(two);
+        Article three = new Article("Angela Merkel", "Wie ich die Raute erfand");
+        mock2.add(three);
+        Article four = new Article("Donald Trump", "My orange hair");
+        mock2.add(four);
+
+        ac.setArticles(mock2);
+        int expectedCount = mock2.size();
+
+        //action
+        int actualCount = 0;
+        for (int i = 0; i < mock2.size(); i++) {
+            Article article = mock2.get(i);
+            if (article != null) {
+                actualCount++;
+            }
+        }
+
+        //assertion
+        assertEquals(expectedCount, actualCount);
+    }
+
 }

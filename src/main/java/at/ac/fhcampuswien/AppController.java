@@ -62,8 +62,8 @@ public class AppController {
         return mock;
     }
 
-    public static ArrayList<Article> getMockList(){
+    /*public static ArrayList<Article> getMockList(){
         return generateMockList();
-    }
+    }*/
 
 }
