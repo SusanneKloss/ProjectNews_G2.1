@@ -101,6 +101,11 @@ public class AppControllerTest {
     @DisplayName("articleCount is int")
     public void testGetArticleCount_scenario3(){
 
+        //boolean countIsInt = ac.getArticleCount() instanceof Integer
+        //assertTrue(countIsInt);
+
+        boolean countIsInt = Integer.class.isInstance(ac.getArticleCount());
+        assertTrue(countIsInt);
     }
 
 
