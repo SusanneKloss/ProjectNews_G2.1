@@ -12,7 +12,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class AppControllerTest {
     private static AppController ac;
-    ArrayList<Article> actual;
+    ArrayList<Article> actual;  //for tests
+    ArrayList<Article> test;    //checking for failed tests
     Article one =  new Article("Karl Marx", "Das Kapital");
 
     @BeforeAll
@@ -22,7 +23,17 @@ public class AppControllerTest {
 
     @BeforeEach
     void setup(){
+        test = new ArrayList<>();
         actual = new ArrayList<>();
+
+        Article one =  new Article("Karl Marx", "Das Kapital");
+        actual.add(one);
+        Article two = new Article("Peter Molyneux", "Why i am a god");
+        actual.add(two);
+        Article three = new Article("Angela Merkel", "Wie ich die Raute erfand");
+        actual.add(three);
+        Article four = new Article("Donald Trump", "My orange hair");
+        actual.add(four);
     }
 
     @Test
