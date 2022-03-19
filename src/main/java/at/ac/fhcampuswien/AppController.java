@@ -40,6 +40,10 @@ public class AppController {
         }
     }
 
+    public ArrayList<Article> getArticle(){
+        return this.articles;
+    }
+
 
     public int getArticleCount(){
         return articles.size();
