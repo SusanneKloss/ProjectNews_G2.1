@@ -38,6 +38,7 @@ public class AppController {
         if (articles.size() != 0 && count == articles.size()) {
             this.articles = articles;
         }
+        //this.articles = articles; for checking setter test0
     }
 
     public ArrayList<Article> getArticle(){

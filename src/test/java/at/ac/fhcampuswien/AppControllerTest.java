@@ -56,41 +56,29 @@ public class AppControllerTest {
     @Test
     @DisplayName("Article List not empty")
     public void testSetArticles_Scenario1() {
+        /*
+        test checked with ac.setArticles(test), i.e. empty list, and assertTrue (size == 0)
+        in setArticles without if(size != 0) -> test ok
+         */
+
         //action
-        //ArrayList<Article> actual = new ArrayList<>();
         ac.setArticles(actual);
 
         //assertion
-        //assertTrue(ac.size() > 0);
+        assertTrue(ac.getArticle().size() > 0);
 
-        /*ArrayList<Article> mock2 = new ArrayList<>();
-
-        Article one =  new Article("Karl Marx", "Das Kapital");
-        mock2.add(one);
-        Article two = new Article("Peter Molyneux", "Why i am a god");
-        mock2.add(two);
-        Article three = new Article("Angela Merkel", "Wie ich die Raute erfand");
-        mock2.add(three);
-        Article four = new Article("Donald Trump", "My orange hair");
-        mock2.add(four);
-
-        //action
-        ac.setArticles(mock2);
-
-        //assertion
-        assertTrue(mock2.size() > 0);*/
     }
 
     @Test
     @DisplayName("List of Articles with an author")
     public void testSetArticles_Scenario2(){
         //arrangement
-        //ac.setArticles(actual);
-        int expectedCount = actual.size();
+        ac.setArticles(actual);
+        int expectedCount = 4;
 
         //action
         int actualCount = 0;
-        for (Article article : actual) {
+        for (Article article : ac.getArticle()) {
             if (article.getAuthor().length() > 0) {
                 actualCount++;
             }
@@ -105,11 +93,11 @@ public class AppControllerTest {
     public void testSetArticles_Scenario3(){
         //arrangement
         ac.setArticles(actual);
-        int expectedCount = actual.size();
+        int expectedCount = 4;
 
         //action
         int actualCount = 0;
-        for (Article article : actual) {
+        for (Article article : ac.getArticle()) {
             if (article.getTitle().length() > 0) {
                 actualCount++;
             }
@@ -124,12 +112,12 @@ public class AppControllerTest {
     public void testSetArticles_Scenario4(){
         //arrangement
         ac.setArticles(actual);
-        int expectedCount = actual.size();
+        int expectedCount = 4;
 
         //action
         int actualCount = 0;
-        for (int i = 0; i < actual.size(); i++) {
-            Article article = actual.get(i);
+        for (int i = 0; i < ac.getArticle().size(); i++) {
+            Article article = ac.getArticle().get(i);
             if (article != null) {
                 actualCount++;
             }
