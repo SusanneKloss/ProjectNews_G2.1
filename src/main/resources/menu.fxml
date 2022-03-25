@@ -76,5 +76,10 @@
                 <Button fx:id="quitButton" layoutX="960.0" minHeight="40.0" minWidth="318.0" mnemonicParsing="false" onAction="#quitButtonAction" opacity="0.0" text="quitButton" />
             </children>
         </Group>
+      <Text fx:id="textField" fill="#3b3a3a" layoutX="155.0" layoutY="258.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Donald Trump&quot;, &quot;Why all austrians live in trees.Donald Trump - Why all austrians live in trees.">
+         <font>
+            <Font name="Arial Black" size="16.0" />
+         </font>
+      </Text>
     </children>
 </AnchorPane>
