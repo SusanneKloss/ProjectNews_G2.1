@@ -15,9 +15,6 @@ public class AppControllerTest {
     ArrayList<Article> test;    //checking for failed tests
     Article one =  new Article("Karl Marx", "Das Kapital");
 
-
-
-
     @BeforeAll
     static void init(){
         ac = new AppController();
@@ -160,4 +157,46 @@ public class AppControllerTest {
 
     }
 
+
+    @Test
+    @DisplayName("Is this a list of articles?")
+    public void testGetTopHeadlineAustria_Scenario1(){
+        //arrangement
+        actual = ac.getTopHeadlinesAustria();
+        boolean trueArticles = true;
+
+        //action
+        for (Object art : actual){
+            if (!(art instanceof Article)){
+                trueArticles = false; break;
+            }
+        }
+
+        //assertion
+        assertTrue(trueArticles);
+    }
+
+    @Test
+    @DisplayName("Did we get the right list?")
+    public void testGetTopHeadlineAustria_Scenario2(){
+        //arrangement
+        actual = ac.getTopHeadlinesAustria();
+
+        //action
+
+        //assertion
+        assertEquals(1, actual.size());
+    }
+
+    @Test
+    @DisplayName("Does null return an empty list?")
+    public void testGetTopHeadlineAustria_Scenario3(){
+        //arrangement
+        actual = ac.getTopHeadlinesAustria();
+
+        //action
+
+        //assertion
+        assertNotNull(actual);
+    }
 }
