@@ -42,15 +42,16 @@ public class AppControllerTest {
     @DisplayName("setArticle working properly")
     public void testSetArticles_Scenario0() {
         //action
-        test.add(one);
-        ac.setArticles(test);
-        ArrayList<Article> actual = ac.getArticle();
+        ArrayList<Article> list = new ArrayList<>();
+        list.add(one);
+        ac.setArticles(list);
+        ArrayList<Article> actualList = ac.getArticle();
 
         ArrayList<Article> expected = new ArrayList<>();
         expected.add(one);
 
         //assertion
-        assertEquals(expected, actual);
+        assertEquals(expected, actualList);
     }
 
     @Test
