@@ -26,11 +26,7 @@ public class App extends Application {
 
         AppController ac = new AppController();
 
-        ArrayList<Article> arty = new ArrayList<>();
-        arty = AppController.getMockList();
-        for (int i = 0; i < arty.size(); i++){
-            System.out.println(arty.get(i));
-        }
+
 
     }
 

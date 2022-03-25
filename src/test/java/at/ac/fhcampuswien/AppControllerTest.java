@@ -35,6 +35,10 @@ public class AppControllerTest {
         actual.add(three);
         Article four = new Article("Donald Trump", "My orange hair");
         actual.add(four);
+        Article five = new Article("Elon Musk", "Bitcoin and Cryptocurrency");
+        actual.add(five);
+        Article six = new Article("Satoshi Nakamoto", "How i invented blockchain and bitcoin");
+        actual.add(six);
     }
 
     @Test
@@ -74,7 +78,7 @@ public class AppControllerTest {
     public void testSetArticles_Scenario2(){
         //arrangement
         ac.setArticles(actual);
-        int expectedCount = 4;
+        int expectedCount = 6;
 
         //action
         int actualCount = 0;
@@ -93,7 +97,7 @@ public class AppControllerTest {
     public void testSetArticles_Scenario3(){
         //arrangement
         ac.setArticles(actual);
-        int expectedCount = 4;
+        int expectedCount = 6;
 
         //action
         int actualCount = 0;
