@@ -12,32 +12,50 @@ public class AppController {
     }
 
     public void setArticles(ArrayList<Article> articles) {
-        /*//https://www.geeksforgeeks.org/null-pointer-exception-in-java/
+        this.articles = articles;
+
+        /*
+        setArticles() was tested before getArticleCount() - as there is the requirement to return 0 if list is null
+        setArticles() had to be changed after the tests had been written.
+        Failed tests for TestSetArticles Scenario 1-4 resp. Scenario 5 and 6 were tested with the code below
+         */
+
+        /*
+        corr. Test Scenario 5
+        https://www.geeksforgeeks.org/null-pointer-exception-in-java/
         try {
             if(articles == null);
         }
         catch (NullPointerException exception){
             System.out.println("NullPointerException");
-        }*/
+        }
+        */
+
+        /*
+        corr. Test Scenario 6
         //https://www.baeldung.com/java-avoid-null-check , 6.1 Avoiding Null Checks Through Coding Practices
         if(articles == null){
             throw new IllegalArgumentException();
         }
+        */
 
+        /*
+        corr. Test Scenarios 1-4
         //checking of passed parameter - Article objects with author and title (2 Strings) are counted
+        //list must not be empty and each Article object in the list must have author and title
         int count = 0;
         for (int i = 0; i < articles.size(); i++) {
-            //Article article = articles.get(i);
+
             if (articles.get(i) != null && articles.get(i).getTitle().length() > 0 && articles.get(i).getAuthor().length() > 0) {
                 count++;
             }
         }
 
-        //list must not be empty and each Article object in the list must have author and title
         if (articles.size() != 0 && count == articles.size()) {
             this.articles = articles;
         }
-        //this.articles = articles; for checking setter test0
+        */
+
     }
 
     public ArrayList<Article> getArticle(){
