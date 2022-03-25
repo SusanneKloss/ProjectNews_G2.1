@@ -25,7 +25,6 @@ public class AppController {
         }
 
         //checking of passed parameter - Article objects with author and title (2 Strings) are counted
-
         int count = 0;
         for (int i = 0; i < articles.size(); i++) {
             //Article article = articles.get(i);
@@ -47,8 +46,9 @@ public class AppController {
 
 
     public int getArticleCount(){
-        articles = generateMockList();
-        return articles.size();
+        if(this.articles == null){
+            return 0;}
+        else return articles.size();
     }
     public ArrayList<Article> getTopHeadlinesAustria(){
         return generateMockList();

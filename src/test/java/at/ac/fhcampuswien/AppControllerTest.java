@@ -289,4 +289,64 @@ public class AppControllerTest {
         //assertion
         assertNotNull(actual);
     }
+
+    //--------------Testing getArticleCount-------------
+
+    @Test
+    @DisplayName("articleCount correct")
+    public void testGetArticleCount_scenario1(){
+
+        ArrayList<Article> mock2 = new ArrayList<>();
+        Article one =  new Article("Karl Marx", "Das Kapital");
+        mock2.add(one);
+        Article two = new Article("Peter Molyneux", "Why i am a god");
+        mock2.add(two);
+        Article three = new Article("Angela Merkel", "Wie ich die Raute erfand");
+        mock2.add(three);
+        Article four = new Article("Donald Trump", "My orange hair");
+        mock2.add(four);
+
+
+        ac.setArticles(mock2);
+        int expectedCount = 4;
+        int actualCount = ac.getArticleCount();
+
+        assertEquals(expectedCount, actualCount);
+    }
+
+    @Test
+    @DisplayName("articleCount is null")
+    public void testGetArticleCount_scenario2(){
+
+        int expectedCount = 0;
+        int actualCount = ac.getArticleCount();
+
+        assertEquals(expectedCount, actualCount);
+    }
+
+    @Test
+    @DisplayName("articleCount is 0")
+    public void testGetArticleCount_scenario3(){
+
+        ac.setArticles(actual);
+        int expectedCount = 0;
+        int actualCount = ac.getArticleCount();
+
+        assertEquals(expectedCount, actualCount);
+    }
+
+
+    @Test
+    @DisplayName("articleCount is int")
+    public void testGetArticleCount_scenario4(){
+
+        assertTrue(Integer.class.isInstance(ac.getArticleCount()));
+    }
+
+
+
+
+
+
+
 }
