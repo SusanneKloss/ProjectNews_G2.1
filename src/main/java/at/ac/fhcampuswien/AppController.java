@@ -57,7 +57,14 @@ public class AppController {
         return null;
     }
     protected ArrayList<Article> filterList(String query, ArrayList<Article> articles){
-        return null;
+        ArrayList<Article> match = new ArrayList<>();
+
+        for(Article a : articles){
+            if(a.getTitle().toLowerCase().contains(query.toLowerCase())){
+                match.add(a);
+            }
+        }
+        return match;
     }
 
     private static ArrayList<Article> generateMockList(){

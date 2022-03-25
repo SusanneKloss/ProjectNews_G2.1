@@ -347,7 +347,14 @@ public class AppControllerTest {
         assertTrue(Integer.class.isInstance(ac.getArticleCount()));
     }
 
+    @Test
+    @DisplayName("bitcoin count")
+    public void testGetAllNewsBitcoin(){
 
+        actual = ac.filterList("bitcoin", actual);
+
+        assertEquals(2, actual.size());
+    }
 
 
 
