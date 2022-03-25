@@ -44,7 +44,6 @@ public class AppController {
         return this.articles;
     }
 
-
     public int getArticleCount(){
         if(this.articles == null){
             return 0;}
