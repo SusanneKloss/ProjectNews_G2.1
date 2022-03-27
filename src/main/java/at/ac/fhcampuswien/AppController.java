@@ -6,7 +6,7 @@ import java.util.List;
 
 public class AppController {
 
-    private ArrayList<Article> articles;
+    private ArrayList<Article> articles = generateMockList();
 
     public AppController(){
     }
@@ -54,7 +54,7 @@ public class AppController {
         return generateMockList();
     }
     public ArrayList<Article> getAllNewsBitcoin() {
-        return null;
+        return filterList("bitcoin", generateMockList());
     }
     protected ArrayList<Article> filterList(String query, ArrayList<Article> articles){
         ArrayList<Article> match = new ArrayList<>();

@@ -9,7 +9,9 @@ import java.util.ArrayList;
 
 public class Menu {
 
-    private AppController controller;
+    private AppController controller = new AppController();
+    private ArrayList<Article> outputList;
+    private StringBuilder textOutput;
     private static String INVALID_INPUT_MESSAGE;
     private static String EXIT_MESSAGE;
 
@@ -18,22 +20,34 @@ public class Menu {
 
 
     public static void start(){
-
     }
+
     private void handleinput(String input){
 
     }
-    private void getArticleCount(AppController ctrl){
-
+    public void getArticleCount(ActionEvent actionEvent){
+        textField.setText("Number of articles: " + String.valueOf(controller.getArticleCount()));
     }
-    private void getTopHeadlinesAustria(AppController ctrl){
-        controller.getTopHeadlinesAustria();
-    }
-    private void getAllNewsBitcoin(AppController ctrl){
+    public void getTopHeadlinesAustria(ActionEvent actionEvent){
+        textOutput = new StringBuilder();
+        outputList = controller.getTopHeadlinesAustria();
 
+        for (Article art : outputList) {
+            textOutput.append(art.toString());
+        }
+        textField.setText(textOutput.toString());
     }
-    private static void printExitMessages(){
+    public void getAllNewsBitcoin(ActionEvent actionEvent){
+        textOutput = new StringBuilder();
+        outputList = controller.getAllNewsBitcoin();
 
+        for (Article art : outputList) {
+            textOutput.append(art.toString());
+        }
+        textField.setText(textOutput.toString());
+    }
+    public void printExitMessages(ActionEvent actionEvent){
+        System.exit(0);
     }
     private static void printInvalidInputMessages(){
 
@@ -42,18 +56,4 @@ public class Menu {
 
     }
 
-
-    public void austriaButtonAction(ActionEvent actionEvent) {
-
-        textField.setText(controller.getTopHeadlinesAustria().toString());
-    }
-
-    public void bitcoinButtonAction(ActionEvent actionEvent) {
-    }
-
-    public void countButtonAction(ActionEvent actionEvent) {
-    }
-
-    public void quitButtonAction(ActionEvent actionEvent) {
-    }
 }
