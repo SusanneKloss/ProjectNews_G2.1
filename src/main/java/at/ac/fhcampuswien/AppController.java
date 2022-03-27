@@ -6,6 +6,7 @@ import java.util.List;
 
 public class AppController {
 
+
     private ArrayList<Article> articles = generateMockList();
 
     public AppController(){

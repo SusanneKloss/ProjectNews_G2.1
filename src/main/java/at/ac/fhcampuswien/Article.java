@@ -21,5 +21,6 @@ public class Article {
     @Override
     public String toString() {
         return author + " - " + title + System.lineSeparator();
+
     }
 }
