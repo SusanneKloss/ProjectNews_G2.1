@@ -70,10 +70,10 @@
         </Group>
         <Group fx:id="menuButtonGroup" layoutY="122.0">
             <children>
-                <Button fx:id="austriaButton" minHeight="40.0" minWidth="318.0" mnemonicParsing="false" onAction="#getTopHeadlinesAustria" opacity="0.0" text="austriaButton" />
-                <Button fx:id="bitcoinButton" layoutX="320.0" minHeight="40.0" minWidth="318.0" mnemonicParsing="false" onAction="#getAllNewsBitcoin" opacity="0.0" text="bitcoinButton" />
-                <Button fx:id="countButton" layoutX="640.0" minHeight="40.0" minWidth="318.0" mnemonicParsing="false" onAction="#getArticleCount" opacity="0.0" text="countButton" />
-                <Button fx:id="quitButton" layoutX="960.0" minHeight="40.0" minWidth="318.0" mnemonicParsing="false" onAction="#printExitMessages" opacity="0.0" text="quitButton" />
+                <Button fx:id="austriaButton" minHeight="40.0" minWidth="318.0" mnemonicParsing="false" onAction="#getTopHeadlinesAustria" onMouseEntered="#austriaEntered" onMouseExited="#austriaExited" opacity="0.0" text="austriaButton" />
+                <Button fx:id="bitcoinButton" layoutX="320.0" minHeight="40.0" minWidth="318.0" mnemonicParsing="false" onAction="#getAllNewsBitcoin" onMouseEntered="#bitcoinEntered" onMouseExited="#bitcoinExited" opacity="0.0" text="bitcoinButton" />
+                <Button fx:id="countButton" layoutX="640.0" minHeight="40.0" minWidth="318.0" mnemonicParsing="false" onAction="#getArticleCount" onMouseEntered="#countEntered" onMouseExited="#countExited" opacity="0.0" text="countButton" />
+                <Button fx:id="quitButton" layoutX="960.0" minHeight="40.0" minWidth="318.0" mnemonicParsing="false" onAction="#printExitMessages" onMouseEntered="#quitEntered" onMouseExited="#quitExited" opacity="0.0" text="quitButton" />
             </children>
         </Group>
       <Text fx:id="textField" fill="#3b3a3a" layoutX="155.0" layoutY="258.0" strokeType="OUTSIDE" strokeWidth="0.0" text="">
