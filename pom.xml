@@ -51,7 +51,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.example.demosfx/com.example.demosfx.HelloApplication</mainClass>
+                            <mainClass>at.ac.fhcampuswien.App</mainClass>
                         </configuration>
                     </execution>
                 </executions>
@@ -102,13 +102,6 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-media</artifactId>
-            <version>16</version>
-            <classifier>win</classifier>
-        </dependency>
-
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-graphics</artifactId>
             <version>16</version>
             <classifier>win</classifier>
         </dependency>
