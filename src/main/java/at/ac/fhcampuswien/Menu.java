@@ -3,14 +3,19 @@ package at.ac.fhcampuswien;
 import at.ac.fhcampuswien.AppController;
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Menu {
@@ -26,8 +31,7 @@ public class Menu {
     public javafx.scene.control.Button austriaButton, bitcoinButton, countButton, quitButton;
     public Text textField, austriaLetters, bitcoinLetters, countLetters, quitLetters;
 
-
-    public static void start(){
+    public static void start() {
     }
 
     private void handleinput(String input){

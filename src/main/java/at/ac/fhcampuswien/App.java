@@ -20,35 +20,23 @@ import static javafx.application.Application.launch;
 
 public class App extends Application {
 
-    public static void main(String[] args) {
-
-        Menu menu = new Menu();
-        Menu.start();
-
+    public static void main(String[] args) throws IOException {
         launch(args);
 
-        AppController ac = new AppController();
-
-
-
+        /**
+        NewsResponse test = new NewsResponse();
+        test.deserializeRequest();
+        **/
     }
 
-    @Override
+   @Override
     public void start(Stage stage) throws IOException {
+
         Parent root = FXMLLoader.load(App.class.getResource("/menu.fxml"));
         Scene scene = new Scene(root);
         stage.setTitle("Project News");
         stage.setScene(scene);
         stage.show();
 
-        /**
-        stage.setTitle("Hello World!");
-        javafx.scene.control.Button btn = new Button();
-        btn.setText("Hello JavaFX!");
-        btn.setOnAction( (event) -> Platform.exit() );
-        Pane root = new StackPane();
-        root.getChildren().add(btn);
-        stage.setScene(new Scene(root, 300, 150));
-        stage.show();   */
     }
 }
