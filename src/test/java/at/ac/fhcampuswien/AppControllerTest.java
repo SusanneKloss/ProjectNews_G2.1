@@ -250,12 +250,10 @@ public class AppControllerTest {
     }
 
     @Test
-    @DisplayName("Does null return an empty list?")
+    @DisplayName("getTopHeadlineAustria is not null")
     public void testGetTopHeadlineAustria_Scenario3(){
         //arrangement
         actual = ac.getTopHeadlinesAustria();
-
-        //action
 
         //assertion
         assertNotNull(actual);
@@ -277,6 +275,8 @@ public class AppControllerTest {
     @Test
     @DisplayName("articleCount is null")
     public void testGetArticleCount_scenario2(){
+
+        ac.setArticles(null);
 
         int expectedCount = 0;
         int actualCount = ac.getArticleCount();
