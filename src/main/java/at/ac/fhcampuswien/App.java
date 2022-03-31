@@ -21,12 +21,14 @@ import static javafx.application.Application.launch;
 public class App extends Application {
 
     public static void main(String[] args) throws IOException {
-        launch(args);
+        //launch(args);
 
         /**
         NewsResponse test = new NewsResponse();
         test.deserializeRequest();
         **/
+
+        System.out.println(NewsAPI.getMeows().getArticles().toString());
     }
 
    @Override
