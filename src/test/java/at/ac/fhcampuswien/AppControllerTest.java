@@ -259,6 +259,23 @@ public class AppControllerTest {
         assertNotNull(actual);
     }
 
+    @Test
+    @DisplayName("Does null return empty list")
+    public void testGetTopHeadlineAustria_Scenario4(){
+        //arangement
+        ArrayList<Article> newList = null;
+        ac.setArticles(newList);
+
+        //action
+        //if-statement from getTopHeadlinesAustria()
+        if(ac.getArticle() == null){
+            newList = new ArrayList<>();
+        }
+
+        //assertion
+        assertEquals(0, newList.size());
+    }
+
     //--------------Testing getArticleCount-------------
 
     @Test
@@ -275,7 +292,10 @@ public class AppControllerTest {
     @Test
     @DisplayName("articleCount is null")
     public void testGetArticleCount_scenario2(){
-
+        /*
+        ArrayList<Article> newList = null;
+        ac.setArticles(newList);
+         */
         ac.setArticles(null);
 
         int expectedCount = 0;
