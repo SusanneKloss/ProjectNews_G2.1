@@ -131,6 +131,17 @@ public class AppControllerTest {
         assertEquals(expectedCount, actualCount);
     }
 
+    @Test
+    @DisplayName("List set is null")
+    public void testSetArticles_Scenario7(){
+        //arangement
+        ArrayList<Article> newList = null;
+        ac.setArticles(newList);
+
+        //assertion
+        assertNull(ac.getArticle());
+    }
+
     //testSetArticles_Scenario 5 and 6 not working anymore after changing setArticles()
     /*@Test
     @DisplayName("List of Article is null - NullPointerException")
