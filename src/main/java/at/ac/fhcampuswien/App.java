@@ -23,12 +23,8 @@ public class App extends Application {
     public static void main(String[] args) throws IOException {
         //launch(args);
 
-        /**
-        NewsResponse test = new NewsResponse();
-        test.deserializeRequest();
-        **/
-
-        System.out.println(NewsAPI.getMeows().getArticles().toString());
+        AppController controller = new AppController();
+        controller.getTopHeadlinesAustria();
     }
 
    @Override

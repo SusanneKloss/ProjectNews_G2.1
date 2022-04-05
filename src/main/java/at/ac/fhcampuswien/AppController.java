@@ -1,5 +1,8 @@
 package at.ac.fhcampuswien;
 
+import at.ac.fhcampuswien.enums.*;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +11,13 @@ public class AppController {
 
 
     private ArrayList<Article> articles = generateMockList();
+    NewsResponse response;
+    Endpoint endpoint;
+    Category category;
+    Country country;
+    Language language;
+    Sortby sortby;
+    String url;
 
     public AppController(){
     }
@@ -68,12 +78,15 @@ public class AppController {
             return 0;}
         else return articles.size();
     }
-    public ArrayList<Article> getTopHeadlinesAustria(){
-        ArrayList<Article> getTop = generateMockList();
-        if (getTop == null){
-            getTop = new ArrayList<>();
+    public ArrayList<Article> getTopHeadlinesAustria() throws IOException {
+        url = NewsAPI.buildURL("vienna", endpoint = Endpoint.topheadlines, country = Country.at);
+        response = NewsAPI.deserializeToString(url);
+        System.out.println(url);
+
+        if (response.getArticles() == null){
+            return new ArrayList<>();
         }
-        return getTop;
+        return response.getArticles();
     }
 
     public ArrayList<Article> getAllNewsBitcoin() {

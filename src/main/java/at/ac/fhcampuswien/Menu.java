@@ -42,7 +42,7 @@ public class Menu {
         soundInMenu.playClick();
     }
 
-    public void getTopHeadlinesAustria(ActionEvent actionEvent){
+    public void getTopHeadlinesAustria(ActionEvent actionEvent) throws IOException {
         textOutput = new StringBuilder();
         outputList = controller.getTopHeadlinesAustria();
 

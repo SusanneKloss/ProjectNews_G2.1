@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -232,7 +233,7 @@ public class AppControllerTest {
     //-------------Testing getTopHeadlineAustria-------------
     @Test
     @DisplayName("Is this a list of articles?")
-    public void testGetTopHeadlineAustria_Scenario1(){
+    public void testGetTopHeadlineAustria_Scenario1() throws IOException {
         //arrangement
         actual = ac.getTopHeadlinesAustria();
         boolean trueArticles = true;
@@ -250,7 +251,7 @@ public class AppControllerTest {
 
     @Test
     @DisplayName("Did we get the right list?")
-    public void testGetTopHeadlineAustria_Scenario2(){
+    public void testGetTopHeadlineAustria_Scenario2() throws IOException {
         //arrangement
         actual = ac.getTopHeadlinesAustria();
 
@@ -262,7 +263,7 @@ public class AppControllerTest {
 
     @Test
     @DisplayName("getTopHeadlineAustria is not null")
-    public void testGetTopHeadlineAustria_Scenario3(){
+    public void testGetTopHeadlineAustria_Scenario3() throws IOException {
         //arrangement
         actual = ac.getTopHeadlinesAustria();
 
