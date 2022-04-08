@@ -69,8 +69,13 @@ public class AppController {
         else return articles.size();
     }
     public ArrayList<Article> getTopHeadlinesAustria(){
-        return generateMockList();
+        ArrayList<Article> getTop = generateMockList();
+        if (getTop == null){
+            getTop = new ArrayList<>();
+        }
+        return getTop;
     }
+
     public ArrayList<Article> getAllNewsBitcoin() {
         return filterList("bitcoin", generateMockList());
     }
