@@ -1,5 +1,6 @@
 package at.ac.fhcampuswien;
 
+import com.google.gson.Gson;
 import okhttp3.OkHttp;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -47,7 +48,19 @@ public class NewsApi {
     //https://square.github.io/okhttp/
     public static void main(String[] args) throws IOException {
         NewsApi example = new NewsApi();
-        String response = example.run("https://newsapi.org/v2/top-headlines?country=at&apiKey=078504f64e1c4b6996e5a1b8e25798f7");
-        System.out.println(response);
+        String response = example.run("https://newsapi.org/v2/top-headlines?country=at");
+
+        Gson gson = new Gson();
+        NewsResponse newsResponse = gson.fromJson(response, NewsResponse.class);
+       // System.out.println(newsResponse);
+
+        if(newsResponse.getArticles() == null){
+            System.out.println(newsResponse.getMessage());
+        }
+        else{
+            for(Article article : newsResponse.getArticles()){
+                System.out.println(article.toString());
+            }
+        }
     }
 }

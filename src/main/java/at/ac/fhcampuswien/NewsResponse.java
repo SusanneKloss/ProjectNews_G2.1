@@ -33,4 +33,8 @@ public class NewsResponse {
     public ArrayList<Article> getArticles(){
         return articles;
     }
+
+    public String getMessage(){
+        return message;
+    }
 }
