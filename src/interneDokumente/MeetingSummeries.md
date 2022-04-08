@@ -16,6 +16,17 @@ next meeting 17.03. 09:30
 
 ## 17.03.2022 - 09:30 ##
 
-discused the testcases everyone wrote
+discussed the testcases everyone wrote
 
 next meeting: 25.03. 14:00 (Scene Builder, getAllNewsBitcoin test cases)
+
+
+## 25.03.2022 - 08:30 ##
+
+merged all branches into master branch
+
+wrote testcase for getAllNewsBitcoin
+
+JavaFX
+
+next meeting: ~~30.03. 17:00~~ 31.03. 12:00 
