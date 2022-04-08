@@ -26,7 +26,6 @@ public class Menu {
     public javafx.scene.control.Button austriaButton, bitcoinButton, countButton, quitButton;
     public Text textField, austriaLetters, bitcoinLetters, countLetters, quitLetters;
 
-
     public static void start(){
     }
 
