@@ -6,8 +6,13 @@ import java.util.List;
 
 public class AppController {
 
-
+    //instead of static list function(s) of NewsApi shall be invoked
     private ArrayList<Article> articles = generateMockList();
+
+    //NewsAPI class shall be invoked by AppController class -> instance of newsAPI needed here
+    private NewsApi newsApi = new NewsApi();
+
+    //include Enums in AppController methods - WHERE DOES IT MAKE SENSE?
 
     public AppController(){
     }
