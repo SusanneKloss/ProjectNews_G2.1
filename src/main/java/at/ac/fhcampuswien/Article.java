@@ -5,7 +5,7 @@ public class Article {
     private String title;
 
     //SOURCE??
-    private StringBuilder source;
+    private Object source;
     private String id;
     private String name;
 
@@ -20,6 +20,16 @@ public class Article {
         this.title = title;
 
     }
+    public Article(Object source, String author, String title, String description, String url, String urlToImage, String publishedAt, String content){
+        this.source = source;
+        this.author = author;
+        this.title = title;
+        this.description = description;
+        this.url = url;
+        this.urlToImage = urlToImage;
+        this.publishedAt = publishedAt;
+        this.content = content;
+    }
 
     public String getAuthor() {
         return author;
@@ -27,14 +37,6 @@ public class Article {
 
     public String getTitle() {
         return title;
-    }
-
-    public String getId(){
-        return id;
-    }
-
-    public String getName(){
-        return name;
     }
 
     public String getDescription(){
@@ -58,8 +60,16 @@ public class Article {
     }
 
     //SOURCE??
-    public StringBuilder getSource(){
+    public Object getSource(){
         return source;
+    }
+
+    public String getId(){
+        return id;
+    }
+
+    public String getName(){
+        return name;
     }
 
     @Override

@@ -20,7 +20,7 @@ import static javafx.application.Application.launch;
 
 public class App extends Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         Menu menu = new Menu();
         Menu.start();
@@ -28,7 +28,6 @@ public class App extends Application {
         launch(args);
 
         AppController ac = new AppController();
-
 
 
     }
@@ -42,13 +41,13 @@ public class App extends Application {
         stage.show();
 
         /**
-        stage.setTitle("Hello World!");
-        javafx.scene.control.Button btn = new Button();
-        btn.setText("Hello JavaFX!");
-        btn.setOnAction( (event) -> Platform.exit() );
-        Pane root = new StackPane();
-        root.getChildren().add(btn);
-        stage.setScene(new Scene(root, 300, 150));
-        stage.show();   */
+         stage.setTitle("Hello World!");
+         javafx.scene.control.Button btn = new Button();
+         btn.setText("Hello JavaFX!");
+         btn.setOnAction( (event) -> Platform.exit() );
+         Pane root = new StackPane();
+         root.getChildren().add(btn);
+         stage.setScene(new Scene(root, 300, 150));
+         stage.show();*/
     }
 }
