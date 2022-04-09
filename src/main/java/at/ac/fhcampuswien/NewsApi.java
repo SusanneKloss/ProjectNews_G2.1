@@ -33,34 +33,40 @@ public class NewsApi {
     private String q;
     private static String API_KEY = "078504f64e1c4b6996e5a1b8e25798f7";
 
-    OkHttpClient client = new OkHttpClient();
 
-    String run(String url) throws IOException{
+
+    //https://raw.githubusercontent.com/square/okhttp/master/samples/guide/src/main/java/okhttp3/guide/GetExample.java
+    //https://square.github.io/okhttp/
+    public static String getNews(String url){
+        OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(url)
                 .build();
 
         try (Response response = client.newCall(request).execute()) {
             return response.body().string();
-        }
-    }
-    //https://raw.githubusercontent.com/square/okhttp/master/samples/guide/src/main/java/okhttp3/guide/GetExample.java
-    //https://square.github.io/okhttp/
-    public static void main(String[] args) throws IOException {
-        NewsApi example = new NewsApi();
-        String response = example.run("https://newsapi.org/v2/top-headlines?country=at");
 
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return "";
+    }
+
+    public static void deserializeResponse(String response) {
         Gson gson = new Gson();
         NewsResponse newsResponse = gson.fromJson(response, NewsResponse.class);
-       // System.out.println(newsResponse);
-
-        if(newsResponse.getArticles() == null){
-            System.out.println(newsResponse.getMessage());
-        }
-        else{
-            for(Article article : newsResponse.getArticles()){
+        if (newsResponse.getArticles() != null) {
+            for (Article article : newsResponse.getArticles()) {
                 System.out.println(article.toString());
             }
         }
+        else{
+            System.out.println(newsResponse.getMessage());
+        }
+
     }
-}
+    public static void main (String[]args){
+        NewsApi example = new NewsApi();
+        deserializeResponse(getNews("https://newsapi.org/v2/top-headlines?country=at"));
+    }
+    }
