@@ -37,13 +37,14 @@ public class NewsApi {
 
     //https://raw.githubusercontent.com/square/okhttp/master/samples/guide/src/main/java/okhttp3/guide/GetExample.java
     //https://square.github.io/okhttp/
-    public static String getNews(String url){
+    public String getNews(String url){
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(url)
                 .build();
 
         try (Response response = client.newCall(request).execute()) {
+
             return response.body().string();
 
         } catch (IOException e) {
@@ -52,7 +53,8 @@ public class NewsApi {
         return "";
     }
 
-    public static void deserializeResponse(String response) {
+
+    public void deserializeResponse(String response) {
         Gson gson = new Gson();
         NewsResponse newsResponse = gson.fromJson(response, NewsResponse.class);
         if (newsResponse.getArticles() != null) {
@@ -67,6 +69,6 @@ public class NewsApi {
     }
     public static void main (String[]args){
         NewsApi example = new NewsApi();
-        deserializeResponse(getNews("https://newsapi.org/v2/top-headlines?country=at"));
+        example.deserializeResponse(example.getNews("https://newsapi.org/v2/top-headlines?country=at&apiKey=078504f64e1c4b6996e5a1b8e25798f7"));
     }
     }
