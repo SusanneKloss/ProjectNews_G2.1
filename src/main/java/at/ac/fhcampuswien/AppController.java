@@ -7,11 +7,13 @@ import java.util.List;
 public class AppController {
 
     //instead of static list function(s) of NewsApi shall be invoked
-    private ArrayList<Article> articles = generateMockList();
+   // private ArrayList<Article> articles = generateMockList();
 
     //NewsAPI class shall be invoked by AppController class -> instance of newsAPI needed here
-    private NewsApi newsApi = new NewsApi();
-
+    private NewsApi newsApi;
+    String url;
+    String response;
+    ArrayList<Article> articles;
     //include Enums in AppController methods - WHERE DOES IT MAKE SENSE?
 
     public AppController(){
@@ -74,7 +76,19 @@ public class AppController {
         else return articles.size();
     }
     public ArrayList<Article> getTopHeadlinesAustria(){
-        return generateMockList();
+        String endpoint;
+        String country;
+        String qKeyword = "";
+        NewsApi newsApi = new NewsApi(Endpoint.TOP_HEADLINES.label, qKeyword, Country.AUSTRIA.label);
+        String url = newsApi.createUrl();
+
+        String response = newsApi.getNews(url);
+        ArrayList<Article> getTop = newsApi.deserializeResponse(response);
+        if (getTop == null){
+            getTop = new ArrayList<>();
+        }
+        return getTop;
+
     }
     public ArrayList<Article> getAllNewsBitcoin() {
         return filterList("bitcoin", generateMockList());

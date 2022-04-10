@@ -7,6 +7,7 @@ import okhttp3.*;
 import java.net.URI;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class NewsApi {
@@ -29,10 +30,40 @@ public class NewsApi {
     //request parameters for endpoint everything https://newsapi.org/docs/endpoints/everything
     //request parameters for endpoint top Headlines https://newsapi.org/docs/endpoints/top-headlines
     //(Endpoint sources is subset of Top Headlines,  Response Object has different member variables, request parameters for endpoint sources https://newsapi.org/docs/endpoints/sources)
-    private String endpointEverything;
-    private String endpointTopHeadlines;
+
     private String q;
     private static String API_KEY = "078504f64e1c4b6996e5a1b8e25798f7";
+    private String endpoint;
+    private String qKeyword;
+    private String country;
+    private String language;
+
+    public String getEndpoint(){
+        return endpoint;
+    }
+
+    public String getqKeyword() {
+        return qKeyword;
+    }
+
+    public String getCountry(){
+        return country;
+    }
+
+    public String getLanguage(){
+        return language;
+    }
+
+    public NewsApi(String endpoint, String qKeyword, String country){
+        this.endpoint = endpoint;
+        this.qKeyword = qKeyword;
+        this.country = country;
+    }
+    public NewsApi(){
+
+    }
+
+
 
 
     public String createUrl(){
@@ -46,8 +77,8 @@ public class NewsApi {
         builder.host("newsapi.org");
         builder.addPathSegment("v2");
 
-        String endpoint = "";
-        System.out.println("Press 1 for News, 2 for Top Headlines");
+        //String endpoint = "";
+        /*System.out.println("Press 1 for News, 2 for Top Headlines");
         Scanner scan = new Scanner(System.in);
         int i = scan.nextInt();
         if(i==1) {
@@ -55,7 +86,8 @@ public class NewsApi {
         }
         if(i==2){
             endpoint = Endpoint.TOP_HEADLINES.label;
-        }
+        }*/
+        String endpoint = getEndpoint();
         builder.addPathSegment(endpoint);
 
         /*
@@ -63,14 +95,15 @@ public class NewsApi {
         - q: Keywords or phrases to search for in the article title and body.
         You can use the AND / OR / NOT keywords, and optionally group these with parenthesis. Eg: crypto AND (ethereum OR litecoin) NOT bitcoin.
         */
-        String qKeyword = "";
+        String qKeyword = getqKeyword();
+        /*Scanner scan = new Scanner(System.in);
         scan.nextLine();
         while(qKeyword.equals("")) {
             System.out.println("Please enter at least one search keyword!");
             System.out.println("You can combine keywords with AND / OR");
             System.out.println("You can exclude a keyword by adding NOT before it");
             qKeyword = scan.nextLine();
-        }
+        }*/
         builder.addQueryParameter("q", qKeyword);
 
         /*
@@ -82,7 +115,8 @@ public class NewsApi {
         if(!language.equals("")){
             builder.addQueryParameter("language", language);
         }
-
+        //String country = getCountry();
+        builder.addQueryParameter("country", getCountry());
         builder.addQueryParameter("apiKey", API_KEY);
         HttpUrl url = builder
             .build();
@@ -112,7 +146,7 @@ public class NewsApi {
     }
 
     //https://www.techiediaries.com/java/java-11-httpclient-gson-send-http-get-parse-json-example/
-    public void deserializeResponse(String response) {
+    public ArrayList<Article> deserializeResponse(String response) {
         Gson gson = new Gson();
         NewsResponse newsResponse = gson.fromJson(response, NewsResponse.class);
         if (newsResponse.getArticles() != null) {
@@ -123,6 +157,7 @@ public class NewsApi {
         else{
             System.out.println(newsResponse.getMessage());
         }
+        return newsResponse.getArticles();
 
     }
     public static void main (String[]args){
