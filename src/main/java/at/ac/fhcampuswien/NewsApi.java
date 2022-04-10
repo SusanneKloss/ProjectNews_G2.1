@@ -7,6 +7,7 @@ import okhttp3.*;
 import java.net.URI;
 
 import java.io.IOException;
+import java.util.Scanner;
 
 public class NewsApi {
     /*
@@ -38,18 +39,58 @@ public class NewsApi {
 
     //https://square.github.io/okhttp/4.x/okhttp/okhttp3/-http-url/
     //https://square.github.io/okhttp/3.x/okhttp/okhttp3/HttpUrl.Builder.html
-    HttpUrl url = new HttpUrl.Builder()
-            .scheme("https")
-            .host("newsapi.org")
-            .addPathSegment("v2")
-            .addPathSegment(Endpoint.TOP_HEADLINES.label)
-            .addQueryParameter("country", Country.ARGENTINA.label)
-            .addQueryParameter("apiKey", API_KEY)
+    //-- alternative? -- https://www.gwtproject.org/javadoc/latest/com/google/gwt/http/client/UrlBuilder.html --
+
+        HttpUrl.Builder builder = new HttpUrl.Builder();
+        builder.scheme("https");
+        builder.host("newsapi.org");
+        builder.addPathSegment("v2");
+
+        String endpoint = "";
+        System.out.println("Press 1 for News, 2 for Top Headlines");
+        Scanner scan = new Scanner(System.in);
+        int i = scan.nextInt();
+        if(i==1) {
+            endpoint = Endpoint.EVERYTHING.label;
+        }
+        if(i==2){
+            endpoint = Endpoint.TOP_HEADLINES.label;
+        }
+        builder.addPathSegment(endpoint);
+
+        /*
+        Endpoint everything:
+        - q: Keywords or phrases to search for in the article title and body.
+        You can use the AND / OR / NOT keywords, and optionally group these with parenthesis. Eg: crypto AND (ethereum OR litecoin) NOT bitcoin.
+        */
+        String qKeyword = "";
+        scan.nextLine();
+        while(qKeyword.equals("")) {
+            System.out.println("Please enter at least one search keyword!");
+            System.out.println("You can combine keywords with AND / OR");
+            System.out.println("You can exclude a keyword by adding NOT before it");
+            qKeyword = scan.nextLine();
+        }
+        builder.addQueryParameter("q", qKeyword);
+
+        /*
+        Endpoint everything:
+        The 2-letter ISO-639-1 code of the language you want to get headlines for. Possible options: ar,de,en,es,fr,he,it,nl,no,pt,ru,se,ud,zh.
+        Default: all languages returned.
+         */
+        String language = "";
+        if(!language.equals("")){
+            builder.addQueryParameter("language", language);
+        }
+
+        builder.addQueryParameter("apiKey", API_KEY);
+        HttpUrl url = builder
             .build();
 
         System.out.println(url);
 
         return url.toString();
+
     }
 
     //https://raw.githubusercontent.com/square/okhttp/master/samples/guide/src/main/java/okhttp3/guide/GetExample.java
