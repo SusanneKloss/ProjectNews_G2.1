@@ -22,13 +22,7 @@ public class App extends Application {
 
     public static void main(String[] args) {
 
-        Menu menu = new Menu();
-        Menu.start();
-
         launch(args);
-
-        AppController ac = new AppController();
-
 
 
     }

@@ -7,7 +7,6 @@ import java.io.File;
 public class SFX {
 
 
-
     String clickPath = "src/main/resources/mixkit-plastic-bubble-click-1124.mp3";
     AudioClip click = new AudioClip(new File(clickPath).toURI().toString());
 
