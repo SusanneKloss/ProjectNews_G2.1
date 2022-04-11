@@ -180,7 +180,7 @@ public class NewsApi {
             return response.body().string();
 
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            System.out.println(e.getMessage());         //--- !!!DOES NOT WORK!!!! ---
         }
         return "";
     }
@@ -200,10 +200,10 @@ public class NewsApi {
         return newsResponse.getArticles();
 
     }
-    public static void main (String[]args){
+    /*public static void main (String[]args){
         //createUrl();
         NewsApi example = new NewsApi();
         //String url = example.createUrl();
         example.deserializeResponse(example.getNews(example.createUrl()));
-    }
+    }*/
     }
