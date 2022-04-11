@@ -17,15 +17,12 @@ public class NewsApi {
     - url-builder (eg endpoint plus queryparameter)
     - q has always to be filled!!
     - okhttp and gson library
-
-     */
+    */
     /*
     Create Enum classes for request-Parameter
-     - category (top Headlines, (sources))
-     - country (top Headlines, (sources))
-     - endpoint (everything, top Headlines, (sources))
-     - language (everything, (sources))
-     - sortby (everything)
+     endpoint (everything, top Headlines, (sources)),
+     category (top Headlines, (sources)), country (top Headlines, (sources)),
+     language (everything, (sources)), sortby (everything)
      */
     //request parameters for endpoint everything https://newsapi.org/docs/endpoints/everything
     //request parameters for endpoint top Headlines https://newsapi.org/docs/endpoints/top-headlines
@@ -37,6 +34,13 @@ public class NewsApi {
     private String qKeyword;
     private String country;
     private String language;
+    private String category;
+    private String sources;
+    private String domains;
+    private String sortBy;
+    private int pageSize;
+    private int page;
+
 
     public String getEndpoint(){
         return endpoint;
@@ -44,6 +48,14 @@ public class NewsApi {
 
     public String getqKeyword() {
         return qKeyword;
+    }
+
+    public int getPageSize(){
+        return pageSize;
+    }
+
+    public int getPage(){
+        return page;
     }
 
     public String getCountry(){
@@ -54,16 +66,44 @@ public class NewsApi {
         return language;
     }
 
-    public NewsApi(String endpoint, String qKeyword, String country){
+    public String getCategory() {
+        return category;
+    }
+
+    public String getSources() {
+        return sources;
+    }
+
+    public String getDomains() {
+        return domains;
+    }
+
+    public String getSortBy() {
+        return sortBy;
+    }
+
+    //constructor for endpoint Top-Headlines including all possible parameters
+    public NewsApi(String endpoint, String country, String category, String sources, String qKeyword, int pageSize, int page){
+        this.endpoint = endpoint;
+        this.country = country;
+        this.category = category;
+        this.sources = sources;
+        this.qKeyword = qKeyword;
+        this.pageSize = pageSize;
+        this.page = page;
+    }
+    //constructor for endpoint Everything for a selection of the possible parameters
+    public NewsApi(String endpoint, String qKeyword, String sources, String domains, String language, String sortBy){
         this.endpoint = endpoint;
         this.qKeyword = qKeyword;
-        this.country = country;
+        this.sources = sources;
+        this.domains = domains;
+        this.language = language;
+        this.sortBy = sortBy;
     }
+
     public NewsApi(){
-
     }
-
-
 
 
     public String createUrl(){
@@ -77,46 +117,46 @@ public class NewsApi {
         builder.host("newsapi.org");
         builder.addPathSegment("v2");
 
-        //String endpoint = "";
-        /*System.out.println("Press 1 for News, 2 for Top Headlines");
-        Scanner scan = new Scanner(System.in);
-        int i = scan.nextInt();
-        if(i==1) {
-            endpoint = Endpoint.EVERYTHING.label;
-        }
-        if(i==2){
-            endpoint = Endpoint.TOP_HEADLINES.label;
-        }*/
-        String endpoint = getEndpoint();
-        builder.addPathSegment(endpoint);
+        //String endpoint = getEndpoint();
+        builder.addPathSegment(getEndpoint());
 
-        /*
-        Endpoint everything:
-        - q: Keywords or phrases to search for in the article title and body.
-        You can use the AND / OR / NOT keywords, and optionally group these with parenthesis. Eg: crypto AND (ethereum OR litecoin) NOT bitcoin.
-        */
         String qKeyword = getqKeyword();
-        /*Scanner scan = new Scanner(System.in);
-        scan.nextLine();
-        while(qKeyword.equals("")) {
-            System.out.println("Please enter at least one search keyword!");
-            System.out.println("You can combine keywords with AND / OR");
-            System.out.println("You can exclude a keyword by adding NOT before it");
-            qKeyword = scan.nextLine();
-        }*/
-        builder.addQueryParameter("q", qKeyword);
-
-        /*
-        Endpoint everything:
-        The 2-letter ISO-639-1 code of the language you want to get headlines for. Possible options: ar,de,en,es,fr,he,it,nl,no,pt,ru,se,ud,zh.
-        Default: all languages returned.
-         */
-        String language = "";
-        if(!language.equals("")){
-            builder.addQueryParameter("language", language);
+        if(qKeyword != ""){
+            builder.addQueryParameter("q", getqKeyword());
         }
-        //String country = getCountry();
-        builder.addQueryParameter("country", getCountry());
+        String domains = getDomains();
+        if(domains != ""){
+            builder.addQueryParameter("domain", getDomains());
+        }
+        String language = getLanguage();
+        if(language != ""){
+            builder.addQueryParameter("language", getLanguage());
+        }
+        String country = getCountry();
+        if(country != ""){
+            builder.addQueryParameter("country", getCountry());
+        }
+        String category = getCategory();
+        if(category != ""){
+            builder.addQueryParameter("category", getCategory());
+        }
+        String sources = getSources();
+        if(sources != ""){
+            builder.addQueryParameter("sources", getSources());
+        }
+        String sortBy = getSortBy();
+        if(sortBy != ""){
+            builder.addQueryParameter("sortBy", getSortBy());
+        }
+        int pageSize = 20;
+        if(pageSize != 20){
+            builder.addQueryParameter("pageSize", "getPageSize()");
+        }
+        int page = 1;
+        if(pageSize != 1){
+            builder.addQueryParameter("page", "getPage()");
+        }
+
         builder.addQueryParameter("apiKey", API_KEY);
         HttpUrl url = builder
             .build();

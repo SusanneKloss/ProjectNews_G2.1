@@ -1,6 +1,8 @@
 package at.ac.fhcampuswien;
 
 public enum Language {
+    //Endpoint everything
+    //Possible options: ar de en es fr he i tnl no pt ru se ud zh
 
     ENGLISH("en"),
     FRENCH("fr"),

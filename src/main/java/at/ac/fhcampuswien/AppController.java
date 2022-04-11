@@ -7,14 +7,14 @@ import java.util.List;
 public class AppController {
 
     //instead of static list function(s) of NewsApi shall be invoked
-   // private ArrayList<Article> articles = generateMockList();
+    //NewsAPI class shall be invoked by AppController class -> instance of newsAPI needed
+    //include Enums in AppController methods - WHERE DOES IT MAKE SENSE?
 
-    //NewsAPI class shall be invoked by AppController class -> instance of newsAPI needed here
     private NewsApi newsApi;
     String url;
     String response;
     ArrayList<Article> articles;
-    //include Enums in AppController methods - WHERE DOES IT MAKE SENSE?
+
 
     public AppController(){
     }
@@ -73,25 +73,48 @@ public class AppController {
     public int getArticleCount(){
         if(this.articles == null){
             return 0;}
-        else return articles.size();
+        else return this.articles.size();
     }
+    //for endpoint Top-Headlines, all possible parameters included
     public ArrayList<Article> getTopHeadlinesAustria(){
-        String endpoint;
-        String country;
+        String endpoint = Endpoint.TOP_HEADLINES.label;
+        String country = Country.AUSTRIA.label;
+        String category = Category.BUSINESS.label;
+        String sources = "";
         String qKeyword = "";
-        NewsApi newsApi = new NewsApi(Endpoint.TOP_HEADLINES.label, qKeyword, Country.AUSTRIA.label);
-        String url = newsApi.createUrl();
+        int pageSize = 20; //== default
+        int page = 1;      //== default
 
+        NewsApi newsApi = new NewsApi(endpoint, country, category, sources, qKeyword, 20, 1);
+
+        String url = newsApi.createUrl();
         String response = newsApi.getNews(url);
         ArrayList<Article> getTop = newsApi.deserializeResponse(response);
+
         if (getTop == null){
             getTop = new ArrayList<>();
         }
         return getTop;
-
     }
+    //for endpoint Everything, choice of possible parameters
     public ArrayList<Article> getAllNewsBitcoin() {
-        return filterList("bitcoin", generateMockList());
+        //return filterList("bitcoin", generateMockList());
+        String endpoint = Endpoint.EVERYTHING.label;
+        String qKeyword = "bitcoin";
+        String sources = "";
+        String domains = "";
+        String language = Language.FRENCH.label;
+        String sortBy = "";
+        NewsApi newsApi = new NewsApi(endpoint, qKeyword, sources, domains, language, sortBy);
+
+        String url = newsApi.createUrl();
+        String response = newsApi.getNews(url);
+        ArrayList<Article> getAllNews = newsApi.deserializeResponse(response);
+
+        if (getAllNews == null){
+            getAllNews = new ArrayList<>();
+        }
+        return getAllNews;
     }
     protected ArrayList<Article> filterList(String query, ArrayList<Article> articles){
         ArrayList<Article> match = new ArrayList<>();
@@ -104,7 +127,7 @@ public class AppController {
         return match;
     }
 
-    private static ArrayList<Article> generateMockList(){
+    /*private static ArrayList<Article> generateMockList(){
         ArrayList<Article> mock = new ArrayList<>();
         Article one =  new Article("Karl Marx", "Das Kapital");
         mock.add(one);
@@ -123,7 +146,7 @@ public class AppController {
         Article eight = new Article("Donald Trump", "Why all austrians live in trees.");
         mock.add(eight);
         return mock;
-    }
+    }*/
 
     /*public static ArrayList<Article> getMockList(){
         return generateMockList();
