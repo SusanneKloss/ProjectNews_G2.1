@@ -11,6 +11,7 @@ public class AppController {
     //include Enums in AppController methods - WHERE DOES IT MAKE SENSE?
 
     private NewsApi newsApi;
+    //private AppController controller = new AppController();
     String url;
     String response;
     ArrayList<Article> articles;
@@ -82,14 +83,15 @@ public class AppController {
         String category = Category.BUSINESS.label;
         String sources = "";
         String qKeyword = "";
-        int pageSize = 20; //== default
-        int page = 1;      //== default
+        //String pageSize = Integer.toString(10); //20 == default
+        //String page = Integer.toString(1);      //1 == default
 
-        NewsApi newsApi = new NewsApi(endpoint, country, category, sources, qKeyword, 20, 1);
+        NewsApi newsApi = new NewsApi(endpoint, country, category, sources, qKeyword);
 
         String url = newsApi.createUrl();
         String response = newsApi.getNews(url);
         ArrayList<Article> getTop = newsApi.deserializeResponse(response);
+        setArticles(getTop);
 
         if (getTop == null){
             getTop = new ArrayList<>();
@@ -100,16 +102,19 @@ public class AppController {
     public ArrayList<Article> getAllNewsBitcoin() {
         //return filterList("bitcoin", generateMockList());
         String endpoint = Endpoint.EVERYTHING.label;
-        String qKeyword = "bitcoin";
+        String qKeyword = "trump";
         String sources = "";
         String domains = "";
         String language = Language.FRENCH.label;
         String sortBy = "";
+        //String pageSize = Integer.toString(10);     //100 == default
+        //String page = Integer.toString(1);          //1== default
         NewsApi newsApi = new NewsApi(endpoint, qKeyword, sources, domains, language, sortBy);
 
         String url = newsApi.createUrl();
         String response = newsApi.getNews(url);
         ArrayList<Article> getAllNews = newsApi.deserializeResponse(response);
+        setArticles(getAllNews);
 
         if (getAllNews == null){
             getAllNews = new ArrayList<>();

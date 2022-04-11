@@ -38,8 +38,8 @@ public class NewsApi {
     private String sources;
     private String domains;
     private String sortBy;
-    private int pageSize;
-    private int page;
+    private String pageSize;
+    private String page;
 
 
     public String getEndpoint(){
@@ -50,11 +50,11 @@ public class NewsApi {
         return qKeyword;
     }
 
-    public int getPageSize(){
+    public String getPageSize(){
         return pageSize;
     }
 
-    public int getPage(){
+    public String getPage(){
         return page;
     }
 
@@ -83,7 +83,7 @@ public class NewsApi {
     }
 
     //constructor for endpoint Top-Headlines including all possible parameters
-    public NewsApi(String endpoint, String country, String category, String sources, String qKeyword, int pageSize, int page){
+    public NewsApi(String endpoint, String country, String category, String sources, String qKeyword){
         this.endpoint = endpoint;
         this.country = country;
         this.category = category;
@@ -148,14 +148,14 @@ public class NewsApi {
         if(sortBy != ""){
             builder.addQueryParameter("sortBy", getSortBy());
         }
-        int pageSize = 20;
-        if(pageSize != 20){
-            builder.addQueryParameter("pageSize", "getPageSize()");
+        /*String pageSize = Integer.toString(100);
+        if(pageSize != Integer.toString(100)){
+            builder.addQueryParameter("pageSize", getPageSize());
         }
-        int page = 1;
-        if(pageSize != 1){
-            builder.addQueryParameter("page", "getPage()");
-        }
+        String page = Integer.toString(1);
+        if(pageSize != Integer.toString(1)){
+            builder.addQueryParameter("page", getPage());
+        }*/
 
         builder.addQueryParameter("apiKey", API_KEY);
         HttpUrl url = builder
