@@ -10,8 +10,7 @@ import java.util.List;
 public class AppController {
 
 
-    private ArrayList<Article> articles = generateMockList();
-    NewsResponse response;
+    private ArrayList<Article> articles;
     Endpoint endpoint;
     Category category;
     Country country;
@@ -79,8 +78,8 @@ public class AppController {
         else return articles.size();
     }
     public ArrayList<Article> getTopHeadlinesAustria() throws IOException {
-        url = NewsAPI.buildURL("vienna", endpoint = Endpoint.topheadlines, country = Country.at);
-        response = NewsAPI.deserializeToString(url);
+        url = NewsAPI.buildURL("wien", endpoint = Endpoint.topheadlines, country = Country.at);
+        NewsResponse response = NewsAPI.deserializeToString(url);
         System.out.println(url);
 
         if (response.getArticles() == null){
@@ -89,10 +88,20 @@ public class AppController {
         return response.getArticles();
     }
 
-    public ArrayList<Article> getAllNewsBitcoin() {
-        return filterList("bitcoin", generateMockList());
+    public ArrayList<Article> getAllNewsBitcoin() throws IOException {
+        url = NewsAPI.buildURL("bitcoin", endpoint = Endpoint.everything);
+        NewsResponse response = NewsAPI.deserializeToString(url);
+
+        if (response.getArticles() == null){
+            return new ArrayList<>();
+        }
+        return response.getArticles();
     }
-    protected ArrayList<Article> filterList(String query, ArrayList<Article> articles){
+    protected ArrayList<Article> filterList(String query) throws IOException {
+        url = NewsAPI.buildURL(query,endpoint = Endpoint.everything);
+        NewsResponse response = NewsAPI.deserializeToString(url);
+
+        /**
         ArrayList<Article> match = new ArrayList<>();
 
         for(Article a : articles){
@@ -100,9 +109,12 @@ public class AppController {
                 match.add(a);
             }
         }
-        return match;
+        return match; **/
+
+        return response.getArticles();
     }
 
+    /**
     private static ArrayList<Article> generateMockList(){
         ArrayList<Article> mock = new ArrayList<>();
         Article one =  new Article("Karl Marx", "Das Kapital");
@@ -122,10 +134,6 @@ public class AppController {
         Article eight = new Article("Donald Trump", "Why all austrians live in trees.");
         mock.add(eight);
         return mock;
-    }
-
-    /*public static ArrayList<Article> getMockList(){
-        return generateMockList();
-    }*/
+    } **/
 
 }

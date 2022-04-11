@@ -24,7 +24,8 @@ public class App extends Application {
         //launch(args);
 
         AppController controller = new AppController();
-        controller.getTopHeadlinesAustria();
+        System.out.println(controller.getTopHeadlinesAustria().toString());
+
     }
 
    @Override

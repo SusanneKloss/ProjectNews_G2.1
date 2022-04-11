@@ -59,7 +59,7 @@ public class NewsAPI {
         StringBuilder url = new StringBuilder();
         url.append("https://newsapi.org/v2/");
         if (e[0] == Endpoint.topheadlines){
-            url.append("top-headlines?");
+            url.append("top-headlines?q=" + query + "&");
             for (Enum x : e){
                 if (x instanceof Country){url.append("country=" + x + "&");}
                 if (x instanceof Category){url.append("category=" + x + "&");}
@@ -81,7 +81,7 @@ public class NewsAPI {
         Gson gson = new Gson();
 
         Request request = new Request.Builder()
-                .url("https://newsapi.org/v2/everything?q=game&from=2022-03-28&sortBy=publishedAt&apiKey=078504f64e1c4b6996e5a1b8e25798f7")
+                .url(url)
                 .build();
 
         try (Response response = client.newCall(request).execute()) {

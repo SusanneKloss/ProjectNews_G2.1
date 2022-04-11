@@ -53,7 +53,7 @@ public class Menu {
         soundInMenu.playClick();
     }
 
-    public void getAllNewsBitcoin(ActionEvent actionEvent){
+    public void getAllNewsBitcoin(ActionEvent actionEvent) throws IOException {
         textOutput = new StringBuilder();
         outputList = controller.getAllNewsBitcoin();
 
