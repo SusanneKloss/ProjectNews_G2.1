@@ -6,8 +6,7 @@ public class Article {
 
     //SOURCE??
     private NewsSource source;
-    private String id;
-    private String name;
+
 
     private String description;
     private String url;

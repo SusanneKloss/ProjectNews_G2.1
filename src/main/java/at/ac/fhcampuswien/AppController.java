@@ -79,7 +79,7 @@ public class AppController {
     //for endpoint Top-Headlines, all possible parameters included
     public ArrayList<Article> getTopHeadlinesAustria(){
         String endpoint = Endpoint.TOP_HEADLINES.label;
-        String country = Country.AUSTRIA.label;
+        String country = Country.ARGENTINA.label;
         String category = Category.BUSINESS.label;
         String sources = "";
         String qKeyword = "";
