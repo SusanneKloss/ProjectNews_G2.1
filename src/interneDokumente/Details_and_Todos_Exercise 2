@@ -19,6 +19,10 @@ catch (IOException e) {
 
 Infos
 ----------------------------------------------
+-- class NewsSource --
+NewsSource source is part of the Response object, comprises 2 String variables id, name
+(cf. https://newsapi.org/docs/endpoints/top-headlines)
+
 -- HttpUrl.Builder addQueryParameter --
 Encodes the query parameter using UTF-8 and adds it to this URL's query string.
 (https://square.github.io/okhttp/3.x/okhttp/okhttp3/HttpUrl.Builder.html#setQueryParameter-java.lang.String-java.lang.String-)
