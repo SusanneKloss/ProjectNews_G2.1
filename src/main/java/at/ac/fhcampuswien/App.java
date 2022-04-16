@@ -21,10 +21,10 @@ import static javafx.application.Application.launch;
 public class App extends Application {
 
     public static void main(String[] args) throws IOException {
-        //launch(args);
+        launch(args);
 
-        AppController controller = new AppController();
-        System.out.println(controller.getTopHeadlinesAustria().toString());
+        //AppController controller = new AppController();
+        //System.out.println(controller.getAllNewsBitcoin().toString());
 
     }
 

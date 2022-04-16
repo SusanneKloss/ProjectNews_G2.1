@@ -37,12 +37,32 @@ public class Article {
         return title;
     }
 
+    public String getContent() {
+        return content;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public String getUrlToImage() {
+        return urlToImage;
+    }
+
+    public String getPublishedAt() {
+        return publishedAt;
+    }
+
     @Override
     public String toString() {
-        return author + " - " + title + System.lineSeparator() +
-                description + " - " + url + System.lineSeparator() +
-                urlToImage + " - " + publishedAt + System.lineSeparator() +
-                content + System.lineSeparator() + System.lineSeparator();
+        return author + " - " + title + System.lineSeparator() + System.lineSeparator() +
+                description + " - " + System.lineSeparator() + url + System.lineSeparator() +
+                urlToImage + " - " + System.lineSeparator() + System.lineSeparator() + publishedAt + System.lineSeparator() + System.lineSeparator() +
+                content + System.lineSeparator();
 
     }
 }

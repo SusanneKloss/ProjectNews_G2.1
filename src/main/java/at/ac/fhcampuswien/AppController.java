@@ -92,6 +92,8 @@ public class AppController {
         url = NewsAPI.buildURL("bitcoin", endpoint = Endpoint.everything);
         NewsResponse response = NewsAPI.deserializeToString(url);
 
+        System.out.println(url);
+
         if (response.getArticles() == null){
             return new ArrayList<>();
         }
