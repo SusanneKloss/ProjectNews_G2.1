@@ -77,7 +77,7 @@ public class AppController {
         else return this.articles.size();
     }
     //for endpoint Top-Headlines, all possible parameters included
-    public ArrayList<Article> getTopHeadlinesAustria(){
+    /*public ArrayList<Article> getTopHeadlinesAustria(){
         String endpoint = Endpoint.TOP_HEADLINES.label;
         String country = Country.ARGENTINA.label;
         String category = Category.BUSINESS.label;
@@ -120,7 +120,7 @@ public class AppController {
             getAllNews = new ArrayList<>();
         }
         return getAllNews;
-    }
+    }*/
     protected ArrayList<Article> filterList(String query, ArrayList<Article> articles){
         ArrayList<Article> match = new ArrayList<>();
 

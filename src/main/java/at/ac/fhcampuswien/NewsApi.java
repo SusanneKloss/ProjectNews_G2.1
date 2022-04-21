@@ -40,6 +40,10 @@ public class NewsApi {
     private String sortBy;
     private String pageSize;
     private String page;
+    private String status;
+    private String code;
+    private String message;
+
 
 
     public String getEndpoint(){
@@ -167,26 +171,35 @@ public class NewsApi {
 
     }
 
+    static NewsResponse newsResponse;
     //https://raw.githubusercontent.com/square/okhttp/master/samples/guide/src/main/java/okhttp3/guide/GetExample.java
     //https://square.github.io/okhttp/
-    public String getNews(String url){
+    public static NewsResponse getNews(String url)  {
         OkHttpClient client = new OkHttpClient();
+        Gson gson = new Gson();
+
+
         Request request = new Request.Builder()
                 .url(url)
                 .build();
 
-        try (Response response = client.newCall(request).execute()) {
-
+        /*try (Response response = client.newCall(request).execute()) {
             return response.body().string();
-
         } catch (IOException e) {
             System.out.println(e.getMessage());         //--- !!!DOES NOT WORK!!!! ---
         }
-        return "";
+        return "";*/
+        try (Response response = client.newCall(request).execute()) {
+            return gson.fromJson(response.body().string(), NewsResponse.class);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            return newsResponse;
+        }
+
     }
 
     //https://www.techiediaries.com/java/java-11-httpclient-gson-send-http-get-parse-json-example/
-    public ArrayList<Article> deserializeResponse(String response) {
+    /*public ArrayList<Article> deserializeResponse(String response) {
         Gson gson = new Gson();
         NewsResponse newsResponse = gson.fromJson(response, NewsResponse.class);
         if (newsResponse.getArticles() != null) {
@@ -199,7 +212,7 @@ public class NewsApi {
         }
         return newsResponse.getArticles();
 
-    }
+    }*/
     /*public static void main (String[]args){
         //createUrl();
         NewsApi example = new NewsApi();

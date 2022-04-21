@@ -3,7 +3,8 @@ package at.ac.fhcampuswien;
 import java.util.Locale;
 
 public enum Country {
-    //Endpoint Top-Headlines
+    //for endpoint Top-Headlines
+    //https://www.baeldung.com/java-enum-values
 
     UNITED_ARAB_EMIRATES("ae"),
     ARGENTINA("ar"),
