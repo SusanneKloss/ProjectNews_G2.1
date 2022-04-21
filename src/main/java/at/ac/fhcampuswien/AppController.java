@@ -1,12 +1,19 @@
 package at.ac.fhcampuswien;
 
+import at.ac.fhcampuswien.enums.Country;
+import at.ac.fhcampuswien.enums.Endpoints;
+
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class AppController {
 
-    private ArrayList<Article> articles = generateMockList();
+    private ArrayList<Article> articles; //= generateMockList();
+
+    String url;
+    Country country;
+    Endpoints endpoint;
 
     public AppController(){
     }
@@ -67,14 +74,55 @@ public class AppController {
             return 0;}
         else return articles.size();
     }
-    public ArrayList<Article> getTopHeadlinesAustria(){
-        ArrayList<Article> getTop = generateMockList();
-        if (getTop == null){
-            getTop = new ArrayList<>();
+
+
+    public ArrayList<Article> getTopHeadlinesAustria() throws IOException {
+
+        url = NewsAPI.buildURL("", endpoint = Endpoints.topheadlines, country = Country.at);
+        NewsResponse response = NewsAPI.deserializeToString(url);
+
+
+        if (response.getArticles() == null)
+        {
+            return new ArrayList<>();
         }
-        return getTop;
+
+        return response.getArticles();
     }
 
+    public ArrayList<Article> getAllNewsBitcoin() throws IOException {
+
+        url = NewsAPI.buildURL("bitcoin", endpoint = Endpoints.everything);
+        NewsResponse response = NewsAPI.deserializeToString(url);
+
+        if (response.getArticles() == null)
+        {
+            return new ArrayList<>();
+        }
+
+        return response.getArticles();
+    }
+    protected ArrayList<Article> filterList(String query) throws IOException {
+        /*
+        url = NewsAPI.buildURL(query,endpoint = Endpoints.everything);
+        NewsResponse response = NewsAPI.deserializeToString(url);
+
+        return response.getArticles();
+        */
+
+         ArrayList<Article> match = new ArrayList<>();
+
+         for(Article a : articles){
+         if(a.getTitle().toLowerCase().contains(query.toLowerCase())){
+         match.add(a);
+         }
+         }
+         return match;
+
+
+    }
+
+   /*
     public ArrayList<Article> getAllNewsBitcoin() {
         return filterList("bitcoin", generateMockList());
     }
@@ -110,7 +158,7 @@ public class AppController {
         return mock;
     }
 
-    /*public static ArrayList<Article> getMockList(){
+    public static ArrayList<Article> getMockList(){
         return generateMockList();
     }*/
 

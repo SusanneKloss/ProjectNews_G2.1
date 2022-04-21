@@ -1,5 +1,6 @@
 package at.ac.fhcampuswien;
 
+import at.ac.fhcampuswien.enums.Country;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -20,9 +21,12 @@ import static javafx.application.Application.launch;
 
 public class App extends Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
-        launch(args);
+        //launch(args);
+        AppController ac = new AppController();
+        System.out.println(ac.getTopHeadlinesAustria().toString());
+        //System.out.println(ac.getAllNewsBitcoin().toString());
 
 
     }
@@ -35,7 +39,7 @@ public class App extends Application {
         stage.setScene(scene);
         stage.show();
 
-        /**
+/*
         stage.setTitle("Hello World!");
         javafx.scene.control.Button btn = new Button();
         btn.setText("Hello JavaFX!");
@@ -45,4 +49,5 @@ public class App extends Application {
         stage.setScene(new Scene(root, 300, 150));
         stage.show();   */
     }
+
 }

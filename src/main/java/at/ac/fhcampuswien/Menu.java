@@ -11,6 +11,7 @@ import javafx.util.Duration;
 
 import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Menu {
@@ -37,7 +38,7 @@ public class Menu {
         soundInMenu.playClick();
     }
 
-    public void getTopHeadlinesAustria(ActionEvent actionEvent){
+    public void getTopHeadlinesAustria(ActionEvent actionEvent) throws IOException {
         textOutput = new StringBuilder();
         outputList = controller.getTopHeadlinesAustria();
 
@@ -48,7 +49,7 @@ public class Menu {
         soundInMenu.playClick();
     }
 
-    public void getAllNewsBitcoin(ActionEvent actionEvent){
+    public void getAllNewsBitcoin(ActionEvent actionEvent) throws IOException{
         textOutput = new StringBuilder();
         outputList = controller.getAllNewsBitcoin();
 
