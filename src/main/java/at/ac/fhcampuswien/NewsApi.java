@@ -44,8 +44,6 @@ public class NewsApi {
     private String code;
     private String message;
 
-
-
     public String getEndpoint(){
         return endpoint;
     }
@@ -109,7 +107,6 @@ public class NewsApi {
     public NewsApi(){
     }
 
-
     public String createUrl(){
 
     //https://square.github.io/okhttp/4.x/okhttp/okhttp3/-http-url/
@@ -172,12 +169,12 @@ public class NewsApi {
     }
 
     static NewsResponse newsResponse;
+
     //https://raw.githubusercontent.com/square/okhttp/master/samples/guide/src/main/java/okhttp3/guide/GetExample.java
     //https://square.github.io/okhttp/
-    public static NewsResponse getNews(String url)  {
+    public static NewsResponse getNews(String url) {
         OkHttpClient client = new OkHttpClient();
         Gson gson = new Gson();
-
 
         Request request = new Request.Builder()
                 .url(url)
@@ -193,7 +190,7 @@ public class NewsApi {
             return gson.fromJson(response.body().string(), NewsResponse.class);
         } catch (IOException e) {
             System.out.println(e.getMessage());
-            return newsResponse;
+            return new NewsResponse("error", "", e.getMessage());
         }
 
     }

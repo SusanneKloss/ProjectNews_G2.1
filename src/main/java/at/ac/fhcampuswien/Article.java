@@ -4,9 +4,18 @@ public class Article {
     private String author;
     private String title;
 
-    //SOURCE??
     private NewsSource source;
 
+    public Article(NewsSource source, String author, String title, String description, String url, String urlToImage, String publishedAt, String content){
+        this.source = source;
+        this.author = author;
+        this.title = title;
+        this.description = description;
+        this.url = url;
+        this.urlToImage = urlToImage;
+        this.publishedAt = publishedAt;
+        this.content = content;
+    }
 
     private String description;
     private String url;
@@ -19,17 +28,6 @@ public class Article {
         this.title = title;
 
     }
-    public Article(NewsSource source, String author, String title, String description, String url, String urlToImage, String publishedAt, String content){
-        this.source = source;
-        this.author = author;
-        this.title = title;
-        this.description = description;
-        this.url = url;
-        this.urlToImage = urlToImage;
-        this.publishedAt = publishedAt;
-        this.content = content;
-    }
-
     public String getAuthor() {
         return author;
     }

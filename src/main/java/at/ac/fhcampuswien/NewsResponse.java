@@ -10,6 +10,7 @@ public class NewsResponse {
     private String code;
     private String message;
 
+    //Response object for valid responses
     public NewsResponse(String status, int totalResults, ArrayList<Article> articles){
         this.status = status;
         this.totalResults = totalResults;
