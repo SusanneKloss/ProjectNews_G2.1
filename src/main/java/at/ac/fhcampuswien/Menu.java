@@ -52,16 +52,17 @@ public class Menu {
 
     public static void start() {
     }
-
     private void handleinput(String input){
-
     }
 
+    //assign columns to table
     private void setupTable(){
         table.getItems().clear();
         authorColumn.setCellValueFactory(new PropertyValueFactory<>("author"));
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
     }
+
+    //GUI functions
     public void getArticleCount(ActionEvent actionEvent){
         undoClicks.setOpacity(1); undoClicks.setDisable(false);
         infoCount.setOpacity(1); infoCount.setDisable(false);
@@ -90,6 +91,7 @@ public class Menu {
         soundInMenu.playClick();
     }
 
+    //quit program event
     public void printExitMessages(ActionEvent actionEvent){
         infoCount.setOpacity(1); infoCount.setDisable(false);
         infoPane.setOpacity(1); infoPane.setDisable(false);
@@ -101,15 +103,13 @@ public class Menu {
         });
         pauseEnd.play();
     }
-    private static void printInvalidInputMessages(){
 
+    private static void printInvalidInputMessages(){
     }
     private static void printMenu(){
-
     }
 
-    //--------------Choose-An-Article-By-Double-Click-----------------------------
-
+    //Choose An Article By Double Click and open article info pane
     public void tableFocusArticle(MouseEvent mouseEvent) {
         int articleIndex;
         if (mouseEvent.getClickCount() == 2) {
@@ -124,11 +124,9 @@ public class Menu {
             focusText.setWrapText(true);
             focusText.setText(focusArticle.toString());
         }
-
     }
 
-    //-------------------------GUI-Event-Handling---------------------------------
-
+    //hover effects
     public void austriaEntered(MouseEvent mouseEvent) {
         austriaLetters.setFill(Color.web("#080808"));
         soundInMenu.playHover();
@@ -165,6 +163,7 @@ public class Menu {
         quitLetters.setFill(Color.web("#858585"));
     }
 
+    //closes articles info pane
     public void focusClose(ActionEvent actionEvent) {
         focusPane.setOpacity(0); focusPane.setDisable(true);
         focusText.setOpacity(0); focusText.setDisable(true);
@@ -172,6 +171,7 @@ public class Menu {
         soundInMenu.playClick();
     }
 
+    //close info panes
     public void undoClick(MouseEvent mouseEvent) {
         if (!infoCount.isDisabled()){
             infoCount.setOpacity(0); infoCount.setDisable(true);
