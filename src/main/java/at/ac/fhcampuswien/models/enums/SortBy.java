@@ -1,9 +1,8 @@
-package at.ac.fhcampuswien;
+package at.ac.fhcampuswien.models.enums;
 
 public enum SortBy {
     //for endpoint everything
     ///https://www.baeldung.com/java-enum-values
-    //relevancy, popularity, publishedAt
 
     POPULARITY("popularity"),
     PUBLISHED_AT("publishedAt"),

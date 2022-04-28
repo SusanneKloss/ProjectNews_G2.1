@@ -1,6 +1,4 @@
-package at.ac.fhcampuswien;
-
-import java.util.Locale;
+package at.ac.fhcampuswien.models.enums;
 
 public enum Country {
 

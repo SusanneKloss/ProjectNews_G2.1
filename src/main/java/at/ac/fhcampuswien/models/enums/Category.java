@@ -1,4 +1,4 @@
-package at.ac.fhcampuswien;
+package at.ac.fhcampuswien.models.enums;
 
 public enum Category {
     //for endpoint Top-Headlines

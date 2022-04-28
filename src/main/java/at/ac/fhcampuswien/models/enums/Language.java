@@ -1,7 +1,7 @@
-package at.ac.fhcampuswien;
+package at.ac.fhcampuswien.models.enums;
 
 public enum Language {
-    //for endpoint Everything, 2-letter ISO-639-1 code of the more than 14 possible language options provided by the NewsAPI
+    //for endpoint Everything, 2-letter ISO-639-1 code of the (in fact more than 14 possible) language options provided by the NewsAPI
     //https://www.baeldung.com/java-enum-values
 
     ARABIC("ar"),

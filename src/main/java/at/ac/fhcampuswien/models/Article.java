@@ -1,4 +1,4 @@
-package at.ac.fhcampuswien;
+package at.ac.fhcampuswien.models;
 
 public class Article {
     private String author;
@@ -29,8 +29,6 @@ public class Article {
         this.publishedAt = publishedAt;
         this.content = content;
     }
-
-
 
     public String getAuthor() {
         return author;

@@ -1,4 +1,4 @@
-package at.ac.fhcampuswien;
+package at.ac.fhcampuswien.models.enums;
 
 public enum Endpoint {
     //https://www.baeldung.com/java-enum-values

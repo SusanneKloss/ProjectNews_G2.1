@@ -1,5 +1,6 @@
-package at.ac.fhcampuswien;
+package at.ac.fhcampuswien.models;
 
+import at.ac.fhcampuswien.models.enums.*;
 import com.google.gson.Gson;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -38,7 +39,7 @@ public class NewsAPI {
             builder.addQueryParameter("q", query);
         }
 
-        builder.addQueryParameter("pageSIze", String.valueOf(100));
+        builder.addQueryParameter("pageSize", String.valueOf(100));
         builder.addQueryParameter("apiKey", API_KEY);
         HttpUrl url = builder
                 .build();

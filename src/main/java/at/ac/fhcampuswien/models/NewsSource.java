@@ -1,6 +1,8 @@
-package at.ac.fhcampuswien;
+package at.ac.fhcampuswien.models;
+
 //https://newsapi.org/docs/endpoints/everything
 //source is object, part of response object
+
 public class NewsSource {
     private String id;
     private String name;
