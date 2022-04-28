@@ -1,4 +1,4 @@
 package at.ac.fhcampuswien;
 
-public class NewAPI {
+public class NewsAPI {
 }
