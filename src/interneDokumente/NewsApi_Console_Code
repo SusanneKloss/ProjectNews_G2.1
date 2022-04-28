@@ -1,0 +1,19 @@
+String endpoint = "";
+/*System.out.println("Press 1 for News, 2 for Top Headlines");
+Scanner scan = new Scanner(System.in);
+int i = scan.nextInt();
+if(i==1) {
+            endpoint = Endpoint.EVERYTHING.label;
+        }
+if(i==2){
+            endpoint = Endpoint.TOP_HEADLINES.label;
+}*/
+
+/*Scanner scan = new Scanner(System.in);
+        scan.nextLine();
+        while(qKeyword.equals("")) {
+            System.out.println("Please enter at least one search keyword!");
+            System.out.println("You can combine keywords with AND / OR");
+            System.out.println("You can exclude a keyword by adding NOT before it");
+            qKeyword = scan.nextLine();
+        }*/

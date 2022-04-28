@@ -1,0 +1,30 @@
+To dos
+------------------------------------------------
+- remove NULL in GUI
+
+- getNews in NewsAPI: error message does not work
+try (Response response = client.newCall(request).execute()) {
+            return response.body().string();
+catch (IOException e) {
+              System.out.println(e.getMessage());
+
+- getCount(): why always/only 20 Articles?
+
+- endpoint everything: q must not be left empty
+
+- endpoint top-headlines: sources XOR country, language
+
+
+
+
+Infos
+----------------------------------------------
+-- class NewsSource --
+NewsSource source is part of the Response object, comprises 2 String variables id, name
+(cf. https://newsapi.org/docs/endpoints/top-headlines)
+
+-- HttpUrl.Builder addQueryParameter --
+Encodes the query parameter using UTF-8 and adds it to this URL's query string.
+(https://square.github.io/okhttp/3.x/okhttp/okhttp3/HttpUrl.Builder.html#setQueryParameter-java.lang.String-java.lang.String-)
+vs. "The complete value for q must be URL-encoded." (https://newsapi.org/docs/endpoints/everything)
+
