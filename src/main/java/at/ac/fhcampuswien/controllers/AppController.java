@@ -1,13 +1,14 @@
-package at.ac.fhcampuswien;
+package at.ac.fhcampuswien.controllers;
 
+import at.ac.fhcampuswien.models.Article;
+import at.ac.fhcampuswien.models.NewsAPI;
+import at.ac.fhcampuswien.models.NewsResponse;
+import at.ac.fhcampuswien.models.enums.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-
 
 public class AppController {
-
 
     private ArrayList<Article> articles;
     Endpoint endpoint;
@@ -76,8 +77,10 @@ public class AppController {
             return 0;}
         else return articles.size();
     }
+
+    //Note: sources parameter must not be combined with category and/or country parameters
     public ArrayList<Article> getTopHeadlinesAustria() throws IOException {
-        url = NewsAPI.createUrl("", endpoint = Endpoint.TOP_HEADLINES, country = Country.AUSTRIA);
+        url = NewsAPI.createUrl("", endpoint = Endpoint.TOP_HEADLINES, country = Country.CANADA, language = Language.ENGLISH, category = Category.HEALTH);
         NewsResponse response = NewsAPI.getNews(url);
         System.out.println(url);
 
