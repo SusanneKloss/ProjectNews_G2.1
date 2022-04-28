@@ -24,7 +24,6 @@ public class App extends Application {
 
         launch(args);
 
-
     }
 
     @Override
@@ -34,15 +33,5 @@ public class App extends Application {
         stage.setTitle("Project News");
         stage.setScene(scene);
         stage.show();
-
-        /**
-        stage.setTitle("Hello World!");
-        javafx.scene.control.Button btn = new Button();
-        btn.setText("Hello JavaFX!");
-        btn.setOnAction( (event) -> Platform.exit() );
-        Pane root = new StackPane();
-        root.getChildren().add(btn);
-        stage.setScene(new Scene(root, 300, 150));
-        stage.show();   */
     }
 }

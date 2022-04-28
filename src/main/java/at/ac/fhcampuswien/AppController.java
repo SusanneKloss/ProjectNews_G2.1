@@ -1,12 +1,21 @@
 package at.ac.fhcampuswien;
 
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class AppController {
 
-    private ArrayList<Article> articles = generateMockList();
+
+    private ArrayList<Article> articles;
+    Endpoint endpoint;
+    Category category;
+    Country country;
+    Language language;
+    SortBy sortby;
+    String url;
 
     public AppController(){
     }
@@ -67,51 +76,65 @@ public class AppController {
             return 0;}
         else return articles.size();
     }
-    public ArrayList<Article> getTopHeadlinesAustria(){
-        ArrayList<Article> getTop = generateMockList();
-        if (getTop == null){
-            getTop = new ArrayList<>();
+    public ArrayList<Article> getTopHeadlinesAustria() throws IOException {
+        url = NewsAPI.createUrl("", endpoint = Endpoint.TOP_HEADLINES, country = Country.AUSTRIA);
+        NewsResponse response = NewsAPI.getNews(url);
+        System.out.println(url);
+
+        if (response.getArticles() == null){
+            return new ArrayList<>();
         }
-        return getTop;
+        return response.getArticles();
     }
 
-    public ArrayList<Article> getAllNewsBitcoin() {
-        return filterList("bitcoin", generateMockList());
-    }
-    protected ArrayList<Article> filterList(String query, ArrayList<Article> articles){
-        ArrayList<Article> match = new ArrayList<>();
+    public ArrayList<Article> getAllNewsBitcoin() throws IOException {
+        url = NewsAPI.createUrl("bitcoin", endpoint = Endpoint.EVERYTHING);
+        NewsResponse response = NewsAPI.getNews(url);
 
-        for(Article a : articles){
-            if(a.getTitle().toLowerCase().contains(query.toLowerCase())){
-                match.add(a);
-            }
+        System.out.println(url);
+
+        if (response.getArticles() == null){
+            return new ArrayList<>();
         }
-        return match;
+        return response.getArticles();
+    }
+    protected ArrayList<Article> filterList(String query) throws IOException {
+        url = NewsAPI.createUrl(query,endpoint = Endpoint.EVERYTHING);
+        NewsResponse response = NewsAPI.getNews(url);
+
+        /**
+         ArrayList<Article> match = new ArrayList<>();
+
+         for(Article a : articles){
+         if(a.getTitle().toLowerCase().contains(query.toLowerCase())){
+         match.add(a);
+         }
+         }
+         return match; **/
+
+        return response.getArticles();
     }
 
-    private static ArrayList<Article> generateMockList(){
-        ArrayList<Article> mock = new ArrayList<>();
-        Article one =  new Article("Karl Marx", "Das Kapital");
-        mock.add(one);
-        Article two = new Article("Peter Molyneux", "Why i am a god");
-        mock.add(two);
-        Article three = new Article("Angela Merkel", "Wie ich die Raute erfand");
-        mock.add(three);
-        Article four = new Article("Donald Trump", "My orange hair");
-        mock.add(four);
-        Article five = new Article("Carl Barks", "Dagobert - Sein Leben, Seine Milliarden");
-        mock.add(five);
-        Article six = new Article("Elon Musk", "Bitcoin and Cryptocurrency");
-        mock.add(six);
-        Article seven = new Article("Satoshi Nakamoto", "How i invented blockchain and bitcoin");
-        mock.add(seven);
-        Article eight = new Article("Donald Trump", "Why all austrians live in trees.");
-        mock.add(eight);
-        return mock;
-    }
-
-    /*public static ArrayList<Article> getMockList(){
-        return generateMockList();
-    }*/
+    /**
+     private static ArrayList<Article> generateMockList(){
+     ArrayList<Article> mock = new ArrayList<>();
+     Article one =  new Article("Karl Marx", "Das Kapital");
+     mock.add(one);
+     Article two = new Article("Peter Molyneux", "Why i am a god");
+     mock.add(two);
+     Article three = new Article("Angela Merkel", "Wie ich die Raute erfand");
+     mock.add(three);
+     Article four = new Article("Donald Trump", "My orange hair");
+     mock.add(four);
+     Article five = new Article("Carl Barks", "Dagobert - Sein Leben, Seine Milliarden");
+     mock.add(five);
+     Article six = new Article("Elon Musk", "Bitcoin and Cryptocurrency");
+     mock.add(six);
+     Article seven = new Article("Satoshi Nakamoto", "How i invented blockchain and bitcoin");
+     mock.add(seven);
+     Article eight = new Article("Donald Trump", "Why all austrians live in trees.");
+     mock.add(eight);
+     return mock;
+     } **/
 
 }
