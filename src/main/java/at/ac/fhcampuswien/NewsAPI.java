@@ -1,13 +1,12 @@
 package at.ac.fhcampuswien;
 
 import com.google.gson.Gson;
-import com.sun.javafx.fxml.builder.URLBuilder;
-import okhttp3.*;
-import java.net.URI;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Locale;
-import java.util.Scanner;
 
 public class NewsAPI {
 
