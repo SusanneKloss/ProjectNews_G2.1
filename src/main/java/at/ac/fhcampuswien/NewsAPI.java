@@ -3,9 +3,7 @@ package at.ac.fhcampuswien;
 import com.google.gson.Gson;
 import com.sun.javafx.fxml.builder.URLBuilder;
 import okhttp3.*;
-
 import java.net.URI;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -41,6 +39,7 @@ public class NewsAPI {
             builder.addQueryParameter("q", query);
         }
 
+        builder.addQueryParameter("pageSIze", String.valueOf(100));
         builder.addQueryParameter("apiKey", API_KEY);
         HttpUrl url = builder
                 .build();
