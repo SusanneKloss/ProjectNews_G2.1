@@ -30,6 +30,7 @@ public class Article {
         this.content = content;
     }
 
+
     public String getAuthor() {
         return author;
     }
