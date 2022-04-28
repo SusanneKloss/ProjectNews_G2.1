@@ -6,7 +6,6 @@ import java.util.List;
 
 public class AppController {
 
-
     private ArrayList<Article> articles = generateMockList();
 
     public AppController(){
@@ -69,8 +68,13 @@ public class AppController {
         else return articles.size();
     }
     public ArrayList<Article> getTopHeadlinesAustria(){
-        return generateMockList();
+        ArrayList<Article> getTop = generateMockList();
+        if (getTop == null){
+            getTop = new ArrayList<>();
+        }
+        return getTop;
     }
+
     public ArrayList<Article> getAllNewsBitcoin() {
         return filterList("bitcoin", generateMockList());
     }

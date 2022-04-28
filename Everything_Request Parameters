@@ -1,0 +1,51 @@
+Endpoint Everything - ENUM
+- *q* -
+obligatory - must not be left empty!
+Keywords or phrases to search for in the article title and body,
+Alternatively you can use the AND / OR / NOT keywords, and optionally group these with parenthesis.
+Eg: crypto AND (ethereum OR litecoin) NOT bitcoin.
+The complete value for q must be URL-encoded.
+
+- searchIn -
+The fields to restrict your q search to title, description, content
+Multiple options can be specified by separating them with a comma
+Default: all fields are searched
+
+- *sources* - (Exercise 3)
+A comma-seperated string of identifiers (max 20) for the news sources or blogs you want headlines from
+
+- domains -
+A comma-seperated string of domains (eg bbc.co.uk, techcrunch.com) to restrict the search to
+
+- excludeDomains -
+A comma-seperated string of domains to remove from the results
+
+- from -
+A date and optional time for the oldest article allowed
+This should be in ISO 8601 format (e.g. 2022-04-11 or 2022-04-11T12:03:12)
+Default: the oldest according to your plan
+
+- to -
+A date and optional time for the newest article allowed
+Default: the newest according to your plan
+
+- language - Enum
+The 2-letter ISO-639-1 code of the language you want to get headlines for
+Possible options: ar de en es fr he i tnl no pt ru se ud zh
+Default: all languages returned
+
+- sortBy - ENUM (Exercise 3)
+The order to sort the articles in
+Possible options:
+relevancy = articles more closely related to q come first
+popularity = articles from popular sources and publishers come first
+publishedAt = newest articles come first
+Default: publishedAt
+
+- *pageSize (int)* -
+The number of results to return per page (request)
+Default: 100, Maximum: 100
+
+- *page (int)* -
+Use this to page through the results
+Default: 1

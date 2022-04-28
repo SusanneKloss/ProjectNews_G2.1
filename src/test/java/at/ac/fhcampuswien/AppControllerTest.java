@@ -131,6 +131,17 @@ public class AppControllerTest {
         assertEquals(expectedCount, actualCount);
     }
 
+    @Test
+    @DisplayName("List set is null")
+    public void testSetArticles_Scenario7(){
+        //arangement
+        ArrayList<Article> newList = null;
+        ac.setArticles(newList);
+
+        //assertion
+        assertNull(ac.getArticle());
+    }
+
     //testSetArticles_Scenario 5 and 6 not working anymore after changing setArticles()
     /*@Test
     @DisplayName("List of Article is null - NullPointerException")
@@ -250,15 +261,30 @@ public class AppControllerTest {
     }
 
     @Test
-    @DisplayName("Does null return an empty list?")
+    @DisplayName("getTopHeadlineAustria is not null")
     public void testGetTopHeadlineAustria_Scenario3(){
         //arrangement
         actual = ac.getTopHeadlinesAustria();
 
-        //action
-
         //assertion
         assertNotNull(actual);
+    }
+
+    @Test
+    @DisplayName("Does null return empty list")
+    public void testGetTopHeadlineAustria_Scenario4(){
+        //arangement
+        ArrayList<Article> newList = null;
+        ac.setArticles(newList);
+
+        //action
+        //if-statement from getTopHeadlinesAustria()
+        if(ac.getArticle() == null){
+            newList = new ArrayList<>();
+        }
+
+        //assertion
+        assertEquals(0, newList.size());
     }
 
     //--------------Testing getArticleCount-------------
@@ -277,6 +303,11 @@ public class AppControllerTest {
     @Test
     @DisplayName("articleCount is null")
     public void testGetArticleCount_scenario2(){
+        /*
+        ArrayList<Article> newList = null;
+        ac.setArticles(newList);
+         */
+        ac.setArticles(null);
 
         int expectedCount = 0;
         int actualCount = ac.getArticleCount();
