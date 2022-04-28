@@ -17,4 +17,5 @@ public class NewsSource {
     public String getName(){
         return name;
     }
+
 }
