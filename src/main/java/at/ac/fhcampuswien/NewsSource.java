@@ -1,41 +1,20 @@
 package at.ac.fhcampuswien;
-
-import java.util.ArrayList;
-
+//https://newsapi.org/docs/endpoints/everything
+//source is object, part of response object
 public class NewsSource {
+    private String id;
+    private String name;
 
-        private String status;
-        private int totalResults;
-        private ArrayList<Article> articles;
+    public NewsSource(String id, String name){
+        this.id = id;
+        this.name = name;
+    }
 
-        private String code;
-        private String message;
+    public String getId(){
+        return id;
+    }
 
-        public NewsResponse(String status, int totalResults, ArrayList<Article> articles){
-            this.status = status;
-            this.totalResults = totalResults;
-            this.articles = articles;
-        }
-        //Response object for errors - https://newsapi.org/docs/errors
-        public NewsResponse(String status, String code, String message){
-            this.status = status;
-            this.code = code;
-            this.message = message;
-        }
-
-        public String getStatus(){
-            return status;
-        }
-
-        public int getTotalResults(){
-            return totalResults;
-        }
-
-        public ArrayList<Article> getArticles(){
-            return articles;
-        }
-
-        public String getMessage(){
-            return message;
-        }
+    public String getName(){
+        return name;
+    }
 }
