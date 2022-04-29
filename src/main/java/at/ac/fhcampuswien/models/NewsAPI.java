@@ -47,44 +47,6 @@ public class NewsAPI {
         System.out.println(url);
 
         return url.toString();
-
-        /**
-        String qKeyword = getqKeyword();
-        if(qKeyword != ""){
-            builder.addQueryParameter("q", getqKeyword());
-        }
-        String domains = getDomains();
-        if(domains != ""){
-            builder.addQueryParameter("domain", getDomains());
-        }
-        String language = getLanguage();
-        if(language != ""){
-            builder.addQueryParameter("language", getLanguage());
-        }
-        String country = getCountry();
-        if(country != ""){
-            builder.addQueryParameter("country", getCountry());
-        }
-        String category = getCategory();
-        if(category != ""){
-            builder.addQueryParameter("category", getCategory());
-        }
-        String sources = getSources();
-        if(sources != ""){
-            builder.addQueryParameter("sources", getSources());
-        }
-        String sortBy = getSortBy();
-        if(sortBy != ""){
-            builder.addQueryParameter("sortBy", getSortBy());
-        }
-        /*String pageSize = Integer.toString(100);
-        if(pageSize != Integer.toString(100)){
-            builder.addQueryParameter("pageSize", getPageSize());
-        }
-        String page = Integer.toString(1);
-        if(pageSize != Integer.toString(1)){
-            builder.addQueryParameter("page", getPage());
-        }*/
     }
 
     //https://raw.githubusercontent.com/square/okhttp/master/samples/guide/src/main/java/okhttp3/guide/GetExample.java
