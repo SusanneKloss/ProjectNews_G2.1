@@ -60,7 +60,7 @@ public class Menu {
         soundInMenu.playClick();
     }
 
-    public void getTopHeadlinesAustria(ActionEvent actionEvent) throws IOException {
+    public void getTopHeadlinesAustria(ActionEvent actionEvent) {
         outputList = controller.getTopHeadlinesAustria();
         setupTable();
 
@@ -70,7 +70,7 @@ public class Menu {
         soundInMenu.playClick();
     }
 
-    public void getAllNewsBitcoin(ActionEvent actionEvent) throws IOException {
+    public void getAllNewsBitcoin(ActionEvent actionEvent) {
         outputList = controller.getAllNewsBitcoin();
         setupTable();
 
