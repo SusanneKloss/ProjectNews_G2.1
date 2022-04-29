@@ -30,7 +30,7 @@ public class Menu {
     public Text infoCount;
     public AnchorPane undoClicks;
     private AppController controller = new AppController();
-    private ArrayList<Article> outputList;
+    private ArrayList<Article> outputList = new ArrayList<>();
     private static String INVALID_INPUT_MESSAGE;
     private static String EXIT_MESSAGE;
 
