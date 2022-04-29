@@ -1,29 +1,18 @@
-package at.ac.fhcampuswien;
+package at.ac.fhcampuswien.ui;
 
-import at.ac.fhcampuswien.AppController;
+import at.ac.fhcampuswien.controllers.AppController;
+import at.ac.fhcampuswien.models.Article;
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.awt.*;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 

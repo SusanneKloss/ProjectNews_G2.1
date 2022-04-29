@@ -80,7 +80,7 @@ public class AppController {
 
     //Note: sources parameter must not be combined with category and/or country parameters
     public ArrayList<Article> getTopHeadlinesAustria() throws IOException {
-        url = NewsAPI.createUrl("", endpoint = Endpoint.TOP_HEADLINES, country = Country.CANADA, language = Language.ENGLISH, category = Category.HEALTH);
+        url = NewsAPI.createUrl("", endpoint = Endpoint.TOP_HEADLINES, country = Country.AUSTRIA);
         NewsResponse response = NewsAPI.getNews(url);
         System.out.println(url);
 

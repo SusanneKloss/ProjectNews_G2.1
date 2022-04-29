@@ -9,5 +9,10 @@ module ProjectNews {
     requires javafx.controls;
     requires javafx.media;
 
+
     opens at.ac.fhcampuswien;
+    opens at.ac.fhcampuswien.models;
+    opens at.ac.fhcampuswien.models.enums;
+    opens at.ac.fhcampuswien.ui;
+    opens at.ac.fhcampuswien.controllers;
 }

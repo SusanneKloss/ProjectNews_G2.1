@@ -1,4 +1,4 @@
-package at.ac.fhcampuswien;
+package at.ac.fhcampuswien.ui;
 
 import javafx.scene.media.AudioClip;
 
