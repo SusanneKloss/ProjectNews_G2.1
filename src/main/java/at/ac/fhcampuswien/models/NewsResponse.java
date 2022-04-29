@@ -38,4 +38,8 @@ public class NewsResponse {
     public String getMessage(){
         return message;
     }
+
+    public String toString(){
+        return "Status: " + status + System.lineSeparator() + "Code: " + code + System.lineSeparator() + "Message: " + message;
+    }
 }

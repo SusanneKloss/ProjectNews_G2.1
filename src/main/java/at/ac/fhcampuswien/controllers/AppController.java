@@ -37,7 +37,6 @@ public class AppController {
     public ArrayList<Article> getTopHeadlinesAustria() {
         url = NewsAPI.createUrl("", endpoint = Endpoint.TOP_HEADLINES, country = Country.AUSTRIA);
         NewsResponse response = NewsAPI.getNews(url);
-        System.out.println(url);
 
         if (response.getArticles() == null){
             return new ArrayList<>();
@@ -48,8 +47,6 @@ public class AppController {
     public ArrayList<Article> getAllNewsBitcoin() {
         url = NewsAPI.createUrl("bitcoin", endpoint = Endpoint.EVERYTHING);
         NewsResponse response = NewsAPI.getNews(url);
-
-        System.out.println(url);
 
         if (response.getArticles() == null){
             return new ArrayList<>();

@@ -60,7 +60,12 @@ public class NewsAPI {
                 .build();
 
         try (Response response = client.newCall(request).execute()) {
-            return gson.fromJson(response.body().string(), NewsResponse.class);
+            NewsResponse news = gson.fromJson(response.body().string(), NewsResponse.class);
+            if (news.getArticles() == null){
+                System.out.println(news.toString());
+            }
+            return news;
+
         } catch (IOException e) {
             System.out.println(e.getMessage());
             return new NewsResponse("error", "", e.getMessage());

@@ -52,11 +52,30 @@ public class Article {
 
     @Override
     public String toString() {
-        return author + " - " + title + System.lineSeparator() + System.lineSeparator() +
-                description + " - " + System.lineSeparator() + url + System.lineSeparator() +
-                urlToImage + " - " + System.lineSeparator() + System.lineSeparator() + publishedAt + System.lineSeparator() + System.lineSeparator() +
-                content + System.lineSeparator();
+        StringBuilder articleInfo = new StringBuilder();
 
+        if (author != null) {articleInfo.append(author).append(" - ");}
+        else {articleInfo.append("");}
+
+        if (title != null) {articleInfo.append(title).append(System.lineSeparator()).append(System.lineSeparator());}
+        else {articleInfo.append("").append(System.lineSeparator()).append(System.lineSeparator());}
+
+        if (description != null){articleInfo.append(description).append(System.lineSeparator());}
+        else {articleInfo.append("").append(System.lineSeparator());}
+
+        if (url != null){articleInfo.append(url).append(System.lineSeparator());}
+        else {articleInfo.append("").append(System.lineSeparator());}
+
+        if (urlToImage != null){articleInfo.append(urlToImage).append(System.lineSeparator());}
+        else {articleInfo.append("").append(System.lineSeparator()).append(System.lineSeparator());}
+
+        if (publishedAt != null){articleInfo.append(publishedAt).append(System.lineSeparator()).append(System.lineSeparator());}
+        else {articleInfo.append("").append(System.lineSeparator()).append(System.lineSeparator());}
+
+        if (content != null){articleInfo.append(content).append(System.lineSeparator());}
+        else {articleInfo.append("").append(System.lineSeparator());}
+
+        return articleInfo.toString();
     }
 
 
