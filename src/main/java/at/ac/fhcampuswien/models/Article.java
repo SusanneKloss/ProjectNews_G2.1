@@ -75,12 +75,9 @@ public class Article {
     public String toString() {
         StringBuilder articleInfo = new StringBuilder();
 
-        if (author != null) {
-            articleInfo.append(author).append(" - ");
-        }
-        else {
-            articleInfo.append("");
-        }
+        if (author != null) {articleInfo.append(author).append(" - ");}
+        else {articleInfo.append("");}
+
         articleInfoBuild(title, articleInfo);
         articleInfo.append(System.lineSeparator());
         articleInfoBuild(description, articleInfo);
