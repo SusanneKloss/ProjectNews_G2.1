@@ -39,6 +39,7 @@ public class NewsResponse {
         return message;
     }
 
+    @Override
     public String toString(){
         return "Status: " + status + System.lineSeparator() + "Code: " + code + System.lineSeparator() + "Message: " + message;
     }
