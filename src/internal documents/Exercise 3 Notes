@@ -1,0 +1,27 @@
+Exceptions
+
+    -   Eigene Exception Klasse
+    -   Internet weg, Exception abfangen
+    -   Null Exceptions abfangen
+
+Aufteilung
+
+    Hamza - Streams, Fleisaufgabe: UnitTests
+    Lena -  GUI Erweiterung, Original Artikel laden und in Text speichern
+    Magdalena - Streams, Fleisaufgabe: UnitTests für Streams
+    Susi - Exceptions Handling
+
+Zusätzliche Implementierungen
+
+    -   Tabelle default sort by title
+    -   sortBy Funktion in Tabelle
+    -   Article Info Pane verschönern
+
+Stream Methoden
+
+    Namen:
+        1) mostArticleSource    (Magdalena)
+        2) longestAuthorName    (Magdalena)
+        3) countNYT             (Magdalena)
+        4) shortHeadline        (Hamza)
+        5) sortByDescription    (Hamza)
