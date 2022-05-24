@@ -1,5 +1,6 @@
 package at.ac.fhcampuswien.models;
 
+import at.ac.fhcampuswien.controllers.NewsApiException;
 import at.ac.fhcampuswien.models.enums.*;
 import com.google.gson.Gson;
 import okhttp3.HttpUrl;
@@ -8,10 +9,11 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 import java.io.IOException;
+import io.github.cdimascio.dotenv.Dotenv;
 
 public class NewsAPI {
 
-    private static String API_KEY = "078504f64e1c4b6996e5a1b8e25798f7";
+    private static String API_KEY = Dotenv.load().get("API_TOKEN"); //= "078504f64e1c4b6996e5a1b8e25798f7";
 
     public static String createUrl(String query, Enum ... s){
 
@@ -51,7 +53,7 @@ public class NewsAPI {
 
     //https://raw.githubusercontent.com/square/okhttp/master/samples/guide/src/main/java/okhttp3/guide/GetExample.java
     //https://square.github.io/okhttp/
-    public static NewsResponse getNews(String url) {
+    public static NewsResponse getNews(String url) throws IOException {
         OkHttpClient client = new OkHttpClient();
         Gson gson = new Gson();
 
@@ -61,14 +63,14 @@ public class NewsAPI {
 
         try (Response response = client.newCall(request).execute()) {
             NewsResponse news = gson.fromJson(response.body().string(), NewsResponse.class);
+
             if (news.getArticles() == null){
                 System.out.println(news.toString());
             }
             return news;
+        } /*catch (IOException e) {
+            throw new NewsApiException();
+        }*/
 
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-            return new NewsResponse("error", "", e.getMessage());
-        }
     }
 }
