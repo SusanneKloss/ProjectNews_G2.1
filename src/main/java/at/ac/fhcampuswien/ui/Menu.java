@@ -1,6 +1,7 @@
 package at.ac.fhcampuswien.ui;
 
 import at.ac.fhcampuswien.controllers.AppController;
+import at.ac.fhcampuswien.controllers.NewsApiException;
 import at.ac.fhcampuswien.models.Article;
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
@@ -60,9 +61,9 @@ public class Menu {
         soundInMenu.playClick();
     }
 
-    public void getTopHeadlinesAustria(ActionEvent actionEvent) {
-        outputList = controller.getTopHeadlinesAustria();
-        setupTable();
+    public void getTopHeadlinesAustria(ActionEvent actionEvent) throws IOException {
+           outputList = controller.getTopHeadlinesAustria();
+           setupTable();
 
         for (Article art : outputList) {
             table.getItems().add(art);
@@ -70,9 +71,10 @@ public class Menu {
         soundInMenu.playClick();
     }
 
-    public void getAllNewsBitcoin(ActionEvent actionEvent) {
+    public void getAllNewsBitcoin(ActionEvent actionEvent) throws IOException {
         outputList = controller.getAllNewsBitcoin();
         setupTable();
+
 
         for (Article art : outputList) {
             table.getItems().add(art);

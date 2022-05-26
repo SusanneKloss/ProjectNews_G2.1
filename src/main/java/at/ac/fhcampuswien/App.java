@@ -1,5 +1,6 @@
 package at.ac.fhcampuswien;
 
+import at.ac.fhcampuswien.controllers.NewsApiException;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -22,12 +23,25 @@ public class App extends Application {
 
     public static void main(String[] args) {
 
-        launch(args);
+        /*try
+        {
+            // throw an object of user defined exception
+            throw new NewsApiException();
+        }
+        catch (NewsApiException ex)
+        {
+            System.out.println("Caught the exception");
+            System.out.println(ex.getMessage());
+        }
+        System.out.println("rest of the code...");*/
+
+    launch(args);
     }
 
     @Override
     public void start(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(App.class.getResource("/menu.fxml"));
+        Parent root = null;
+        root = FXMLLoader.load(App.class.getResource("/menu.fxml"));
         Scene scene = new Scene(root);
         stage.setTitle("Project News");
         stage.setScene(scene);

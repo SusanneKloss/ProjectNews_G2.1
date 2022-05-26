@@ -8,6 +8,7 @@ module ProjectNews {
     requires javafx.graphics;
     requires javafx.controls;
     requires javafx.media;
+    requires java.dotenv;
 
 
     opens at.ac.fhcampuswien;

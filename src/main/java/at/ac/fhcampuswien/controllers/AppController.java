@@ -34,29 +34,78 @@ public class AppController {
     }
 
     //Note: sources parameter must not be combined with category and/or country parameters
-    public ArrayList<Article> getTopHeadlinesAustria() {
-        url = NewsAPI.createUrl("", endpoint = Endpoint.TOP_HEADLINES, country = Country.AUSTRIA);
-        NewsResponse response = NewsAPI.getNews(url);
+    public ArrayList<Article> getTopHeadlinesAustria()  {
+        try {
+            url = NewsAPI.createUrl(""); //JSONSyntaxException_custom
+            //url = NewsAPI.createUrl("", endpoint = Endpoint.TOP_HEADLINES, country = Country.AUSTRIA, language = Language.TURKISH);
 
-        if (response.getArticles() == null){
+        } catch (NewsApiException newsApiException) {
+            newsApiException.printStackTrace();
+            System.out.println("custom exception getTopHeadlinesAustria_url");
+        }
+
+        try {
+            NewsResponse response = NewsAPI.getNews(url);  //throw aus NewsApi getNews()
+            return response.getArticles();
+
+        }  catch(NewsApiException newsApiException) {
+           newsApiException.printStackTrace();
+            System.out.println("custom exception getTopHeadlinesAustria_response");
             return new ArrayList<>();
         }
-        return response.getArticles();
+
+
+        /*if (response.getArticles() == null){
+            return new ArrayList<>();
+        }*/
+
     }
 
-    public ArrayList<Article> getAllNewsBitcoin() {
-        url = NewsAPI.createUrl("bitcoin", endpoint = Endpoint.EVERYTHING);
-        NewsResponse response = NewsAPI.getNews(url);
 
-        if (response.getArticles() == null){
+    public ArrayList<Article> getAllNewsBitcoin()  {
+        try {
+            url = NewsAPI.createUrl("bitcoin", endpoint = Endpoint.EVERYTHING);
+
+        } catch (NewsApiException e) {
+            System.out.println("custom exception getAllNewsBItcoin_url");
+
+        }
+        NewsResponse response = null;
+
+        try {
+            response = NewsAPI.getNews(url);
+            return response.getArticles();
+
+        } catch (NewsApiException e) {
+            e.printStackTrace();
+            System.out.println("custom exception getAllNewsBitcoin");
             return new ArrayList<>();
         }
-        return response.getArticles();
+
+        /*if (response.getArticles() == null){
+            return new ArrayList<>();
+        }*/
+
+
+
     }
+
     protected ArrayList<Article> filterList(String query) {
-        url = NewsAPI.createUrl(query,endpoint = Endpoint.EVERYTHING);
-        NewsResponse response = NewsAPI.getNews(url);
+        try {
+            url = NewsAPI.createUrl(query,endpoint = Endpoint.EVERYTHING);
+        } catch (NewsApiException e) {
+            e.printStackTrace();
+        }
+        NewsResponse response = null;
+        try {
+            response = NewsAPI.getNews(url);
+            return response.getArticles();
 
-        return response.getArticles();
+        } catch (NewsApiException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+
+
     }
 }
