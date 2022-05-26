@@ -37,6 +37,7 @@ public class NewsAPI {
         //String endpoint = s[0].getEndpoint();
         //First Enum needs to be an Endpoint
 
+        //https://docs.oracle.com/javase/7/docs/api/java/lang/EnumConstantNotPresentException.html
         for (Enum x : s) {
             if (x instanceof Endpoint){builder.addPathSegment(((Endpoint) x).getLabel());}
             if (x instanceof Category){builder.addQueryParameter("category", ((Category) x).getLabel());}
@@ -51,10 +52,10 @@ public class NewsAPI {
 
         builder.addQueryParameter("pageSize", String.valueOf(100));
         try {
-            builder.addQueryParameter("apiKey", API_KEY);
+            builder.addQueryParameter("apiKey", API_KEY); //bringt hier nichts - bei falschem API Key nur NullPointerException in Menu: 68 etc.
         }
         catch (RuntimeException runtimeException) {
-            throw new NewsApiException("apiKey");
+            throw new NewsApiException("apiKey_createUrl");
         }
         HttpUrl url = builder
                 .build();
@@ -73,28 +74,31 @@ public class NewsAPI {
         OkHttpClient client = new OkHttpClient();
         Gson gson = new Gson();
 
-
         Request request;
         try {
             request = new Request.Builder()
                     .url(url)
                     .build();
         } catch (NullPointerException nullPointerException) {
-            throw new NewsApiException("url_NullPointer_Custom"); //hier schon? oder erst im AppController?
+            throw new NewsApiException("url_NullPointer_Custom"); //nicht nötig, oder?
         }
 
-        try (Response response = client.newCall(request).execute()) {//execute() throws IOException
+        try (Response response = client.newCall(request).execute()) {               //execute() throws IOException
 
             try {
-                return gson.fromJson(response.body().string(), NewsResponse.class); //string() NullPointer ???
+                return gson.fromJson(response.body().string(), NewsResponse.class); //string() NullPointer wenn response = null ???
 
             } catch (NullPointerException nullPointerException) {
                 throw new NewsApiException("NullPointer_Custom");
             } catch (JsonSyntaxException jsonSyntaxException) {
-                throw new NewsApiException("JSONSyntaxException_Custom"); //nötig? - ja, für: url = NewsAPI.createUrl("");
+                throw new NewsApiException("JSONSyntaxException_Custom"); //nötig für: url = NewsAPI.createUrl(""); das ist aber unmöglich
+
             }
         } catch (IOException e) {
-            throw new NewsApiException("IOException_Custom"); //WLAN aus, AppController+Menu getTopHeadlines/Bitcoin
+            System.out.println(e.getCause()); //WLAN aus: null (cause not known)
+            System.out.println(e.getMessage()); //newsapi.org: nodename nor servname provided, or not known
+            throw new NewsApiException("IOException_Custom//kann nicht ausgeführt werden - überprüfen Sie Ihre Internetverbindung"); //WLAN aus, AppController+Menu getTopHeadlines/Bitcoin
+
         }
     }
 }

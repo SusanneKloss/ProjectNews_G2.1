@@ -53,31 +53,83 @@ public class Menu {
     }
 
     //GUI functions
-    public void getArticleCount(ActionEvent actionEvent){
+    public void getArticleCount(ActionEvent actionEvent) {
         undoClicks.setOpacity(1); undoClicks.setDisable(false);
         infoCount.setOpacity(1); infoCount.setDisable(false);
         infoPane.setOpacity(1); infoPane.setDisable(false);
-        infoCount.setText("Number of articles: " + Integer.toString(outputList.size()));
+
+        //GUI 11 Artikel bei List = null ??
+        if(outputList != null) {
+
+            infoCount.setText("Number of articles: " + Integer.toString(outputList.size()));
+
+        } else {
+            try {
+                throw new NewsApiException("No Articles, OutputList is null");
+            } catch (NewsApiException e) {
+                e.printStackTrace();
+            }
+        }
+        /*try {
+            infoCount.setText("Number of articles: " + Integer.toString(outputList.size()));
+        } catch(NullPointerException nullPointerException) {
+            System.out.println(nullPointerException.getMessage());
+            throw new NewsApiException("OutputList is empty");
+        }*/
         soundInMenu.playClick();
     }
 
-    public void getTopHeadlinesAustria(ActionEvent actionEvent) throws IOException {
-           outputList = controller.getTopHeadlinesAustria();
-           setupTable();
+    public void getTopHeadlinesAustria(ActionEvent actionEvent) {
 
-        for (Article art : outputList) {
-            table.getItems().add(art);
+        try {
+            outputList = controller.getTopHeadlinesAustria();
+
+        } catch (NewsApiException newsApiException) {       //final catch aus NewsApi class (kein WLAN)
+            newsApiException.printStackTrace();
+        }
+        setupTable();
+
+        // !! neue Custom Exception: zB wenn API Key falsch ist
+        //erst hier, da outputList erst in Menu erstellt wird
+        //message von NewsApi?
+        if(outputList != null) {
+            for (Article art : outputList) {
+                table.getItems().add(art);
+            }
+        } else {
+            try {
+                throw new NewsApiException("TopHeadlines_OutputList is null"); // wenn API Key falsch ist, not propagated from NewsApi or AppController
+            } catch (NewsApiException e) {
+                e.printStackTrace();
+            }
         }
         soundInMenu.playClick();
     }
 
-    public void getAllNewsBitcoin(ActionEvent actionEvent) throws IOException {
-        outputList = controller.getAllNewsBitcoin();
+    public void getAllNewsBitcoin(ActionEvent actionEvent) {
+        try {
+            outputList = controller.getAllNewsBitcoin();
+
+        } catch (NewsApiException newsApiException) {           //final catch aus NewsApi class
+            System.out.println(newsApiException.getMessage());
+            newsApiException.printStackTrace();
+        }
+
         setupTable();
 
-
-        for (Article art : outputList) {
-            table.getItems().add(art);
+        //bei query = empty oder wenn API Key falsch ist
+        // !! neue Custom Exception: erst hier, da outputList erst in Menu erstellt wird
+        if(outputList != null) {
+            for (Article art : outputList) {
+                table.getItems().add(art);
+            }
+        } else {
+            try {
+                throw new NewsApiException("Bitcoin_OutputList is null"); //bei query = empty oder wenn API Key falsch ist
+            } catch (NewsApiException e) {
+                e.getMessage();
+                e.printStackTrace();
+            }
         }
         soundInMenu.playClick();
     }

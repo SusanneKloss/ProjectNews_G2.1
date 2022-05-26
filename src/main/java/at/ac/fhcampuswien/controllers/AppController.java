@@ -26,22 +26,30 @@ public class AppController {
     public ArrayList<Article> getArticle(){
         return this.articles;
     }
-
+    //NEVER USED!!
     public int getArticleCount(){
         if(this.articles == null){
             return 0;}
         else return articles.size();
+
     }
 
     //Note: sources parameter must not be combined with category and/or country parameters
-    public ArrayList<Article> getTopHeadlinesAustria()  {
-        try {
-            url = NewsAPI.createUrl(""); //JSONSyntaxException_custom
-            //url = NewsAPI.createUrl("", endpoint = Endpoint.TOP_HEADLINES, country = Country.AUSTRIA, language = Language.TURKISH);
+    public ArrayList<Article> getTopHeadlinesAustria()  throws NewsApiException{
+
+        url = NewsAPI.createUrl("", endpoint = Endpoint.TOP_HEADLINES, country = Country.AUSTRIA, language = Language.GERMAN);
+
+        NewsResponse response = NewsAPI.getNews(url);
+        return response.getArticles();
+
+        /*try {
+            //url = NewsAPI.createUrl(""); //nötig für .createUrl("") JSONSyntaxException_custom - das kann aber nicht passieren
+
+            url = NewsAPI.createUrl("", endpoint = Endpoint.TOP_HEADLINES, country = Country.AUSTRIA, language = Language.GERMAN);
 
         } catch (NewsApiException newsApiException) {
+            System.out.println("custom exception_url getTopHeadlinesAustria");
             newsApiException.printStackTrace();
-            System.out.println("custom exception getTopHeadlinesAustria_url");
         }
 
         try {
@@ -49,11 +57,10 @@ public class AppController {
             return response.getArticles();
 
         }  catch(NewsApiException newsApiException) {
-           newsApiException.printStackTrace();
-            System.out.println("custom exception getTopHeadlinesAustria_response");
+            System.out.println("custom exception_response getTopHeadlinesAustria");
+            newsApiException.printStackTrace();
             return new ArrayList<>();
-        }
-
+        }*/
 
         /*if (response.getArticles() == null){
             return new ArrayList<>();
@@ -62,32 +69,27 @@ public class AppController {
     }
 
 
-    public ArrayList<Article> getAllNewsBitcoin()  {
-        try {
-            url = NewsAPI.createUrl("bitcoin", endpoint = Endpoint.EVERYTHING);
+    public ArrayList<Article> getAllNewsBitcoin() throws NewsApiException{
 
-        } catch (NewsApiException e) {
+        url = NewsAPI.createUrl("bitcoin", endpoint = Endpoint.EVERYTHING); // ohne query - NullPointerException - Menu -> dort gecatcht 90ff
+        /*catch (NewsApiException e) {
             System.out.println("custom exception getAllNewsBItcoin_url");
+        }*/
 
-        }
-        NewsResponse response = null;
 
-        try {
-            response = NewsAPI.getNews(url);
-            return response.getArticles();
+        NewsResponse response = NewsAPI.getNews(url);
+        return response.getArticles();
 
-        } catch (NewsApiException e) {
-            e.printStackTrace();
+        /*catch (NewsApiException newsApiException) {
+            newsApiException.printStackTrace();
             System.out.println("custom exception getAllNewsBitcoin");
-            return new ArrayList<>();
-        }
-
-        /*if (response.getArticles() == null){
             return new ArrayList<>();
         }*/
 
 
-
+        /*if (response.getArticles() == null){
+            return new ArrayList<>();
+        }*/
     }
 
     protected ArrayList<Article> filterList(String query) {
@@ -105,7 +107,6 @@ public class AppController {
             e.printStackTrace();
             return new ArrayList<>();
         }
-
 
     }
 }
