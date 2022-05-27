@@ -19,10 +19,18 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.Scanner;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 
 public class Menu {
 
@@ -62,6 +70,7 @@ public class Menu {
     private SFX soundInMenu = new SFX();
     private ArrayList<Object> userInput;
     private String parameterState = "country";
+    private Article focusArticle;
 
 
     //assign columns to table
@@ -117,13 +126,14 @@ public class Menu {
     public void tableFocusArticle(MouseEvent mouseEvent) {
         int articleIndex;
         if (mouseEvent.getClickCount() == 2) {
+            soundInMenu.playClick();
             articleIndex = table.getSelectionModel().getSelectedIndex();
 
             focusPane.setOpacity(1); focusPane.setDisable(false);
             focusText.setOpacity(1); focusText.setDisable(false);
             buttonCloseArticle.setDisable(false);
 
-            Article focusArticle = outputList.get(articleIndex);
+            focusArticle = outputList.get(articleIndex);
 
             focusText.setWrapText(true);
             focusText.setText(focusArticle.toString());
@@ -139,7 +149,23 @@ public class Menu {
     }
 
     // export selected article
-    public void exportArticle(ActionEvent actionEvent) {
+    public void exportArticle(ActionEvent actionEvent) throws IOException {
+        soundInMenu.playClick();
+
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpGet httpget = new HttpGet(focusArticle.getUrl());
+        HttpResponse httpResponse = httpClient.execute(httpget);
+        Scanner scan = new Scanner(httpResponse.getEntity().getContent());
+        StringBuffer buffer = new StringBuffer();
+
+        while (scan.hasNext()){
+            buffer.append(scan.next());
+        }
+
+        String article = buffer.toString();
+        System.out.println(article);
+        PrintWriter write = new PrintWriter("article.txt");
+        write.println(article);
     }
 
     // Button Hover Effects
