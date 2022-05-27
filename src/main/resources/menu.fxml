@@ -41,20 +41,18 @@
                         <Image url="@Design/PrimaryButtons/Exit.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="buttonExit" minHeight="45.0" minWidth="65.0" mnemonicParsing="false" onAction="#exitClick" onMouseEntered="#buttonEntered" onMouseExited="#buttonExited" opacity="0.0" text="Exit" />
+                  <Button fx:id="buttonExit" minHeight="55.0" minWidth="60.0" mnemonicParsing="false" onAction="#exitClick" onMouseEntered="#buttonEntered" onMouseExited="#buttonExited" opacity="0.0" prefHeight="45.0" prefWidth="64.0" text="Exit" />
                </children>
             </Group>
             <Group fx:id="APIKeyGroup" disable="true" layoutX="960.0" layoutY="70.0" opacity="0.0">
                <children>
-                  <ImageView fx:id="paneAPIKey" fitHeight="31.0" fitWidth="302.0">
-                     <image>
-                        <Image url="@Design/PrimaryButtons/APIKey.png" />
-                     </image>
-                  </ImageView>
-                  <TextField fx:id="textAPIKey" blendMode="ADD" layoutX="85.0" layoutY="2.0" minHeight="24.0" minWidth="200.0">
+                  <TextField fx:id="textAPIKey" alignment="CENTER" blendMode="DARKEN" minHeight="24.0" minWidth="300.0" promptText="API Key" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-text-fill: #7b7a7a; -fx-border-width: 2; -fx-border-color: #dedbdb;">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
+                     <font>
+                        <Font name="Arial Black" size="12.0" />
+                     </font>
                   </TextField>
                </children>
             </Group>
@@ -88,14 +86,9 @@
                   <Button fx:id="buttonCount" minHeight="45.0" minWidth="195.0" mnemonicParsing="false" onAction="#countClick" onMouseEntered="#buttonEntered" onMouseExited="#buttonExited" opacity="0.0" text="Count" />
                   <Group fx:id="groupCountDisplay" disable="true" opacity="0.0">
                      <children>
-                        <ImageView fx:id="paneCountBlank" layoutY="-34.0">
-                           <image>
-                              <Image url="@Design/Blank.png" />
-                           </image>
-                        </ImageView>
-                        <TextField fx:id="textCount" alignment="CENTER" blendMode="ADD" layoutX="12.0" layoutY="-32.0" minHeight="26.0" minWidth="160.0" prefHeight="26.0" prefWidth="168.0">
+                        <TextField fx:id="textCount" alignment="CENTER" blendMode="DARKEN" editable="false" layoutY="-34.0" minHeight="30.0" minWidth="194.0" prefHeight="26.0" prefWidth="168.0" style="-fx-border-color: #dedbdb; -fx-text-fill: #7b7a7a; -fx-background-radius: 20; -fx-border-radius: 20; -fx-border-width: 2;">
                            <font>
-                              <Font name="Arial Black" size="13.0" />
+                              <Font name="Arial Black" size="12.0" />
                            </font></TextField>
                      </children>
                   </Group>
@@ -370,20 +363,45 @@
             </Group>
          </children>
       </Group>
-        <ScrollPane fx:id="focusPane" disable="true" hbarPolicy="NEVER" layoutX="90.0" layoutY="185.0" opacity="0.0" prefHeight="520.0" prefWidth="1100.0">
+        <ScrollPane fx:id="focusPane" disable="true" hbarPolicy="NEVER" layoutY="170.0" opacity="0.0" prefHeight="550.0" prefWidth="1280.0">
             <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="520.0" prefWidth="1100.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="550.0" prefWidth="1280.0">
                     <children>
-                        <TextArea fx:id="focusText" disable="true" editable="false" opacity="0.0" prefHeight="520.0" prefWidth="1100.0" />
+                        <TextArea fx:id="focusText" disable="true" editable="false" opacity="0.0" prefHeight="550.0" prefWidth="1280.0" />
+                  <Group fx:id="groupCloseArticle" layoutX="1200.0" layoutY="25.0">
+                     <children>
+                        <ImageView fx:id="paneCloseArticleHover" opacity="0.0">
+                           <image>
+                              <Image url="@Design/PrimaryButtons/Exit_hover.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="paneCloseArticle">
+                           <image>
+                              <Image url="@Design/PrimaryButtons/Exit.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="buttonCloseArticle" minHeight="45.0" minWidth="65.0" mnemonicParsing="false" onAction="#closeArticle" onMouseEntered="#buttonEntered" onMouseExited="#buttonExited" opacity="0.0" prefHeight="45.0" prefWidth="64.0" text="Exit" />
+                     </children>
+                  </Group>
+                  <Group fx:id="groupExport" layoutX="1200.0" layoutY="495.0">
+                     <children>
+                        <ImageView fx:id="paneExportHover" layoutX="-20.0" opacity="0.0">
+                           <image>
+                              <Image url="@Design/PrimaryButtons/ExportHover.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="paneExport" layoutX="-20.0">
+                           <image>
+                              <Image url="@Design/PrimaryButtons/Export.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="buttonExport" layoutX="-20.0" minHeight="45.0" minWidth="65.0" mnemonicParsing="false" onAction="#exportArticle" onMouseEntered="#buttonEntered" onMouseExited="#buttonExited" opacity="0.0" prefHeight="45.0" prefWidth="84.0" text="Exit" />
+                     </children>
+                  </Group>
                     </children>
                 </AnchorPane>
             </content>
         </ScrollPane>
-        <Button fx:id="focusCloseButton" disable="true" layoutX="1118.0" layoutY="670.0" maxHeight="20.0" mnemonicParsing="false" onAction="#focusClose" opacity="0.0" prefHeight="10.0" prefWidth="55.0" text="Close" textFill="#707070">
-            <font>
-                <Font name="Al Nile" size="13.0" />
-            </font>
-        </Button>
     </children>
 
 </AnchorPane>

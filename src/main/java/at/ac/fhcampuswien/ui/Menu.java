@@ -49,7 +49,7 @@ public class Menu {
     public Button focusCloseButton, buttonRelevancy, buttonPublishedAt, buttonPopularity, buttonNonePara, buttonNoneCat;
     public Button buttonTechnology, buttonSports, buttonScience, buttonHealth, buttonGeneral, buttonEntertainment, buttonBusiness;
     public Button buttonTopHeadline, buttonEverything, buttonGetNews, buttonSourceMostA, buttonSortDescription, buttonLongestName;
-    public Button buttonHeadline15, buttonCountNYT, buttonFilter, buttonCount, buttonKey, buttonExit;
+    public Button buttonHeadline15, buttonCountNYT, buttonFilter, buttonCount, buttonKey, buttonExit, buttonCloseArticle;
 
     public AnchorPane undoClicks;
     public Group groupSortBy, groupCategory, groupEndpoint, groupFilter, groupCountDisplay, groupParameter, groupGetNews;
@@ -71,8 +71,18 @@ public class Menu {
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
     }
 
-    //GUI functions
+    //Get News
 
+    public void displayNews(){
+        outputList = AppController.generateRequestParameter(userInput);
+        setupTable();
+
+        for (Article art : outputList) {
+            table.getItems().add(art);
+        }
+    }
+
+    /**
     public void getTopHeadlinesAustria(ActionEvent actionEvent) {
         outputList = controller.getTopHeadlinesAustria();
         setupTable();
@@ -91,7 +101,7 @@ public class Menu {
             table.getItems().add(art);
         }
         soundInMenu.playClick();
-    }
+    } **/
 
     //quit program event
     public void exitClick(ActionEvent actionEvent){
@@ -103,11 +113,6 @@ public class Menu {
         pauseEnd.play();
     }
 
-    private static void printInvalidInputMessages(){
-    }
-    private static void printMenu(){
-    }
-
     //Choose An Article By Double Click and open article info pane
     public void tableFocusArticle(MouseEvent mouseEvent) {
         int articleIndex;
@@ -116,7 +121,7 @@ public class Menu {
 
             focusPane.setOpacity(1); focusPane.setDisable(false);
             focusText.setOpacity(1); focusText.setDisable(false);
-            focusCloseButton.setOpacity(1); focusCloseButton.setDisable(false);
+            buttonCloseArticle.setDisable(false);
 
             Article focusArticle = outputList.get(articleIndex);
 
@@ -126,21 +131,15 @@ public class Menu {
     }
 
     //closes articles info pane
-    public void focusClose(ActionEvent actionEvent) {
+    public void closeArticle(ActionEvent actionEvent) {
         focusPane.setOpacity(0); focusPane.setDisable(true);
         focusText.setOpacity(0); focusText.setDisable(true);
-        focusCloseButton.setDisable(true); focusCloseButton.setOpacity(0);
+        buttonCloseArticle.setDisable(true);
         soundInMenu.playClick();
     }
 
-    //close info panes
-    public void undoClick(MouseEvent mouseEvent) {
-        if (!infoCount.isDisabled()){
-            infoCount.setOpacity(0); infoCount.setDisable(true);
-            infoPane.setOpacity(0); infoPane.setDisable(true);
-            undoClicks.setOpacity(0); undoClicks.setDisable(true);
-            soundInMenu.playClick();
-        }
+    // export selected article
+    public void exportArticle(ActionEvent actionEvent) {
     }
 
     // Button Hover Effects
@@ -219,20 +218,68 @@ public class Menu {
     }
 
     // ---------------------------------------------- FILTER -------------------
+
+
     public void countNYTClick(ActionEvent actionEvent) {
+        paneCountNYT.setOpacity(1); paneCountNYTHover.setOpacity(0);
+        closeFilter();
+        //outputList = AppController.countNYT(outputList);
+        setupTable();
+
+        for (Article art : outputList) {
+            table.getItems().add(art);
+        }
+        soundInMenu.playClick();
     }
 
     public void headline15Click(ActionEvent actionEvent) {
+        paneHeadline15.setOpacity(1); paneHeadline15Hover.setOpacity(0);
+        closeFilter();
+        //outputList = AppController.shortHeadline(outputList);
+        setupTable();
+
+        for (Article art : outputList) {
+            table.getItems().add(art);
+        }
+        soundInMenu.playClick();
     }
 
     public void longestNameClick(ActionEvent actionEvent) {
+        paneLongestName.setOpacity(1); paneLongestNameHover.setOpacity(0);
+        closeFilter();
+        //outputList = AppController.longestAuthorName(outputList);
+        setupTable();
+
+        for (Article art : outputList) {
+            table.getItems().add(art);
+        }
+        soundInMenu.playClick();
     }
 
     public void sortDescriptionClick(ActionEvent actionEvent) {
+        paneSortDescription.setOpacity(1); paneSortDescriptionHover.setOpacity(0);
+        closeFilter();
+        //outputList = AppController.sortByDescription(outputList);
+        setupTable();
+
+        for (Article art : outputList) {
+            table.getItems().add(art);
+        }
+        soundInMenu.playClick();
     }
 
     public void sourceMostAClick(ActionEvent actionEvent) {
+        paneSourceMostA.setOpacity(1); paneSourceMostAHover.setOpacity(0);
+        closeFilter();
+        //outputList = AppController.mostArticleSource(outputList);
+        setupTable();
+
+        for (Article art : outputList) {
+            table.getItems().add(art);
+        }
+        soundInMenu.playClick();
     }
+
     // ----------------------------------------------------------------------------
 
     //get article count
@@ -381,6 +428,7 @@ public class Menu {
 
     // ------------------ Parameter ---------------
     public void noneParaClick(ActionEvent actionEvent) {
+        soundInMenu.playClick();
         if (parameterState.equals("country")){
             textParameter.setPromptText("enter query ...");
             parameterState = "query";
@@ -392,6 +440,10 @@ public class Menu {
         else if (parameterState.equals("source")){
             if (userInput.get(0) == Endpoint.TOP_HEADLINES){
                 // article liste mit endpoint top headlines erstellen ---------------------------
+                displayNews();
+                for (int i = 0; i < userInput.size(); i++){
+                    System.out.println(userInput.get(i));
+                }
                 textParameter.setPromptText("enter country ...");
                 parameterState = "country";
                 blendOutParameter();
@@ -404,14 +456,16 @@ public class Menu {
         else if (parameterState.equals("language")){
             parameterState = "country";
             textParameter.setPromptText("enter country ...");
+            textParameter.clear();
+            groupParameter.requestFocus();
             blendOutParameter();
-            // go to SortBY
+            groupSortBy.setDisable(false); groupSortBy.setOpacity(1);
         }
-        soundInMenu.playClick();
     }
 
     public void textParameterInput(KeyEvent keyEvent) {
         if (keyEvent.getCode().equals(KeyCode.ENTER) && parameterState.equals("country")){
+            soundInMenu.playClick();
             String entry = textParameter.getText().toUpperCase(Locale.ROOT).replace(" ", "_");
             boolean exists = false;
             Country [] countries = Country.values();
@@ -443,13 +497,14 @@ public class Menu {
             groupParameter.requestFocus();
         }
         else if (keyEvent.getCode().equals(KeyCode.ENTER) && parameterState.equals("source")){
-            String entry = "sources: " + textParameter.getText();
+            String entry = "source: " + textParameter.getText();
             userInput.add(entry);
             if (userInput.get(0) == Endpoint.TOP_HEADLINES){
                 parameterState = "country";
                 textParameter.setPromptText("enter country ...");
                 blendOutParameter();
                 // article liste mit endpoint top headlines erstellen ---------------------------
+                displayNews();
                 for (int i = 0; i < userInput.size(); i++){
                     System.out.println(userInput.get(i));
                 }
@@ -515,7 +570,9 @@ public class Menu {
     }
 
     public void closeSortBy(){
+        soundInMenu.playClick();
         groupSortBy.setDisable(true); groupSortBy.setOpacity(0);
+        displayNews();
         for (int i = 0; i < userInput.size(); i++){
             System.out.println(userInput.get(i));
         }

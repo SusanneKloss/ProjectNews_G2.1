@@ -13,7 +13,7 @@ public class NewsAPI {
 
     private static String API_KEY = "078504f64e1c4b6996e5a1b8e25798f7";
 
-    public static String createUrl(String query, Enum ... s){
+    public static String createUrl(String query, String source, Enum ... s){
 
         //https://square.github.io/okhttp/4.x/okhttp/okhttp3/-http-url/
         //https://square.github.io/okhttp/3.x/okhttp/okhttp3/HttpUrl.Builder.html
@@ -37,6 +37,10 @@ public class NewsAPI {
 
         if (query.length() > 0){
             builder.addQueryParameter("q", query);
+        }
+
+        if (source.length() > 0){
+            builder.addQueryParameter("source", source);
         }
 
         builder.addQueryParameter("pageSize", String.valueOf(100));
