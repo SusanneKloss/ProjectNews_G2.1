@@ -1,0 +1,22 @@
+source: https://stackoverflow.com/questions/72388363/java-sort-list-with-streams-first-by-length-then-alphabetically
+
+public class ComparatorAppController implements Comparator<String> {
+
+/***
+ * compare each element
+ * @param o1
+ * @param o2
+ * @return
+ */
+public int compare(String o1, String o2) {
+    // check length in one direction
+    if (o1.length() > o2.length()) {
+        return 1;
+    }
+    // check length in the other direction
+    else if (o1.length() < o2.length()) {
+        return -1;
+    }
+    // if same alphabetical order
+    return o1.compareTo(o2);
+}
