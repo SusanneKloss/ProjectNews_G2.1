@@ -16,6 +16,7 @@ Zusätzliche Implementierungen
     -   Tabelle default sort by title
     -   sortBy Funktion in Tabelle
     -   Article Info Pane verschönern
+    -   API key in .env datei auslagern
 
 Stream Methoden
 

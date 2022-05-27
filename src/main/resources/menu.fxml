@@ -1,96 +1,375 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.ac.fhcampuswien.ui.Menu">
+<AnchorPane fx:id="root" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.ac.fhcampuswien.ui.Menu">
     <children>
-        <ImageView fitHeight="720.0" fitWidth="1280.0">
-            <image>
-                <Image url="@ProjectNews.jpg" />
-            </image>
-        </ImageView>
         <TableView fx:id="table" layoutY="143.0" onMouseClicked="#tableFocusArticle" prefHeight="581.0" prefWidth="1280.0">
             <columns>
                 <TableColumn fx:id="authorColumn" editable="false" minWidth="319.0" prefWidth="75.0" />
                 <TableColumn fx:id="titleColumn" editable="false" minWidth="961.0" prefWidth="75.0" />
             </columns>
         </TableView>
-        <Group fx:id="menuPaneGroup" layoutY="122.0">
-            <children>
-                <ImageView fitHeight="40.0" fitWidth="318.0">
-                    <image>
-                        <Image url="@Option1.jpg" />
-                    </image>
-                </ImageView>
-                <ImageView fitHeight="40.0" fitWidth="318.0" layoutX="320.0">
-                    <image>
-                        <Image url="@Option2.jpg" />
-                    </image>
-                </ImageView>
-                <ImageView fitHeight="40.0" fitWidth="318.0" layoutX="641.0">
-                    <image>
-                        <Image url="@Option3.jpg" />
-                    </image>
-                </ImageView>
-                <ImageView fitHeight="40.0" fitWidth="318.0" layoutX="961.0">
-                    <image>
-                        <Image url="@Option4.jpg" />
-                    </image>
-                </ImageView>
-            </children>
-        </Group>
-        <ImageView fitHeight="170.0" fitWidth="1280.0">
-            <image>
-                <Image url="@Header.jpg" />
-            </image>
-        </ImageView>
-        <Text fill="#818080" layoutX="920.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PROJECT NEWS">
-            <font>
-                <Font name="Arial Black" size="36.0" />
-            </font>
-        </Text>
-        <Group fx:id="menuNameGroup" layoutX="20.0" layoutY="155.0">
-            <children>
-                <Text fx:id="austriaLetters" fill="#858585" strokeType="OUTSIDE" strokeWidth="0.0" text="Get top headlines austria" textAlignment="CENTER">
-                    <font>
-                        <Font name="Al Nile" size="22.0" />
-                    </font>
-                </Text>
-                <Text fx:id="bitcoinLetters" fill="#858585" layoutX="320.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Get all news about bitcoin" textAlignment="CENTER">
-                    <font>
-                        <Font name="Al Nile" size="22.0" />
-                    </font>
-                </Text>
-                <Text fx:id="countLetters" fill="#858585" layoutX="640.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Count articles" textAlignment="CENTER">
-                    <font>
-                        <Font name="Al Nile" size="22.0" />
-                    </font>
-                </Text>
-                <Text fx:id="quitLetters" fill="#858585" layoutX="960.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quit program" textAlignment="CENTER">
-                    <font>
-                        <Font name="Al Nile" size="22.0" />
-                    </font>
-                </Text>
-            </children>
-        </Group>
-        <Group fx:id="menuButtonGroup" layoutY="122.0">
-            <children>
-                <Button fx:id="austriaButton" minHeight="40.0" minWidth="318.0" mnemonicParsing="false" onAction="#getTopHeadlinesAustria" onMouseEntered="#austriaEntered" onMouseExited="#austriaExited" opacity="0.0" text="austriaButton" />
-                <Button fx:id="bitcoinButton" layoutX="320.0" minHeight="40.0" minWidth="318.0" mnemonicParsing="false" onAction="#getAllNewsBitcoin" onMouseEntered="#bitcoinEntered" onMouseExited="#bitcoinExited" opacity="0.0" text="bitcoinButton" />
-                <Button fx:id="countButton" layoutX="640.0" minHeight="40.0" minWidth="318.0" mnemonicParsing="false" onAction="#getArticleCount" onMouseEntered="#countEntered" onMouseExited="#countExited" opacity="0.0" text="countButton" />
-                <Button fx:id="quitButton" layoutX="960.0" minHeight="40.0" minWidth="318.0" mnemonicParsing="false" onAction="#printExitMessages" onMouseEntered="#quitEntered" onMouseExited="#quitExited" opacity="0.0" text="quitButton" />
-            </children>
-        </Group>
+      <ImageView fitHeight="166.0" fitWidth="1280.0">
+         <image>
+            <Image url="@Design/Header.jpg" />
+         </image>
+      </ImageView>
+      <Button fx:id="purrButton" layoutX="60.0" layoutY="100.0" mnemonicParsing="false" onMouseEntered="#startPurr" onMouseExited="#stopPurr" opacity="0.0" prefHeight="55.0" prefWidth="360.0" text="PuurButton" />
+      <Group fx:id="groupAllButtons">
+         <children>
+            <Group fx:id="groupExit" layoutX="1200.0" layoutY="15.0">
+               <children>
+                  <ImageView fx:id="paneExitHover" opacity="0.0">
+                     <image>
+                        <Image url="@Design/PrimaryButtons/Exit_hover.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="paneExit">
+                     <image>
+                        <Image url="@Design/PrimaryButtons/Exit.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="buttonExit" minHeight="45.0" minWidth="65.0" mnemonicParsing="false" onAction="#exitClick" onMouseEntered="#buttonEntered" onMouseExited="#buttonExited" opacity="0.0" text="Exit" />
+               </children>
+            </Group>
+            <Group fx:id="APIKeyGroup" disable="true" layoutX="960.0" layoutY="70.0" opacity="0.0">
+               <children>
+                  <ImageView fx:id="paneAPIKey" fitHeight="31.0" fitWidth="302.0">
+                     <image>
+                        <Image url="@Design/PrimaryButtons/APIKey.png" />
+                     </image>
+                  </ImageView>
+                  <TextField fx:id="textAPIKey" blendMode="ADD" layoutX="85.0" layoutY="2.0" minHeight="24.0" minWidth="200.0">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </TextField>
+               </children>
+            </Group>
+            <Group fx:id="groupKey" layoutX="1200.0" layoutY="105.0">
+               <children>
+                  <ImageView fx:id="paneKeyHover" opacity="0.0">
+                     <image>
+                        <Image url="@Design/PrimaryButtons/Key_hover.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="paneKey">
+                     <image>
+                        <Image url="@Design/PrimaryButtons/Key.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="buttonKey" minHeight="45.0" minWidth="65.0" mnemonicParsing="false" onAction="#keyClick" onMouseEntered="#buttonEntered" onMouseExited="#buttonExited" opacity="0.0" text="key" />
+               </children>
+            </Group>
+            <Group fx:id="groupCount" layoutX="940.0" layoutY="105.0">
+               <children>
+                  <ImageView fx:id="paneCountHover" opacity="0.0">
+                     <image>
+                        <Image url="@Design/PrimaryButtons/Count_Hover.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="paneCount">
+                     <image>
+                        <Image url="@Design/PrimaryButtons/Count.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="buttonCount" minHeight="45.0" minWidth="195.0" mnemonicParsing="false" onAction="#countClick" onMouseEntered="#buttonEntered" onMouseExited="#buttonExited" opacity="0.0" text="Count" />
+                  <Group fx:id="groupCountDisplay" disable="true" opacity="0.0">
+                     <children>
+                        <ImageView fx:id="paneCountBlank" layoutY="-34.0">
+                           <image>
+                              <Image url="@Design/Blank.png" />
+                           </image>
+                        </ImageView>
+                        <TextField fx:id="textCount" alignment="CENTER" blendMode="ADD" layoutX="12.0" layoutY="-32.0" minHeight="26.0" minWidth="160.0" prefHeight="26.0" prefWidth="168.0">
+                           <font>
+                              <Font name="Arial Black" size="13.0" />
+                           </font></TextField>
+                     </children>
+                  </Group>
+               </children>
+            </Group>
+            <Group fx:id="groupFilter" layoutX="720.0" layoutY="105.0">
+               <children>
+                  <ImageView fx:id="paneFilterHover" opacity="0.0">
+                     <image>
+                        <Image url="@Design/PrimaryButtons/Filter_hover.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="paneFilter">
+                     <image>
+                        <Image url="@Design/PrimaryButtons/Filter.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="buttonFilter" minHeight="45.0" minWidth="195.0" mnemonicParsing="false" onAction="#filterClick" onMouseEntered="#buttonEntered" onMouseExited="#buttonExited" opacity="0.0" text="Filter" />
+                  <Group fx:id="groupFilterOptions" disable="true" opacity="0.0">
+                     <children>
+                        <ImageView fx:id="paneCountNYT" layoutX="-98.0" layoutY="-34.0">
+                           <image>
+                              <Image url="@Design/Button(Filter)/CountNYT.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="paneCountNYTHover" layoutX="-98.0" layoutY="-34.0" opacity="0.0">
+                           <image>
+                              <Image url="@Design/Button(Filter)/CountNYT_hover.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="buttonCountNYT" layoutX="-98.0" layoutY="-34.0" minHeight="30.0" minWidth="192.0" mnemonicParsing="false" onAction="#countNYTClick" onMouseEntered="#buttonEntered" onMouseExited="#buttonExited" opacity="0.0" text="countNYT" />
+                        <ImageView fx:id="paneHeadline15" layoutX="98.0" layoutY="-34.0">
+                           <image>
+                              <Image url="@Design/Button(Filter)/Headline15.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="paneHeadline15Hover" layoutX="98.0" layoutY="-34.0" opacity="0.0">
+                           <image>
+                              <Image url="@Design/Button(Filter)/Headline15_hover.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="buttonHeadline15" layoutX="98.0" layoutY="-34.0" minHeight="30.0" minWidth="192.0" mnemonicParsing="false" onAction="#headline15Click" onMouseEntered="#buttonEntered" onMouseExited="#buttonExited" opacity="0.0" text="headline15" />
+                        <ImageView fx:id="paneLongestName" layoutX="-98.0" layoutY="-68.0">
+                           <image>
+                              <Image url="@Design/Button(Filter)/LongestName.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="paneLongestNameHover" layoutX="-98.0" layoutY="-68.0" opacity="0.0">
+                           <image>
+                              <Image url="@Design/Button(Filter)/LongestName_hover.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="buttonLongestName" layoutX="-98.0" layoutY="-68.0" minHeight="30.0" minWidth="192.0" mnemonicParsing="false" onAction="#longestNameClick" onMouseEntered="#buttonEntered" onMouseExited="#buttonExited" opacity="0.0" text="longestName" />
+                        <ImageView fx:id="paneSortDescription" layoutX="98.0" layoutY="-68.0">
+                           <image>
+                              <Image url="@Design/Button(Filter)/SortDescriptionLen.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="paneSortDescriptionHover" layoutX="98.0" layoutY="-68.0" opacity="0.0">
+                           <image>
+                              <Image url="@Design/Button(Filter)/SortDescriptionLen_hover.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="buttonSortDescription" layoutX="98.0" layoutY="-68.0" minHeight="30.0" minWidth="192.0" mnemonicParsing="false" onAction="#sortDescriptionClick" onMouseEntered="#buttonEntered" onMouseExited="#buttonExited" opacity="0.0" text="sortDescriptionLen" />
+                        <ImageView fx:id="paneSourceMostA" layoutX="-98.0" layoutY="-102.0">
+                           <image>
+                              <Image url="@Design/Button(Filter)/SourceMostArticles.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="paneSourceMostAHover" layoutX="-98.0" layoutY="-102.0" opacity="0.0">
+                           <image>
+                              <Image url="@Design/Button(Filter)/SourceMostArticles_hover.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="buttonSourceMostA" layoutX="-98.0" layoutY="-102.0" minHeight="30.0" minWidth="192.0" mnemonicParsing="false" onAction="#sourceMostAClick" onMouseEntered="#buttonEntered" onMouseExited="#buttonExited" opacity="0.0" text="sourceMostArticles" />
+                     </children>
+                  </Group>
+               </children>
+            </Group>
+            <Group fx:id="groupGetNews" layoutX="500.0" layoutY="105.0">
+               <children>
+                  <ImageView fx:id="paneGetNewsHover" opacity="0.0">
+                     <image>
+                        <Image url="@Design/PrimaryButtons/GetNews_hover.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="paneGetNews">
+                     <image>
+                        <Image url="@Design/PrimaryButtons/GetNews.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="buttonGetNews" minHeight="45.0" minWidth="195.0" mnemonicParsing="false" onAction="#getNewsClick" onMouseEntered="#buttonEntered" onMouseExited="#buttonExited" opacity="0.0" text="GetNews" />
+                  <Group fx:id="groupEndpoint" disable="true" opacity="0.0">
+                     <children>
+                        <ImageView fx:id="paneEverything" layoutX="30.0" layoutY="-35.0">
+                           <image>
+                              <Image url="@Design/Button(Endpoint)/Everything.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="paneEverythingHover" layoutX="30.0" layoutY="-35.0" opacity="0.0">
+                           <image>
+                              <Image url="@Design/Button(Endpoint)/Everything_hover.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="buttonEverything" layoutX="30.0" layoutY="-36.0" minHeight="30.0" minWidth="137.0" mnemonicParsing="false" onAction="#everythingClick" onMouseEntered="#buttonEntered" onMouseExited="#buttonExited" opacity="0.0" text="everything" />
+                        <ImageView fx:id="paneTopHeadline" layoutX="30.0" layoutY="-70.0">
+                           <image>
+                              <Image url="@Design/Button(Endpoint)/TopHeadline.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="paneTopHeadlineHover" layoutX="30.0" layoutY="-70.0" opacity="0.0">
+                           <image>
+                              <Image url="@Design/Button(Endpoint)/TopHeadline_hover.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="buttonTopHeadline" layoutX="30.0" layoutY="-70.0" minHeight="30.0" minWidth="137.0" mnemonicParsing="false" onAction="#topHeadlineClick" onMouseEntered="#buttonEntered" onMouseExited="#buttonExited" opacity="0.0" text="topheadline" />
+                     </children>
+                  </Group>
+                  <Group fx:id="groupCategory" disable="true" opacity="0.0">
+                     <children>
+                        <ImageView fx:id="paneBusiness" layoutX="-112.0" layoutY="-34.0">
+                           <image>
+                              <Image url="@Design/Button(Category)/Business.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="paneBusinessHover" layoutX="-112.0" layoutY="-34.0" opacity="0.0">
+                           <image>
+                              <Image url="@Design/Button(Category)/Business_hover.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="buttonBusiness" layoutX="-112.0" layoutY="-34.0" minHeight="32.0" minWidth="138.0" mnemonicParsing="false" onAction="#businessClick" onMouseEntered="#buttonEntered" onMouseExited="#buttonExited" opacity="0.0" text="Business" />
+                        <ImageView fx:id="paneEntertainment" layoutX="30.0" layoutY="-34.0">
+                           <image>
+                              <Image url="@Design/Button(Category)/Entertainment.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="paneEntertainmentHover" layoutX="30.0" layoutY="-34.0" opacity="0.0">
+                           <image>
+                              <Image url="@Design/Button(Category)/Entertainment_hover.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="buttonEntertainment" layoutX="30.0" layoutY="-34.0" minHeight="32.0" minWidth="138.0" mnemonicParsing="false" onAction="#entertainmentClick" onMouseEntered="#buttonEntered" onMouseExited="#buttonExited" opacity="0.0" text="Entertainment" />
+                        <ImageView fx:id="paneGeneral" layoutX="172.0" layoutY="-34.0">
+                           <image>
+                              <Image url="@Design/Button(Category)/General.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="paneGeneralHover" layoutX="172.0" layoutY="-34.0" opacity="0.0">
+                           <image>
+                              <Image url="@Design/Button(Category)/General_hover.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="buttonGeneral" layoutX="172.0" layoutY="-34.0" minHeight="32.0" minWidth="138.0" mnemonicParsing="false" onAction="#generalClick" onMouseEntered="#buttonEntered" onMouseExited="#buttonExited" opacity="0.0" text="General" />
+                        <ImageView fx:id="paneHealth" layoutX="-112.0" layoutY="-68.0">
+                           <image>
+                              <Image url="@Design/Button(Category)/Health.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="paneHealthHover" layoutX="-112.0" layoutY="-68.0" opacity="0.0">
+                           <image>
+                              <Image url="@Design/Button(Category)/Health_hover.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="buttonHealth" layoutX="-112.0" layoutY="-68.0" minHeight="32.0" minWidth="138.0" mnemonicParsing="false" onAction="#healthClick" onMouseEntered="#buttonEntered" onMouseExited="#buttonExited" opacity="0.0" text="Health" />
+                        <ImageView fx:id="paneScience" layoutX="30.0" layoutY="-68.0">
+                           <image>
+                              <Image url="@Design/Button(Category)/Science.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="paneScienceHover" layoutX="30.0" layoutY="-68.0" opacity="0.0">
+                           <image>
+                              <Image url="@Design/Button(Category)/Science_hover.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="buttonScience" layoutX="30.0" layoutY="-68.0" minHeight="32.0" minWidth="138.0" mnemonicParsing="false" onAction="#scienceClick" onMouseEntered="#buttonEntered" onMouseExited="#buttonExited" opacity="0.0" text="Science" />
+                        <ImageView fx:id="paneSports" layoutX="172.0" layoutY="-68.0">
+                           <image>
+                              <Image url="@Design/Button(Category)/Sports.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="paneSportsHover" layoutX="172.0" layoutY="-68.0" opacity="0.0">
+                           <image>
+                              <Image url="@Design/Button(Category)/Sports_hover.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="buttonSports" layoutX="172.0" layoutY="-68.0" minHeight="32.0" minWidth="138.0" mnemonicParsing="false" onAction="#sportsClick" onMouseEntered="#buttonEntered" onMouseExited="#buttonExited" opacity="0.0" text="Sports" />
+                        <ImageView fx:id="paneTechnology" layoutX="-112.0" layoutY="-102.0">
+                           <image>
+                              <Image url="@Design/Button(Category)/Technology.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="paneTechnologyHover" layoutX="-112.0" layoutY="-102.0" opacity="0.0">
+                           <image>
+                              <Image url="@Design/Button(Category)/Technology_hover.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="buttonTechnology" layoutX="-112.0" layoutY="-102.0" minHeight="32.0" minWidth="138.0" mnemonicParsing="false" onAction="#technologyClick" onMouseEntered="#buttonEntered" onMouseExited="#buttonExited" opacity="0.0" text="Technology" />
+                        <ImageView fx:id="paneNoneCat" layoutX="30.0" layoutY="-102.0">
+                           <image>
+                              <Image url="@Design/Button(Category)/None(Category).png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="paneNoneCatHover" layoutX="30.0" layoutY="-102.0" opacity="0.0">
+                           <image>
+                              <Image url="@Design/Button(Category)/None(Category)_hover.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="buttonNoneCat" layoutX="30.0" layoutY="-102.0" minHeight="32.0" minWidth="138.0" mnemonicParsing="false" onAction="#noneCatClick" onMouseEntered="#buttonEntered" onMouseExited="#buttonExited" opacity="0.0" text="None" />
+                     </children>
+                  </Group>
+                  <Group fx:id="groupParameter">
+                     <children>
+                        <Group fx:id="groupParaNone" disable="true" layoutY="-68.0" opacity="0.0">
+                           <children>
+                              <ImageView fx:id="paneNonePara">
+                                 <image>
+                                    <Image url="@Design/Button(Parameter)/None.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="paneNoneParaHover" opacity="0.0">
+                                 <image>
+                                    <Image url="@Design/Button(Parameter)/None_hover.png" />
+                                 </image>
+                              </ImageView>
+                              <Button fx:id="buttonNonePara" minHeight="30.0" minWidth="193.0" mnemonicParsing="false" onAction="#noneParaClick" onMouseEntered="#buttonEntered" onMouseExited="#buttonExited" opacity="0.0" text="None" />
+                           </children>
+                        </Group>
+                        <TextField fx:id="textParameter" alignment="CENTER" blendMode="DARKEN" cacheShape="false" centerShape="false" disable="true" focusTraversable="false" layoutY="-32.0" onKeyPressed="#textParameterInput" opacity="0.0" prefHeight="26.0" prefWidth="192.0" scaleShape="false" style="-fx-border-radius: 20; -fx-border-color: #dedbdb; -fx-border-width: 2; -fx-background-radius: 20; -fx-text-fill: #7b7a7a;">
+                           <font>
+                              <Font name="Arial Black" size="12.0" />
+                           </font></TextField>
+                     </children>
+                  </Group>
+                  <Group fx:id="groupSortBy" disable="true" opacity="0.0">
+                     <children>
+                        <ImageView fx:id="panePopularity" layoutX="30.0" layoutY="-102.0">
+                           <image>
+                              <Image url="@Design/Button(SortBy)/Popularity.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="panePopularityHover" layoutX="30.0" layoutY="-102.0" opacity="0.0">
+                           <image>
+                              <Image url="@Design/Button(SortBy)/Popularity_hover.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="buttonPopularity" layoutX="30.0" layoutY="-102.0" minHeight="32.0" minWidth="137.0" mnemonicParsing="false" onAction="#popularityClick" onMouseEntered="#buttonEntered" onMouseExited="#buttonExited" opacity="0.0" text="popularity" />
+                        <ImageView fx:id="panePublishedAt" layoutX="30.0" layoutY="-68.0">
+                           <image>
+                              <Image url="@Design/Button(SortBy)/PublishedAt.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="panePublishedAtHover" layoutX="30.0" layoutY="-68.0" opacity="0.0">
+                           <image>
+                              <Image url="@Design/Button(SortBy)/PublishedAt_hover.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="buttonPublishedAt" layoutX="30.0" layoutY="-68.0" minHeight="32.0" minWidth="137.0" mnemonicParsing="false" onAction="#publishedAtClick" onMouseEntered="#buttonEntered" onMouseExited="#buttonExited" opacity="0.0" text="publishedAt" />
+                        <ImageView fx:id="paneRelevancy" layoutX="30.0" layoutY="-34.0">
+                           <image>
+                              <Image url="@Design/Button(SortBy)/Relevancy.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="paneRelevancyHover" layoutX="30.0" layoutY="-34.0" opacity="0.0">
+                           <image>
+                              <Image url="@Design/Button(SortBy)/Relevancy_hover.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="buttonRelevancy" layoutX="30.0" layoutY="-34.0" minHeight="32.0" minWidth="137.0" mnemonicParsing="false" onAction="#relevancyClick" onMouseEntered="#buttonEntered" onMouseExited="#buttonExited" opacity="0.0" text="relevany" />
+                     </children>
+                  </Group>
+               </children>
+            </Group>
+         </children>
+      </Group>
         <ScrollPane fx:id="focusPane" disable="true" hbarPolicy="NEVER" layoutX="90.0" layoutY="185.0" opacity="0.0" prefHeight="520.0" prefWidth="1100.0">
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="520.0" prefWidth="1100.0">
@@ -105,21 +384,6 @@
                 <Font name="Al Nile" size="13.0" />
             </font>
         </Button>
-        <Group>
-            <children>
-                <ImageView fx:id="infoPane" fitHeight="80.0" fitWidth="400.0" layoutX="440.0" layoutY="225.0" opacity="0.0">
-                    <image>
-                        <Image url="@Option3.jpg" />
-                    </image>
-                </ImageView>
-                <Text fx:id="infoCount" layoutX="540.0" layoutY="270.0" opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of articles: 11 ">
-                    <font>
-                        <Font name="Al Nile" size="20.0" />
-                    </font>
-                </Text>
-            </children>
-        </Group>
-        <AnchorPane fx:id="undoClicks" disable="true" onMouseClicked="#undoClick" opacity="0.0" prefHeight="720.0" prefWidth="1280.0" />
     </children>
 
 </AnchorPane>
