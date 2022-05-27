@@ -23,7 +23,7 @@ public class NewsAPI {
     private static String API_KEY = Dotenv.load().get("API_TOKEN");
 
 
-    public static String createUrl(String query, Enum ... s) {
+    public static String createUrl(String query, Enum ... s) throws NewsApiException{    //!!throws nötig für filterList()
 
         //https://square.github.io/okhttp/4.x/okhttp/okhttp3/-http-url/
         //https://square.github.io/okhttp/3.x/okhttp/okhttp3/HttpUrl.Builder.html

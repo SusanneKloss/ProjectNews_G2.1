@@ -59,21 +59,19 @@ public class Menu {
         infoCount.setOpacity(1); infoCount.setDisable(false);
         infoPane.setOpacity(1); infoPane.setDisable(false);
 
-
         if(outputList != null) {
-
             infoCount.setText("Number of articles: " + Integer.toString(outputList.size()));
 
+            if(outputList.size() == 0) {
+                System.out.println("Number of articles: zero");   //message -> GUI
+            }
         }
-        if(outputList.size() == 0) {
-            System.out.println("Number of articles: zero");   //message -> GUI
-        }
-          else {
+        else {
             try {
                 throw new NewsApiException("No Articles, OutputList is null"); //GUI 11 Artikel bei List = null ??Me
+
             } catch (NewsApiException e) {
                 e.printStackTrace();
-
             }
         }
         soundInMenu.playClick();
@@ -94,18 +92,18 @@ public class Menu {
             for (Article art : outputList) {
                 table.getItems().add(art);      // Tabelle -> GUI
             }
-
+            if(outputList.size() == 0) {
+                System.out.println("Liste ist leer");   //message -> GUI
+            }
         }
-        if(outputList.size() == 0) {
-            System.out.println("Liste ist leer");   //message -> GUI
-
-        } else {
+         else {
             try {
                 throw new NewsApiException("TopHeadlines_OutputList is null"); // wenn API Key falsch ist, no query, not propagated from NewsApi or AppController
             } catch (NewsApiException e) {
                 e.printStackTrace();            //message -> GUI
             }
         }
+
         soundInMenu.playClick();
     }
 
@@ -118,7 +116,6 @@ public class Menu {
             System.out.println(newsApiException.getMessage());
             newsApiException.printStackTrace();
         }
-
         setupTable();
 
         //bei query = empty oder wenn API Key falsch ist
@@ -127,11 +124,12 @@ public class Menu {
             for (Article art : outputList) {
                 table.getItems().add(art);
             }
-        }
-        if(outputList.size() == 0) {
-            System.out.println("Liste ist leer");   //message -> GUI
+            if(outputList.size() == 0) {
+                System.out.println("Liste ist leer");   //message -> GUI
 
-        }else {
+            }
+        }
+        else {
             try {
                 throw new NewsApiException("Bitcoin_OutputList is null"); //bei query = empty oder wenn API Key falsch ist
             } catch (NewsApiException e) {

@@ -78,9 +78,9 @@ public class AppController {
 
     }
 
-    protected ArrayList<Article> filterList(String query) {
+    protected ArrayList<Article> filterList(String query)  throws NewsApiException{
         try {
-            url = NewsAPI.createUrl(query,endpoint = Endpoint.EVERYTHING);
+            url = NewsAPI.createUrl(query,endpoint = Endpoint.EVERYTHING); //benötigt throws NewsApiException in createUrl
         } catch (NewsApiException e) {
             e.printStackTrace();
         }
@@ -93,6 +93,5 @@ public class AppController {
             e.printStackTrace();
             return new ArrayList<>();
         }
-
     }
 }
