@@ -26,27 +26,28 @@ public class AppController {
     public ArrayList<Article> getArticle(){
         return this.articles;
     }
-    //NEVER USED!!
-    public int getArticleCount(){
-        if(this.articles == null){
-            return 0;}
-        else return articles.size();
-
-    }
 
     //Note: sources parameter must not be combined with category and/or country parameters
-    public ArrayList<Article> getTopHeadlinesAustria()  throws NewsApiException{
+    public ArrayList<Article> getTopHeadlinesAustria() throws NewsApiException{
 
-        url = NewsAPI.createUrl("", endpoint = Endpoint.TOP_HEADLINES, country = Country.AUSTRIA, language = Language.GERMAN);
+        url = NewsAPI.createUrl("Geld", endpoint = Endpoint.TOP_HEADLINES);
+
+        //1.url ="":  url = NewsAPI.createUrl("");
+        // wirft JSONSyntaxException_custom - das kann aber nicht passieren, Endpoint ist auf jeden Fall da
+
+        //2. no query: url = NewsAPI.createUrl("", Endpoint.TOP_HEADLINES);
+        // OutputList ist null, Meldung NewsAPI: Required parameters are missing. Please set any of the following parameters and try again: sources, q, language, country, category.
+
+        //3. kein Suchergebnis: url = NewsAPI.createUrl("Katze", Endpoint.TOP_HEADLINES, Language.GERMAN);
+        //OutputList ist leer
 
         NewsResponse response = NewsAPI.getNews(url);
+        System.out.println("NewsApi: " + response.getMessage());
         return response.getArticles();
 
         /*try {
             //url = NewsAPI.createUrl(""); //nötig für .createUrl("") JSONSyntaxException_custom - das kann aber nicht passieren
-
-            url = NewsAPI.createUrl("", endpoint = Endpoint.TOP_HEADLINES, country = Country.AUSTRIA, language = Language.GERMAN);
-
+           url = NewsAPI.createUrl("", endpoint = Endpoint.TOP_HEADLINES, country = Country.AUSTRIA, language = Language.GERMAN);
         } catch (NewsApiException newsApiException) {
             System.out.println("custom exception_url getTopHeadlinesAustria");
             newsApiException.printStackTrace();
@@ -65,31 +66,16 @@ public class AppController {
         /*if (response.getArticles() == null){
             return new ArrayList<>();
         }*/
-
     }
 
 
     public ArrayList<Article> getAllNewsBitcoin() throws NewsApiException{
 
-        url = NewsAPI.createUrl("bitcoin", endpoint = Endpoint.EVERYTHING); // ohne query - NullPointerException - Menu -> dort gecatcht 90ff
-        /*catch (NewsApiException e) {
-            System.out.println("custom exception getAllNewsBItcoin_url");
-        }*/
-
-
+        url = NewsAPI.createUrl("bitcoin", endpoint = Endpoint.EVERYTHING); // ohne query - NullPointerException - Menu -> dort gecatcht 90ffge
         NewsResponse response = NewsAPI.getNews(url);
+        System.out.println("NewsApi: " + response.getMessage());
         return response.getArticles();
 
-        /*catch (NewsApiException newsApiException) {
-            newsApiException.printStackTrace();
-            System.out.println("custom exception getAllNewsBitcoin");
-            return new ArrayList<>();
-        }*/
-
-
-        /*if (response.getArticles() == null){
-            return new ArrayList<>();
-        }*/
     }
 
     protected ArrayList<Article> filterList(String query) {

@@ -1,3 +1,34 @@
+Exception handling at first push into main (29.05. around 16.10):
+- NewsApi:
+getNews(String url) throws NewsApiException -> wrapped IOException for execute(), (NullPointer for string(), JSONSyntaxException for url ="")
+- AppController:
+getTopHeadlinesAustria() throws NewsApiException: with comments, exception propagated from NewsApi to Menu
+getAllNewsBitcoin() throws NewsApiException: just code, exception propagated from NewsApi to Menu
+- Menu:
+getArticleCount():
+new CustomException for case outputList == null
+other cases (0, !=null) handled as well
+getTopHeadlinesAustria():
+final catch of propagated custom wrapped IOException from NewsApi
+new CustomException for case outputList == null
+other cases (0, !=null) handled as well
+getAllNewsBitcoin():
+code like in getTopHeadlinesAustria(), comments not cleaned up
+
+
+
+
+
+
+
+
+
+
+
+
+
+==========================================================================
+Possible solutions for exceptions for no WLAN?
 is SocketTimeoutException -> {
                 msg = "Timeout - Please check your internet connection"
              }

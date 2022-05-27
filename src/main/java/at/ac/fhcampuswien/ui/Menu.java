@@ -3,6 +3,8 @@ package at.ac.fhcampuswien.ui;
 import at.ac.fhcampuswien.controllers.AppController;
 import at.ac.fhcampuswien.controllers.NewsApiException;
 import at.ac.fhcampuswien.models.Article;
+import at.ac.fhcampuswien.models.NewsAPI;
+import at.ac.fhcampuswien.models.NewsResponse;
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
@@ -34,7 +36,6 @@ public class Menu {
     private ArrayList<Article> outputList = new ArrayList<>();
     private static String INVALID_INPUT_MESSAGE;
     private static String EXIT_MESSAGE;
-
     private SFX soundInMenu = new SFX();
 
     public javafx.scene.control.Button austriaButton, bitcoinButton, countButton, quitButton;
@@ -58,59 +59,62 @@ public class Menu {
         infoCount.setOpacity(1); infoCount.setDisable(false);
         infoPane.setOpacity(1); infoPane.setDisable(false);
 
-        //GUI 11 Artikel bei List = null ??
+
         if(outputList != null) {
 
             infoCount.setText("Number of articles: " + Integer.toString(outputList.size()));
 
-        } else {
+        }
+        if(outputList.size() == 0) {
+            System.out.println("Number of articles: zero");   //message -> GUI
+        }
+          else {
             try {
-                throw new NewsApiException("No Articles, OutputList is null");
+                throw new NewsApiException("No Articles, OutputList is null"); //GUI 11 Artikel bei List = null ??Me
             } catch (NewsApiException e) {
                 e.printStackTrace();
+
             }
         }
-        /*try {
-            infoCount.setText("Number of articles: " + Integer.toString(outputList.size()));
-        } catch(NullPointerException nullPointerException) {
-            System.out.println(nullPointerException.getMessage());
-            throw new NewsApiException("OutputList is empty");
-        }*/
         soundInMenu.playClick();
     }
 
     public void getTopHeadlinesAustria(ActionEvent actionEvent) {
-
         try {
             outputList = controller.getTopHeadlinesAustria();
 
         } catch (NewsApiException newsApiException) {       //final catch aus NewsApi class (kein WLAN)
-            newsApiException.printStackTrace();
+            newsApiException.printStackTrace();             // message -> GUI
         }
         setupTable();
 
         // !! neue Custom Exception: zB wenn API Key falsch ist
         //erst hier, da outputList erst in Menu erstellt wird
-        //message von NewsApi?
         if(outputList != null) {
             for (Article art : outputList) {
-                table.getItems().add(art);
+                table.getItems().add(art);      // Tabelle -> GUI
             }
+
+        }
+        if(outputList.size() == 0) {
+            System.out.println("Liste ist leer");   //message -> GUI
+
         } else {
             try {
-                throw new NewsApiException("TopHeadlines_OutputList is null"); // wenn API Key falsch ist, not propagated from NewsApi or AppController
+                throw new NewsApiException("TopHeadlines_OutputList is null"); // wenn API Key falsch ist, no query, not propagated from NewsApi or AppController
             } catch (NewsApiException e) {
-                e.printStackTrace();
+                e.printStackTrace();            //message -> GUI
             }
         }
         soundInMenu.playClick();
     }
 
     public void getAllNewsBitcoin(ActionEvent actionEvent) {
+
         try {
             outputList = controller.getAllNewsBitcoin();
 
-        } catch (NewsApiException newsApiException) {           //final catch aus NewsApi class
+        } catch (NewsApiException newsApiException) {//final catch aus NewsApi class
             System.out.println(newsApiException.getMessage());
             newsApiException.printStackTrace();
         }
@@ -123,10 +127,15 @@ public class Menu {
             for (Article art : outputList) {
                 table.getItems().add(art);
             }
-        } else {
+        }
+        if(outputList.size() == 0) {
+            System.out.println("Liste ist leer");   //message -> GUI
+
+        }else {
             try {
                 throw new NewsApiException("Bitcoin_OutputList is null"); //bei query = empty oder wenn API Key falsch ist
             } catch (NewsApiException e) {
+
                 e.getMessage();
                 e.printStackTrace();
             }
