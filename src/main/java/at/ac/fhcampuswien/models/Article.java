@@ -1,10 +1,13 @@
 package at.ac.fhcampuswien.models;
 
+import at.ac.fhcampuswien.controllers.NewsApiException;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Article {
@@ -82,9 +85,6 @@ public class Article {
     public String toString() {
         StringBuilder articleInfo = new StringBuilder();
 
-        if (author != null) {articleInfo.append(author).append(" - ");}
-        else {articleInfo.append("");}
-
         articleInfoBuild(title, articleInfo);
         articleInfo.append(System.lineSeparator());
         articleInfoBuild(description, articleInfo);
@@ -96,7 +96,7 @@ public class Article {
 
         return articleInfo.toString();
     }
-    public static final String HTML_EXTENSION = ".html";
+    /*public static final String HTML_EXTENSION = ".html";
     public static final String DIRECTORY_DOWNLOAD = "./download/";
 
     //public abstract int process(List<String> urls);
@@ -138,7 +138,7 @@ public class Article {
         }
         System.out.println(fileName);
         return fileName;
-    }
+    }*/
 
 
 }

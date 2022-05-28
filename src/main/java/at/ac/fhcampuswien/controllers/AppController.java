@@ -30,7 +30,7 @@ public class AppController {
     //Note: sources parameter must not be combined with category and/or country parameters
     public ArrayList<Article> getTopHeadlinesAustria() throws NewsApiException{
 
-        url = NewsAPI.createUrl("Geld", endpoint = Endpoint.TOP_HEADLINES);
+        url = NewsAPI.createUrl("", endpoint = Endpoint.TOP_HEADLINES, Country.AUSTRIA);
 
         //1.url ="":  url = NewsAPI.createUrl("");
         // wirft JSONSyntaxException_custom - das kann aber nicht passieren, Endpoint ist auf jeden Fall da
@@ -78,7 +78,7 @@ public class AppController {
 
     }
 
-    protected ArrayList<Article> filterList(String query)  throws NewsApiException{
+    /*protected ArrayList<Article> filterList(String query)  throws NewsApiException{
         try {
             url = NewsAPI.createUrl(query,endpoint = Endpoint.EVERYTHING); //benötigt throws NewsApiException in createUrl
         } catch (NewsApiException e) {
@@ -93,5 +93,5 @@ public class AppController {
             e.printStackTrace();
             return new ArrayList<>();
         }
-    }
+    }*/
 }
