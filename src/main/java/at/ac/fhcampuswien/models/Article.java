@@ -86,8 +86,9 @@ public class Article {
         StringBuilder articleInfo = new StringBuilder();
 
         articleInfoBuild(title, articleInfo);
-        articleInfo.append(System.lineSeparator());
+        articleInfo.append(System.lineSeparator()); articleInfo.append(System.lineSeparator());
         articleInfoBuild(description, articleInfo);
+        articleInfo.append(System.lineSeparator());
         articleInfoBuild(url, articleInfo);
         articleInfoBuild(urlToImage, articleInfo);
         articleInfoBuild(publishedAt, articleInfo);
