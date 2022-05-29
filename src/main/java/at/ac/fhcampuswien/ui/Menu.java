@@ -22,6 +22,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.MalformedURLException;
@@ -110,6 +111,13 @@ public class Menu {
                 e.printStackTrace();
             }
         }
+    //GUI functions
+    public void getArticleCount(ActionEvent actionEvent){
+
+        undoClicks.setOpacity(1); undoClicks.setDisable(false);
+        infoCount.setOpacity(1); infoCount.setDisable(false);
+        infoPane.setOpacity(1); infoPane.setDisable(false);
+        infoCount.setText("Number of articles: " + Integer.toString(outputList.size()));
         soundInMenu.playClick();
     } **/
 
@@ -214,6 +222,60 @@ public class Menu {
             }
         }
         soundInMenu.playClick();
+    }
+    public void filterHeadlines(ActionEvent actionEvent){
+
+        //Button Filter muss noch implementiert werden
+
+        outputList = AppController.StreamTitle15(outputList);
+        setupTable();
+
+        for (Article art : outputList) {
+            table.getItems().add(art);
+        }
+        soundInMenu.playClick();
+        /*
+        if(outputList != null){
+            infoCount.setText("Number of articles: " + Integer.toString(outputList.size()));
+
+        }
+        else{
+            try{
+                throw new NewsAPIException("No Articles, OutputList is null");
+            } catch(NewsApiException e){
+                e.printStackTrace();
+            }
+        }
+
+         */
+
+    }
+    public void filterDescription(ActionEvent actionEvent){
+
+        //Button Filter muss noch implementiert werden
+
+        outputList = AppController.StreamDescription(outputList);
+        setupTable();
+
+        for (Article art : outputList) {
+            table.getItems().add(art);
+        }
+        soundInMenu.playClick();
+        /*
+        if(outputList != null){
+            infoCount.setText("Number of articles: " + Integer.toString(outputList.size()));
+
+        }
+        else{
+            try{
+                throw new NewsAPIException("No Articles, OutputList is null");
+            } catch(NewsApiException e){
+                e.printStackTrace();
+            }
+        }
+
+         */
+    }
     } **/
 
     //quit program event
