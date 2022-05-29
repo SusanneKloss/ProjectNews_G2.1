@@ -8,6 +8,10 @@ import at.ac.fhcampuswien.models.enums.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import java.util.stream.Collectors;
+import java.util.Comparator;
+import java.util.*;
+
 public class AppController {
 
     private ArrayList<Article> articles;
@@ -141,4 +145,47 @@ public class AppController {
             return new ArrayList<>();
         }
     } **/
+
+    //How many articles are from New York Times
+    public static ArrayList<Article> countNYT(ArrayList<Article> outputList) {
+
+        List<Article> count = outputList.stream()
+                .filter(e -> e.getSource().getName().equals("New York Times"))
+                .collect(Collectors.toList());
+
+        return new ArrayList<Article> (count);
+    }
+
+    //Find author with the longest name
+    public String longestAuthorName(ArrayList<Article> outputList) {
+
+        Article article = outputList.stream()
+                //.max(Comparator.comparingInt(a -> a.getAuthor().length()));
+                .sorted(Comparator.comparingInt(a -> a.getAuthor().length()))
+                .findFirst()
+                .orElse(null);
+        //.collect(Collectors.toList());
+
+        return article.getAuthor();
+    }
+
+    //source: https://stackoverflow.com/questions/43616422/find-the-most-common-attribute-value-from-a-list-of-objects-using-stream
+    public String mostArticleSource(ArrayList<Article> outputList) {
+
+        String mostCommonSource = outputList.stream()
+                // filter some person without a tag out
+                .filter(articles -> Objects.nonNull(articles.getAuthor()))
+                // summarize tags
+                .collect(Collectors.groupingBy(Article::getAuthor, Collectors.counting()))
+                // fetch the max entry
+                .entrySet().stream().max(Map.Entry.comparingByValue())
+                // map to tag
+                .map(Map.Entry::getKey).orElse(null);
+
+        return mostCommonSource;
+    }
+
+
+
+
 }

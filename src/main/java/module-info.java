@@ -9,6 +9,8 @@ module ProjectNews {
     requires javafx.controls;
     requires javafx.media;
     requires java.dotenv;
+    requires org.apache.httpcomponents.httpcore;
+    requires org.apache.httpcomponents.httpclient;
 
 
     opens at.ac.fhcampuswien;

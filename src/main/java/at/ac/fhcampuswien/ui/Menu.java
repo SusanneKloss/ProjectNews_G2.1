@@ -385,7 +385,9 @@ public class Menu {
         soundInMenu.playClick();
         paneCountNYT.setOpacity(1); paneCountNYTHover.setOpacity(0);
         closeFilter();
-        //outputList = AppController.countNYT(outputList);
+        //long countNyt = AppController.countNYT(outputList);
+        //errorMessage(Long.toString(countNyt));
+        outputList = AppController.countNYT(outputList);
         setupTable();
         applyFilter();
     }
