@@ -231,6 +231,9 @@ public class Menu {
         int articleIndex;
         if (mouseEvent.getClickCount() == 2) {
             soundInMenu.playClick();
+            closeGetNews(); closeCount(); closeKey(); closeFilter();
+            groupErrorMessage.setOpacity(0); groupErrorMessage.setDisable(true);
+            textErrorMessage.clear();
             articleIndex = table.getSelectionModel().getSelectedIndex();
 
             focusPane.setOpacity(1); focusPane.setDisable(false);
