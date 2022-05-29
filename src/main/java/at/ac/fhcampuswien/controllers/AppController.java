@@ -4,6 +4,7 @@ import at.ac.fhcampuswien.models.Article;
 import at.ac.fhcampuswien.models.NewsAPI;
 import at.ac.fhcampuswien.models.NewsResponse;
 import at.ac.fhcampuswien.models.enums.*;
+import jdk.dynalink.Operation;
 
 import java.io.IOException;
 import java.lang.reflect.Array;
@@ -82,67 +83,14 @@ public class AppController {
         return response.getArticles();
     }
 
-
-    /**
-    public ArrayList<Article> getAllNewsBitcoin() {
-        url = NewsAPI.createUrl("bitcoin", endpoint = Endpoint.EVERYTHING);
-
-    //Note: sources parameter must not be combined with category and/or country parameters
-    public ArrayList<Article> getTopHeadlinesAustria() throws NewsApiException{
-
-        url = NewsAPI.createUrl("", endpoint = Endpoint.TOP_HEADLINES, Country.AUSTRIA);
-
-        //1.url ="":  url = NewsAPI.createUrl("");
-        // wirft JSONSyntaxException_custom - das kann aber nicht passieren, Endpoint ist auf jeden Fall da
-
-        //2. no query: url = NewsAPI.createUrl("", Endpoint.TOP_HEADLINES);
-        // OutputList ist null, Meldung NewsAPI: Required parameters are missing. Please set any of the following parameters and try again: sources, q, language, country, category.
-
-        //3. kein Suchergebnis: url = NewsAPI.createUrl("Katze", Endpoint.TOP_HEADLINES, Language.GERMAN);
-        //OutputList ist leer
-
-        NewsResponse response = NewsAPI.getNews(url);
-        System.out.println("NewsApi: " + response.getMessage());
-        return response.getArticles();
-
-        /*try {
-            //url = NewsAPI.createUrl(""); //nötig für .createUrl("") JSONSyntaxException_custom - das kann aber nicht passieren
-           url = NewsAPI.createUrl("", endpoint = Endpoint.TOP_HEADLINES, country = Country.AUSTRIA, language = Language.GERMAN);
-        } catch (NewsApiException newsApiException) {
-            System.out.println("custom exception_url getTopHeadlinesAustria");
-            newsApiException.printStackTrace();
-        }
-
-        try {
-            NewsResponse response = NewsAPI.getNews(url);  //throw aus NewsApi getNews()
-            return response.getArticles();
-
-        }  catch(NewsApiException newsApiException) {
-            System.out.println("custom exception_response getTopHeadlinesAustria");
-            newsApiException.printStackTrace();
-            return new ArrayList<>();
-    }
-
-    if (response.getArticles() == null){
-        return new ArrayList<>();
-    }
-
-    public ArrayList<Article> getAllNewsBitcoin() throws NewsApiException{
-
-        url = NewsAPI.createUrl("bitcoin", endpoint = Endpoint.EVERYTHING); // ohne query - NullPointerException - Menu -> dort gecatcht 90ffge
-        NewsResponse response = NewsAPI.getNews(url);
-        System.out.println("NewsApi: " + response.getMessage());
-        return response.getArticles();
-
-        return response.getArticles();
-    } **/
+    // ------------------------------- STREAMS !!!
 
     public static ArrayList<Article> StreamTitle15(ArrayList<Article> outputList) {
 
         //NewsResponse response = NewsAPI.getNews(url);
         List<Article> streamOfArt = outputList.stream()
                 .filter(e -> e != null)
-                .filter(e -> e.getTitle().length() < 44)
+                .filter(e -> e.getTitle().length() < 15)
                 .collect(Collectors.toList());//.forEach(e->System.out.println(e.getTitle()));
 
         return new ArrayList<Article>(streamOfArt);
@@ -153,7 +101,7 @@ public class AppController {
         //NewsResponse response = NewsAPI.getNews(url);
         Comparator<Article> compByLength = (aName, bName) -> aName.getDescription().length() - bName.getDescription().length();
 
-        List<Article> streamOfDesc = outputList.stream()
+        List<Article> streamOfDesc = outputList.stream().filter(e -> e.getDescription() != null)
                 .sorted(compByLength.thenComparing(Article::getDescription))
           //    .sorted(Comparator.comparing(Article::getDescription))
                 .collect(Collectors.toList());
@@ -161,25 +109,26 @@ public class AppController {
     }
 
     //How many articles are from New York Times
-    public static ArrayList<Article> countNYT(ArrayList<Article> outputList) {
+    public static long countNYT(ArrayList<Article> outputList) {
 
-        List<Article> count = outputList.stream()
-                .filter(e -> e.getSource().getName().equals("New York Times"))
-                .collect(Collectors.toList());
+        long count = outputList.stream()
+                .filter(e -> e.getSource().getName().equals("BBC News"))
+                .count();
 
-        return new ArrayList<Article> (count);
+        System.out.println(count);
+        return count;
     }
 
     //Find author with the longest name
     public static String longestAuthorName(ArrayList<Article> outputList) {
 
-        Article article = outputList.stream()
-                //.max(Comparator.comparingInt(a -> a.getAuthor().length()));
-                .sorted(Comparator.comparingInt(a -> a.getAuthor().length()))
-                .findFirst()
-                .orElse(null);
-        //.collect(Collectors.toList());
+        Comparator<Article> compByLength = (aName, bName) -> aName.getAuthor().length() - bName.getAuthor().length();
 
+        Article article = outputList.stream().filter(e -> e.getAuthor() != null)
+                .max(Comparator.comparing(e -> e.getAuthor().length()))
+                .orElse(null);
+
+        System.out.println(article);
         return article.getAuthor();
     }
 

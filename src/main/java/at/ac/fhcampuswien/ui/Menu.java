@@ -24,9 +24,13 @@ import javafx.util.Duration;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -149,6 +153,7 @@ public class Menu {
             focusText.setOpacity(1); focusText.setDisable(false);
             buttonCloseArticle.setDisable(false);
 
+            System.out.println(articleIndex);
             focusArticle = outputList.get(articleIndex);
 
             focusText.setWrapText(true);
@@ -161,32 +166,28 @@ public class Menu {
         focusPane.setOpacity(0); focusPane.setDisable(true);
         focusText.setOpacity(0); focusText.setDisable(true);
         buttonCloseArticle.setDisable(true);
+        paneCloseArticle.setOpacity(1); paneCloseArticleHover.setOpacity(0);
         soundInMenu.playClick();
     }
 
     // export selected article
     public void exportArticle(ActionEvent actionEvent) throws IOException {
         soundInMenu.playClick();
+        String url = focusArticle.getUrl();
 
+        try (InputStream in = new URL(url)
+                .openStream()) {
 
-        CloseableHttpClient httpClient = HttpClients.createDefault();
-        HttpGet httpget = new HttpGet(focusArticle.getUrl());
-        HttpResponse httpResponse = httpClient.execute(httpget);
-        Scanner scan = new Scanner(httpResponse.getEntity().getContent());
-        StringBuffer buffer = new StringBuffer();
+            // download and save image
+            Files.copy(in, Paths.get("article.txt"), StandardCopyOption.REPLACE_EXISTING);
 
-        while (scan.hasNext()){
-            buffer.append(scan.next());
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
-
-        String article = buffer.toString();
-        System.out.println(article);
-        PrintWriter write = new PrintWriter("article.txt");
-        write.println(article);
     }
 
     public void errorMessage(String message){
-        soundInMenu.playError();
+        soundInMenu.playClick();
         groupErrorMessage.setOpacity(1); groupErrorMessage.setDisable(false);
         textErrorMessage.setText(message);
     }
@@ -194,6 +195,7 @@ public class Menu {
     public void exitErrorMessage(ActionEvent actionEvent) {
         soundInMenu.playClick();
         groupErrorMessage.setOpacity(0); groupErrorMessage.setDisable(true);
+        paneExitErrorMessage.setOpacity(1); paneExitErrorMessageHover.setOpacity(0);
         textErrorMessage.clear();
     }
 
@@ -258,7 +260,7 @@ public class Menu {
     //Filters (-> Streams)
     public void filterClick(ActionEvent actionEvent) {
         if (groupFilterOptions.isDisable()){
-            closeGetNews(); closeCount(); closeKey(); exitErrorMessage(actionEvent);
+            closeGetNews(); closeCount(); closeKey(); exitErrorMessage(actionEvent); textErrorMessage.clear();
             groupFilterOptions.setOpacity(1);
             groupFilterOptions.setDisable(false);
         } else {
@@ -289,7 +291,7 @@ public class Menu {
                 throw new NewsApiException("OutputList is null"); // wenn API Key falsch ist, no query, not propagated from NewsApi or AppController
             } catch (NewsApiException e) {
                 e.printStackTrace();            //message -> GUI
-                errorMessage("Received empty list!");
+                errorMessage("No list received!");
             }
         }
     }
@@ -298,8 +300,9 @@ public class Menu {
         soundInMenu.playClick();
         paneCountNYT.setOpacity(1); paneCountNYTHover.setOpacity(0);
         closeFilter();
-        outputList = AppController.countNYT(outputList);
-        errorMessage(Integer.toString(outputList.size()));
+        //ArrayList<Article> countNYT = AppController.countNYT(outputList);
+        String count = Long.toString(AppController.countNYT(outputList));
+        errorMessage(count);
     }
 
     public void headline15Click(ActionEvent actionEvent) {
@@ -339,7 +342,7 @@ public class Menu {
     //get article count
     public void countClick(ActionEvent actionEvent) {
         if (groupCountDisplay.isDisable()){
-            closeGetNews(); closeFilter(); closeKey(); exitErrorMessage(actionEvent);
+            closeGetNews(); closeFilter(); closeKey(); exitErrorMessage(actionEvent); textErrorMessage.clear();
             groupCountDisplay.setDisable(false);
             groupCountDisplay.setOpacity(1);
 
@@ -369,7 +372,7 @@ public class Menu {
     //field for api key
     public void keyClick(ActionEvent actionEvent) {
         if (APIKeyGroup.isDisable()){
-            closeGetNews(); closeFilter(); closeCount(); exitErrorMessage(actionEvent);
+            closeGetNews(); closeFilter(); closeCount(); exitErrorMessage(actionEvent); textErrorMessage.clear();
             APIKeyGroup.setDisable(false);
             APIKeyGroup.setOpacity(1);
         } else {
@@ -389,7 +392,7 @@ public class Menu {
     public void getNewsClick(ActionEvent actionEvent) {
         userInput = new ArrayList<>();
         if (groupEndpoint.isDisable() && groupCategory.isDisable() && groupParaNone.isDisable() && groupSortBy.isDisable()) {
-            closeFilter(); closeCount(); closeKey(); exitErrorMessage(actionEvent);
+            closeFilter(); closeCount(); closeKey(); exitErrorMessage(actionEvent); textErrorMessage.clear();
             groupEndpoint.setOpacity(1); groupEndpoint.setDisable(false);
         } else {
             closeGetNews();
