@@ -88,40 +88,6 @@ public class Menu {
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
     }
 
-    /**
-    public void getArticleCount(ActionEvent actionEvent) {
-        undoClicks.setOpacity(1);
-        undoClicks.setDisable(false);
-        infoCount.setOpacity(1);
-        infoCount.setDisable(false);
-        infoPane.setOpacity(1);
-        infoPane.setDisable(false);
-
-        if (outputList != null) {
-            infoCount.setText("Number of articles: " + Integer.toString(outputList.size()));
-
-            if (outputList.size() == 0) {
-                System.out.println("Number of articles: zero");   //message -> GUI
-            }
-        } else {
-            try {
-                throw new NewsApiException("No Articles, OutputList is null"); //GUI 11 Artikel bei List = null ??Me
-
-            } catch (NewsApiException e) {
-                e.printStackTrace();
-            }
-        }
-    //GUI functions
-    public void getArticleCount(ActionEvent actionEvent){
-
-        undoClicks.setOpacity(1); undoClicks.setDisable(false);
-        infoCount.setOpacity(1); infoCount.setDisable(false);
-        infoPane.setOpacity(1); infoPane.setDisable(false);
-        infoCount.setText("Number of articles: " + Integer.toString(outputList.size()));
-        soundInMenu.playClick();
-    } **/
-
-
     //Get News
 
     public void displayNews(){
@@ -153,76 +119,11 @@ public class Menu {
                 throw new NewsApiException("OutputList is null"); // wenn API Key falsch ist, no query, not propagated from NewsApi or AppController
             } catch (NewsApiException e) {
                 e.printStackTrace();            //message -> GUI
-                errorMessage("Received empty list!");
+                errorMessage("No list received!");
             }
         }
 
     }
-
-    /**
-    public void getTopHeadlinesAustria(ActionEvent actionEvent) {
-        try {
-            outputList = controller.getTopHeadlinesAustria();
-
-        } catch (NewsApiException newsApiException) {       //final catch aus NewsApi class (kein WLAN)
-            newsApiException.printStackTrace();             // message -> GUI
-        }
-        setupTable();
-
-        // !! neue Custom Exception: zB wenn API Key falsch ist
-        //erst hier, da outputList erst in Menu erstellt wird
-        if(outputList != null) {
-            for (Article art : outputList) {
-                table.getItems().add(art);      // Tabelle -> GUI
-            }
-            if(outputList.size() == 0) {
-                System.out.println("Liste ist leer");   //message -> GUI
-            }
-        }
-         else {
-            try {
-                throw new NewsApiException("TopHeadlines_OutputList is null"); // wenn API Key falsch ist, no query, not propagated from NewsApi or AppController
-            } catch (NewsApiException e) {
-                e.printStackTrace();            //message -> GUI
-            }
-        }
-
-        soundInMenu.playClick();
-    }
-
-    public void getAllNewsBitcoin(ActionEvent actionEvent) {
-
-        try {
-            outputList = controller.getAllNewsBitcoin();
-
-        } catch (NewsApiException newsApiException) {//final catch aus NewsApi class
-            System.out.println(newsApiException.getMessage());
-            newsApiException.printStackTrace();
-        }
-        setupTable();
-
-        //bei query = empty oder wenn API Key falsch ist
-        // !! neue Custom Exception: erst hier, da outputList erst in Menu erstellt wird
-        if(outputList != null) {
-            for (Article art : outputList) {
-                table.getItems().add(art);
-            }
-            if(outputList.size() == 0) {
-                System.out.println("Liste ist leer");   //message -> GUI
-
-            }
-        }
-        else {
-            try {
-                throw new NewsApiException("Bitcoin_OutputList is null"); //bei query = empty oder wenn API Key falsch ist
-            } catch (NewsApiException e) {
-
-                e.getMessage();
-                e.printStackTrace();
-            }
-        }
-        soundInMenu.playClick();
-    } **/
 
     //quit program event
     public void exitClick(ActionEvent actionEvent){
@@ -266,6 +167,7 @@ public class Menu {
     // export selected article
     public void exportArticle(ActionEvent actionEvent) throws IOException {
         soundInMenu.playClick();
+
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpGet httpget = new HttpGet(focusArticle.getUrl());
@@ -398,8 +300,6 @@ public class Menu {
         closeFilter();
         outputList = AppController.countNYT(outputList);
         errorMessage(Integer.toString(outputList.size()));
-        setupTable();
-        applyFilter();
     }
 
     public void headline15Click(ActionEvent actionEvent) {
@@ -416,8 +316,6 @@ public class Menu {
         paneLongestName.setOpacity(1); paneLongestNameHover.setOpacity(0);
         closeFilter();
         errorMessage(AppController.longestAuthorName(outputList));
-        setupTable();
-        applyFilter();
     }
 
     public void sortDescriptionClick(ActionEvent actionEvent) {
@@ -434,8 +332,6 @@ public class Menu {
         paneSourceMostA.setOpacity(1); paneSourceMostAHover.setOpacity(0);
         closeFilter();
         errorMessage(AppController.mostArticleSource(outputList));
-        setupTable();
-        applyFilter();
     }
 
     // ----------------------------------------------------------------------------
