@@ -94,6 +94,8 @@ public class Article {
         articleInfoBuild(publishedAt, articleInfo);
         articleInfo.append(System.lineSeparator());
         articleInfoBuild(content, articleInfo);
+        articleInfo.append(System.lineSeparator());
+        articleInfoBuild(source.toString(), articleInfo);
 
         return articleInfo.toString();
     }
