@@ -368,7 +368,7 @@
                         <Image url="@Design/Blank.png" />
                      </image>
                   </ImageView>
-                  <TextField fx:id="textErrorMessage" disable="true" editable="false" prefHeight="40.0" prefWidth="280.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-text-fill: #ff3333; -fx-border-width: 2; -fx-border-color: #dedbdb; -fx-background-color: #e7e7e7;">
+                  <TextField fx:id="textErrorMessage" disable="true" editable="false" prefHeight="40.0" prefWidth="280.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-text-fill: #7c7c7c; -fx-border-width: 2; -fx-border-color: #dedbdb; -fx-background-color: #e7e7e7;">
                      <font>
                         <Font name="Arial Black" size="12.0" />
                      </font>
