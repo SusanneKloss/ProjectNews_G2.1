@@ -222,60 +222,6 @@ public class Menu {
             }
         }
         soundInMenu.playClick();
-    }
-    public void filterHeadlines(ActionEvent actionEvent){
-
-        //Button Filter muss noch implementiert werden
-
-        outputList = AppController.StreamTitle15(outputList);
-        setupTable();
-
-        for (Article art : outputList) {
-            table.getItems().add(art);
-        }
-        soundInMenu.playClick();
-        /*
-        if(outputList != null){
-            infoCount.setText("Number of articles: " + Integer.toString(outputList.size()));
-
-        }
-        else{
-            try{
-                throw new NewsAPIException("No Articles, OutputList is null");
-            } catch(NewsApiException e){
-                e.printStackTrace();
-            }
-        }
-
-         */
-
-    }
-    public void filterDescription(ActionEvent actionEvent){
-
-        //Button Filter muss noch implementiert werden
-
-        outputList = AppController.StreamDescription(outputList);
-        setupTable();
-
-        for (Article art : outputList) {
-            table.getItems().add(art);
-        }
-        soundInMenu.playClick();
-        /*
-        if(outputList != null){
-            infoCount.setText("Number of articles: " + Integer.toString(outputList.size()));
-
-        }
-        else{
-            try{
-                throw new NewsAPIException("No Articles, OutputList is null");
-            } catch(NewsApiException e){
-                e.printStackTrace();
-            }
-        }
-
-         */
-    }
     } **/
 
     //quit program event
@@ -450,9 +396,8 @@ public class Menu {
         soundInMenu.playClick();
         paneCountNYT.setOpacity(1); paneCountNYTHover.setOpacity(0);
         closeFilter();
-        //long countNyt = AppController.countNYT(outputList);
-        //errorMessage(Long.toString(countNyt));
         outputList = AppController.countNYT(outputList);
+        errorMessage(Integer.toString(outputList.size()));
         setupTable();
         applyFilter();
     }
@@ -461,7 +406,7 @@ public class Menu {
         soundInMenu.playClick();
         paneHeadline15.setOpacity(1); paneHeadline15Hover.setOpacity(0);
         closeFilter();
-        //outputList = AppController.shortHeadline(outputList);
+        outputList = AppController.StreamTitle15(outputList);
         setupTable();
         applyFilter();
     }
@@ -470,7 +415,7 @@ public class Menu {
         soundInMenu.playClick();
         paneLongestName.setOpacity(1); paneLongestNameHover.setOpacity(0);
         closeFilter();
-        //outputList = AppController.longestAuthorName(outputList);
+        errorMessage(AppController.longestAuthorName(outputList));
         setupTable();
         applyFilter();
     }
@@ -479,7 +424,7 @@ public class Menu {
         soundInMenu.playClick();
         paneSortDescription.setOpacity(1); paneSortDescriptionHover.setOpacity(0);
         closeFilter();
-        //outputList = AppController.sortByDescription(outputList);
+        outputList = AppController.StreamDescription(outputList);
         setupTable();
         applyFilter();
     }
@@ -488,7 +433,7 @@ public class Menu {
         soundInMenu.playClick();
         paneSourceMostA.setOpacity(1); paneSourceMostAHover.setOpacity(0);
         closeFilter();
-        //outputList = AppController.mostArticleSource(outputList);
+        errorMessage(AppController.mostArticleSource(outputList));
         setupTable();
         applyFilter();
     }
