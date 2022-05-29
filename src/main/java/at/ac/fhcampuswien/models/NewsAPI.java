@@ -51,7 +51,7 @@ public class NewsAPI {
         }
 
         if (source.length() > 0){
-            builder.addQueryParameter("source", source);
+            builder.addQueryParameter("sources", source);
         }
 
         builder.addQueryParameter("pageSize", String.valueOf(100));

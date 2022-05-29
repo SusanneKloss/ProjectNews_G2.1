@@ -39,9 +39,11 @@ public class AppController {
         for (Object x : userInput){
             if (x instanceof String && ((String) x).startsWith("query")){
                 query = (String) x;
+                query = query.replace("query: ", "");
             }
             else if (x instanceof String && ((String) x).startsWith("source")){
                 source = (String) x;
+                source = source.replace("source: ", "");
             }
             else if (x instanceof Endpoint){
                 String value = x.toString();

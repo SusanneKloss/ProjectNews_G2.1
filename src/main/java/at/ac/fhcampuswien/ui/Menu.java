@@ -45,7 +45,7 @@ public class Menu {
 
     public TextArea focusText;
     public Text infoCount;
-    public TextField textParameter, textCount, textAPIKey;
+    public TextField textParameter, textCount, textAPIKey, textErrorMessage;
 
     public ImageView infoPane, paneGetNewsBlank, paneRelevancyHover, paneRelevancy, panePublishedAtHover, panePublishedAt;
     public ImageView panePopularityHover, panePopularity, paneSource, paneQuery, paneLanguage, paneDomain, paneCountry;
@@ -56,16 +56,18 @@ public class Menu {
     public ImageView paneSourceMostA, paneSortDescriptionHover, paneSortDescription, paneLongestNameHover, paneLongestName;
     public ImageView paneHeadline15Hover, paneHeadline15, paneCountNYTHover, paneCountNYT, paneFilter, paneFilterHover;
     public ImageView paneCountBlank, paneCount, paneCountHover, paneKey, paneKeyHover, paneAPIKey, paneExit, paneExitHover;
+    public ImageView paneExitErrorMessageHover, paneExitErrorMessage, paneCloseArticleHover, paneCloseArticle, paneExportHover, paneExport;
 
     public Button focusCloseButton, buttonRelevancy, buttonPublishedAt, buttonPopularity, buttonNonePara, buttonNoneCat;
     public Button buttonTechnology, buttonSports, buttonScience, buttonHealth, buttonGeneral, buttonEntertainment, buttonBusiness;
     public Button buttonTopHeadline, buttonEverything, buttonGetNews, buttonSourceMostA, buttonSortDescription, buttonLongestName;
     public Button buttonHeadline15, buttonCountNYT, buttonFilter, buttonCount, buttonKey, buttonExit, buttonCloseArticle;
+    public Button buttonExitErrorMessage, purrButton, buttonExport;
 
-    public AnchorPane undoClicks;
+    public AnchorPane undoClicks, root;
     public Group groupSortBy, groupCategory, groupEndpoint, groupFilter, groupCountDisplay, groupParameter, groupGetNews;
     public Group groupFilterOptions, groupCount, groupKey, groupExit, groupAllButtons, APIKeyGroup, groupParaNone;
-    public AnchorPane root;
+    public Group groupErrorMessage, groupCloseArticle, groupExport;
 
     private ArrayList<Group> allGroups = new ArrayList<>();
     private AppController controller = new AppController();
@@ -85,7 +87,7 @@ public class Menu {
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
     }
 
-    //GUI functions
+    /**
     public void getArticleCount(ActionEvent actionEvent) {
         undoClicks.setOpacity(1);
         undoClicks.setDisable(false);
@@ -109,16 +111,23 @@ public class Menu {
             }
         }
         soundInMenu.playClick();
-    }
+    } **/
 
 
     //Get News
 
     public void displayNews(){
         try {
-            outputList = AppController.generateRequestParameter(userInput);
+            if((userInput.get(0) == Endpoint.EVERYTHING && userInput.get(1) instanceof String) ||
+                    (userInput.get(0) == Endpoint.TOP_HEADLINES && userInput.size() > 1)){
+                outputList = AppController.generateRequestParameter(userInput);
+            }
+            else {
+                errorMessage("Not enough search parameters!");
+            }
         } catch (NewsApiException newsApiException) {       //final catch aus NewsApi class (kein WLAN)
             newsApiException.printStackTrace();             // message -> GUI
+            errorMessage("No internet connection!");
         }
         setupTable();
 
@@ -128,13 +137,15 @@ public class Menu {
             }
             if (outputList.size() == 0){
                 System.out.println("Liste ist leer");   //message -> GUI
+                errorMessage("No matching articles!");
             }
         }
         else {
             try {
-                throw new NewsApiException("TopHeadlines_OutputList is null"); // wenn API Key falsch ist, no query, not propagated from NewsApi or AppController
+                throw new NewsApiException("OutputList is null"); // wenn API Key falsch ist, no query, not propagated from NewsApi or AppController
             } catch (NewsApiException e) {
                 e.printStackTrace();            //message -> GUI
+                errorMessage("Received empty list!");
             }
         }
 
@@ -261,6 +272,18 @@ public class Menu {
         write.println(article);
     }
 
+    public void errorMessage(String message){
+        soundInMenu.playError();
+        groupErrorMessage.setOpacity(1); groupErrorMessage.setDisable(false);
+        textErrorMessage.setText(message);
+    }
+
+    public void exitErrorMessage(ActionEvent actionEvent) {
+        soundInMenu.playClick();
+        groupErrorMessage.setOpacity(0); groupErrorMessage.setDisable(true);
+        textErrorMessage.clear();
+    }
+
     // Button Hover Effects
 
     /**
@@ -322,7 +345,7 @@ public class Menu {
     //Filters (-> Streams)
     public void filterClick(ActionEvent actionEvent) {
         if (groupFilterOptions.isDisable()){
-            closeGetNews(); closeCount(); closeKey();
+            closeGetNews(); closeCount(); closeKey(); exitErrorMessage(actionEvent);
             groupFilterOptions.setOpacity(1);
             groupFilterOptions.setDisable(false);
         } else {
@@ -338,65 +361,69 @@ public class Menu {
 
     // ---------------------------------------------- FILTER -------------------
 
+    public void applyFilter(){
+        if (outputList != null){
+            for (Article art : outputList) {
+                table.getItems().add(art);
+            }
+            if (outputList.size() == 0){
+                System.out.println("Liste ist leer");   //message -> GUI
+                errorMessage("No matching articles!");
+            }
+        }
+        else {
+            try {
+                throw new NewsApiException("OutputList is null"); // wenn API Key falsch ist, no query, not propagated from NewsApi or AppController
+            } catch (NewsApiException e) {
+                e.printStackTrace();            //message -> GUI
+                errorMessage("Received empty list!");
+            }
+        }
+    }
 
     public void countNYTClick(ActionEvent actionEvent) {
+        soundInMenu.playClick();
         paneCountNYT.setOpacity(1); paneCountNYTHover.setOpacity(0);
         closeFilter();
         //outputList = AppController.countNYT(outputList);
         setupTable();
-
-        for (Article art : outputList) {
-            table.getItems().add(art);
-        }
-        soundInMenu.playClick();
+        applyFilter();
     }
 
     public void headline15Click(ActionEvent actionEvent) {
+        soundInMenu.playClick();
         paneHeadline15.setOpacity(1); paneHeadline15Hover.setOpacity(0);
         closeFilter();
         //outputList = AppController.shortHeadline(outputList);
         setupTable();
-
-        for (Article art : outputList) {
-            table.getItems().add(art);
-        }
-        soundInMenu.playClick();
+        applyFilter();
     }
 
     public void longestNameClick(ActionEvent actionEvent) {
+        soundInMenu.playClick();
         paneLongestName.setOpacity(1); paneLongestNameHover.setOpacity(0);
         closeFilter();
         //outputList = AppController.longestAuthorName(outputList);
         setupTable();
-
-        for (Article art : outputList) {
-            table.getItems().add(art);
-        }
-        soundInMenu.playClick();
+        applyFilter();
     }
 
     public void sortDescriptionClick(ActionEvent actionEvent) {
+        soundInMenu.playClick();
         paneSortDescription.setOpacity(1); paneSortDescriptionHover.setOpacity(0);
         closeFilter();
         //outputList = AppController.sortByDescription(outputList);
         setupTable();
-
-        for (Article art : outputList) {
-            table.getItems().add(art);
-        }
-        soundInMenu.playClick();
+        applyFilter();
     }
 
     public void sourceMostAClick(ActionEvent actionEvent) {
+        soundInMenu.playClick();
         paneSourceMostA.setOpacity(1); paneSourceMostAHover.setOpacity(0);
         closeFilter();
         //outputList = AppController.mostArticleSource(outputList);
         setupTable();
-
-        for (Article art : outputList) {
-            table.getItems().add(art);
-        }
-        soundInMenu.playClick();
+        applyFilter();
     }
 
     // ----------------------------------------------------------------------------
@@ -404,10 +431,21 @@ public class Menu {
     //get article count
     public void countClick(ActionEvent actionEvent) {
         if (groupCountDisplay.isDisable()){
-            closeGetNews(); closeFilter(); closeKey();
+            closeGetNews(); closeFilter(); closeKey(); exitErrorMessage(actionEvent);
             groupCountDisplay.setDisable(false);
             groupCountDisplay.setOpacity(1);
-            textCount.setText(Integer.toString(outputList.size()) + " Articles");
+
+            if (outputList != null) {
+                textCount.setText(Integer.toString(outputList.size()) + " Articles");
+            }
+            else {
+                try {
+                    throw new NewsApiException("No Articles, OutputList is null"); //GUI 11 Artikel bei List = null ??Me
+                } catch (NewsApiException e) {
+                    e.printStackTrace();
+                    textCount.setText("No articles received");
+                }
+            }
         } else {
             closeCount();
         }
@@ -423,7 +461,7 @@ public class Menu {
     //field for api key
     public void keyClick(ActionEvent actionEvent) {
         if (APIKeyGroup.isDisable()){
-            closeGetNews(); closeFilter(); closeCount();
+            closeGetNews(); closeFilter(); closeCount(); exitErrorMessage(actionEvent);
             APIKeyGroup.setDisable(false);
             APIKeyGroup.setOpacity(1);
         } else {
@@ -443,7 +481,7 @@ public class Menu {
     public void getNewsClick(ActionEvent actionEvent) {
         userInput = new ArrayList<>();
         if (groupEndpoint.isDisable() && groupCategory.isDisable() && groupParaNone.isDisable() && groupSortBy.isDisable()) {
-            closeFilter(); closeCount(); closeKey();
+            closeFilter(); closeCount(); closeKey(); exitErrorMessage(actionEvent);
             groupEndpoint.setOpacity(1); groupEndpoint.setDisable(false);
         } else {
             closeGetNews();
@@ -549,10 +587,12 @@ public class Menu {
     public void noneParaClick(ActionEvent actionEvent) {
         soundInMenu.playClick();
         if (parameterState.equals("country")){
+            textParameter.clear();
             textParameter.setPromptText("enter query ...");
             parameterState = "query";
         }
         else if (parameterState.equals("query")){
+            textParameter.clear();
             textParameter.setPromptText("enter source ...");
             parameterState = "source";
         }
@@ -563,11 +603,13 @@ public class Menu {
                 for (int i = 0; i < userInput.size(); i++){
                     System.out.println(userInput.get(i));
                 }
+                textParameter.clear();
                 textParameter.setPromptText("enter country ...");
                 parameterState = "country";
                 blendOutParameter();
             }
             else {
+                textParameter.clear();
                 textParameter.setPromptText("enter language ...");
                 parameterState = "language";
             }

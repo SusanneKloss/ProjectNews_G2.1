@@ -23,6 +23,9 @@ public class SFX {
     String purrPath = "src/main/resources/CatPurr.mp3";
     AudioClip purr = new AudioClip((new File(purrPath).toURI().toString()));
 
+    String errorPath = "src/main/resources/error.mp3";
+    AudioClip error = new AudioClip((new File(errorPath).toURI().toString()));
+
     public void playClick(){
         click.setVolume(0.3);
         click.play();
@@ -46,5 +49,10 @@ public class SFX {
 
     public void stopPurr(){
         purr.stop();
+    }
+
+    public void playError(){
+        error.setVolume(0.2);
+        error.play();
     }
 }
