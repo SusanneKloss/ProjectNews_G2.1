@@ -32,7 +32,7 @@ public class AppController {
         else return articles.size();
     }
 
-    public static ArrayList<Article> generateRequestParameter(ArrayList<Object> userInput) {
+    public static ArrayList<Article> generateRequestParameter(ArrayList<Object> userInput) throws NewsApiException{
         String query = "";
         String source = "";
         Endpoint endpoint = null; Language language = null; SortBy sortBy = null; Country country = null; Category category = null;
@@ -108,13 +108,11 @@ public class AppController {
             System.out.println("custom exception_response getTopHeadlinesAustria");
             newsApiException.printStackTrace();
             return new ArrayList<>();
-        }*/
-
-        /*if (response.getArticles() == null){
-            return new ArrayList<>();
-        }*/
     }
 
+    if (response.getArticles() == null){
+        return new ArrayList<>();
+    }
 
     public ArrayList<Article> getAllNewsBitcoin() throws NewsApiException{
 
@@ -140,5 +138,5 @@ public class AppController {
             e.printStackTrace();
             return new ArrayList<>();
         }
-    }*/
+    } **/
 }

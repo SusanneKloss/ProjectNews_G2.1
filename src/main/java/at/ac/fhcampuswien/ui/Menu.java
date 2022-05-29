@@ -87,18 +87,20 @@ public class Menu {
 
     //GUI functions
     public void getArticleCount(ActionEvent actionEvent) {
-        undoClicks.setOpacity(1); undoClicks.setDisable(false);
-        infoCount.setOpacity(1); infoCount.setDisable(false);
-        infoPane.setOpacity(1); infoPane.setDisable(false);
+        undoClicks.setOpacity(1);
+        undoClicks.setDisable(false);
+        infoCount.setOpacity(1);
+        infoCount.setDisable(false);
+        infoPane.setOpacity(1);
+        infoPane.setDisable(false);
 
-        if(outputList != null) {
+        if (outputList != null) {
             infoCount.setText("Number of articles: " + Integer.toString(outputList.size()));
 
-            if(outputList.size() == 0) {
+            if (outputList.size() == 0) {
                 System.out.println("Number of articles: zero");   //message -> GUI
             }
-        }
-        else {
+        } else {
             try {
                 throw new NewsApiException("No Articles, OutputList is null"); //GUI 11 Artikel bei List = null ??Me
 
@@ -107,17 +109,38 @@ public class Menu {
             }
         }
         soundInMenu.playClick();
+    }
+
+
     //Get News
 
     public void displayNews(){
-        outputList = AppController.generateRequestParameter(userInput);
+        try {
+            outputList = AppController.generateRequestParameter(userInput);
+        } catch (NewsApiException newsApiException) {       //final catch aus NewsApi class (kein WLAN)
+            newsApiException.printStackTrace();             // message -> GUI
+        }
         setupTable();
 
-        for (Article art : outputList) {
-            table.getItems().add(art);
+        if (outputList != null){
+            for (Article art : outputList) {
+                table.getItems().add(art);
+            }
+            if (outputList.size() == 0){
+                System.out.println("Liste ist leer");   //message -> GUI
+            }
         }
+        else {
+            try {
+                throw new NewsApiException("TopHeadlines_OutputList is null"); // wenn API Key falsch ist, no query, not propagated from NewsApi or AppController
+            } catch (NewsApiException e) {
+                e.printStackTrace();            //message -> GUI
+            }
+        }
+
     }
 
+    /**
     public void getTopHeadlinesAustria(ActionEvent actionEvent) {
         try {
             outputList = controller.getTopHeadlinesAustria();
@@ -180,7 +203,7 @@ public class Menu {
             }
         }
         soundInMenu.playClick();
-    }
+    } **/
 
     //quit program event
     public void exitClick(ActionEvent actionEvent){
