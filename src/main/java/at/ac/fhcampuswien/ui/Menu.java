@@ -95,6 +95,7 @@ public class Menu {
     //Get News
 
     public void displayNews(){
+
         try {
             if((userInput.get(0) == Endpoint.EVERYTHING && userInput.get(1) instanceof String) ||
                     (userInput.get(0) == Endpoint.TOP_HEADLINES && userInput.size() > 1)){
@@ -113,7 +114,7 @@ public class Menu {
             for (Article art : outputList) {
                 table.getItems().add(art);
             }
-            if (outputList.size() == 0){
+            if (outputList.size() == 0 && userInput.get(1)instanceof String){
                 System.out.println("Liste ist leer");   //message -> GUI
                 errorMessage("No matching articles!");
             }
@@ -171,8 +172,9 @@ public class Menu {
     }
 
     // export selected article
-    public void exportArticle(ActionEvent actionEvent) throws IOException {
+    public void exportArticle(ActionEvent actionEvent)  throws NewsApiException{
         soundInMenu.playClick();
+
         String url = focusArticle.getUrl();
 
         try (InputStream in = new URL(url)
@@ -183,6 +185,8 @@ public class Menu {
 
         } catch (IOException ex) {
             ex.printStackTrace();
+            errorMessage("Download nicht möglich");
+            throw new NewsApiException("Download nicht möglich");
         }
     }
 
@@ -535,11 +539,12 @@ public class Menu {
         }
     }
 
-    public void textParameterInput(KeyEvent keyEvent) {
+    public void textParameterInput(KeyEvent keyEvent)  {
         if (keyEvent.getCode().equals(KeyCode.ENTER) && parameterState.equals("country")){
             soundInMenu.playClick();
             String entry = textParameter.getText().toUpperCase(Locale.ROOT).replace(" ", "_");
             boolean exists = false;
+
             Country [] countries = Country.values();
             for (Country values : countries){
                 if (values.name().equals(entry)) {
@@ -555,9 +560,13 @@ public class Menu {
                 textParameter.setPromptText("enter query ...");
             }
             else {
-                textParameter.clear();
-                groupParameter.requestFocus();
-                textParameter.setPromptText("not a valid country");
+                try {
+                    throw new NewsApiException("Enum country");
+                } catch(NewsApiException newsApiException){
+                    textParameter.clear();
+                    groupParameter.requestFocus();
+                    textParameter.setPromptText("not a valid country");
+                }
             }
         }
         else if (keyEvent.getCode().equals(KeyCode.ENTER) && parameterState.equals("query")){
@@ -592,6 +601,7 @@ public class Menu {
             String entry = textParameter.getText().toUpperCase(Locale.ROOT);
             boolean exists = false;
             Language [] languages = Language.values();
+
             for (Language values : languages){
                 if (values.name().equals(entry)) {
                     exists = true;
@@ -608,9 +618,13 @@ public class Menu {
                 groupSortBy.setDisable(false); groupSortBy.setOpacity(1);
             }
             else {
-                textParameter.clear();
-                groupParameter.requestFocus();
-                textParameter.setPromptText("not a valid language");
+                try{
+                    throw new NewsApiException("Enum language");
+                } catch(NewsApiException newsApiException){
+                    textParameter.clear();
+                    groupParameter.requestFocus();
+                    textParameter.setPromptText("not a valid language");
+                }
             }
         }
     }

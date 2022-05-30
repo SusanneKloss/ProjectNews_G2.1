@@ -74,6 +74,7 @@ public class AppController {
                 category = Category.valueOf(value);
             }
         }
+
         url = NewsAPI.createUrl(query, source, endpoint, language, sortBy, country, category);
         NewsResponse response = NewsAPI.getNews(url);
 
@@ -103,7 +104,7 @@ public class AppController {
 
         List<Article> streamOfDesc = outputList.stream().filter(e -> e.getDescription() != null)
                 .sorted(compByLength.thenComparing(Article::getDescription))
-          //    .sorted(Comparator.comparing(Article::getDescription))
+                //    .sorted(Comparator.comparing(Article::getDescription))
                 .collect(Collectors.toList());
         return new ArrayList<Article>(streamOfDesc);
     }
