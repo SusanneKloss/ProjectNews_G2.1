@@ -121,7 +121,6 @@ public class Menu {
                 GUIMessage("No list received!");
             }
         }
-
     }
 
     //quit program event

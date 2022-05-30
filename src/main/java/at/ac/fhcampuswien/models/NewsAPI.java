@@ -22,7 +22,6 @@ public class NewsAPI {
 
     private static String API_KEY = Dotenv.load().get("API_TOKEN");
 
-
     public static String createUrl(String query, String source, Enum ... s){
 
         //https://square.github.io/okhttp/4.x/okhttp/okhttp3/-http-url/
@@ -71,9 +70,7 @@ public class NewsAPI {
         OkHttpClient client = new OkHttpClient();
         Gson gson = new Gson();
 
-        Request request;
-
-            request = new Request.Builder()
+        Request request = new Request.Builder()
                     .url(url)
                     .build();
 
@@ -81,18 +78,18 @@ public class NewsAPI {
 
             try {
                 return gson.fromJson(response.body().string(), NewsResponse.class); //string() NullPointer wenn response = null ???
-
-            } catch (NullPointerException nullPointerException) {
+            }
+            catch (NullPointerException nullPointerException) {
                 throw new NewsApiException("NullPointer_Custom");
-            } catch (JsonSyntaxException jsonSyntaxException) {
+            }
+            catch (JsonSyntaxException jsonSyntaxException) {
                 System.out.println("jsonSyntaxExceptionMessage: " + jsonSyntaxException.getMessage());
                 throw new NewsApiException("JSONSyntaxException_Custom"); //wäre nötig für: url = NewsAPI.createUrl(""); das ist aber unmöglich
-
             }
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             System.out.println(e.getMessage()); //newsapi.org: nodename nor servname provided, or not known
             throw new NewsApiException("IOException_Custom//kann nicht ausgeführt werden - überprüfen Sie Ihre Internetverbindung"); //WLAN aus, AppController+Menu getTopHeadlines/Bitcoin
-
         }
     }
 }
