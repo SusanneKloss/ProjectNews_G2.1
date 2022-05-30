@@ -18,22 +18,7 @@ import java.util.*;
 
 public class AppController {
 
-    private ArrayList<Article> articles;
-    Endpoint endpoint;
-    Category category;
-    Country country;
-    Language language;
-    SortBy sortby;
     static String url;
-
-    public void setArticles(ArrayList<Article> articles) {
-        this.articles = articles;
-    }
-
-    public ArrayList<Article> getArticle(){
-        return this.articles;
-    }
-
 
     public static ArrayList<Article> generateRequestParameter(ArrayList<Object> userInput) throws NewsApiException {
         String query = "";

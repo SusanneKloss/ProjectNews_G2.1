@@ -33,31 +33,29 @@ public class Menu {
     public TableColumn<Article, String> authorColumn = new TableColumn<>("");
     public TableColumn<Article, String> titleColumn = new TableColumn<>("");
     public TableView table = new TableView();
-    public TableView focusTable = new TableView();
     public ScrollPane focusPane;
 
     public TextArea focusText;
-    public Text infoCount;
     public TextField textParameter, textCount, textAPIKey, textErrorMessage;
 
-    public ImageView infoPane, paneGetNewsBlank, paneRelevancyHover, paneRelevancy, panePublishedAtHover, panePublishedAt;
-    public ImageView panePopularityHover, panePopularity, paneSource, paneQuery, paneLanguage, paneDomain, paneCountry;
+    public ImageView paneRelevancyHover, paneRelevancy, panePublishedAtHover, panePublishedAt;
+    public ImageView panePopularityHover, panePopularity;
     public ImageView paneNoneParaHover, paneNonePara, paneNoneCatHover, paneNoneCat, paneTechnologyHover, paneTechnology;
     public ImageView paneSportsHover, paneSports, paneScienceHover, paneScience, paneHealthHover, paneHealth, paneGeneralHover;
     public ImageView paneGeneral, paneEntertainmentHover, paneEntertainment, paneBusinessHover, paneBusiness, paneTopHeadlineHover;
     public ImageView paneTopHeadline, paneEverythingHover, paneEverything, paneGetNews, paneGetNewsHover, paneSourceMostAHover;
     public ImageView paneSourceMostA, paneSortDescriptionHover, paneSortDescription, paneLongestNameHover, paneLongestName;
     public ImageView paneHeadline15Hover, paneHeadline15, paneCountNYTHover, paneCountNYT, paneFilter, paneFilterHover;
-    public ImageView paneCountBlank, paneCount, paneCountHover, paneKey, paneKeyHover, paneAPIKey, paneExit, paneExitHover;
+    public ImageView paneCount, paneCountHover, paneKey, paneKeyHover, paneExit, paneExitHover;
     public ImageView paneExitErrorMessageHover, paneExitErrorMessage, paneCloseArticleHover, paneCloseArticle, paneExportHover, paneExport;
 
-    public Button focusCloseButton, buttonRelevancy, buttonPublishedAt, buttonPopularity, buttonNonePara, buttonNoneCat;
+    public Button buttonRelevancy, buttonPublishedAt, buttonPopularity, buttonNonePara, buttonNoneCat;
     public Button buttonTechnology, buttonSports, buttonScience, buttonHealth, buttonGeneral, buttonEntertainment, buttonBusiness;
     public Button buttonTopHeadline, buttonEverything, buttonGetNews, buttonSourceMostA, buttonSortDescription, buttonLongestName;
     public Button buttonHeadline15, buttonCountNYT, buttonFilter, buttonCount, buttonKey, buttonExit, buttonCloseArticle;
     public Button buttonExitErrorMessage, purrButton, buttonExport;
 
-    public AnchorPane undoClicks, root;
+    public AnchorPane root;
     public Group groupSortBy, groupCategory, groupEndpoint, groupFilter, groupCountDisplay, groupParameter, groupGetNews;
     public Group groupFilterOptions, groupCount, groupKey, groupExit, groupAllButtons, APIKeyGroup, groupParaNone;
     public Group groupErrorMessage, groupCloseArticle, groupExport;
@@ -65,8 +63,6 @@ public class Menu {
     private ArrayList<Group> allGroups = new ArrayList<>();
     private AppController controller = new AppController();
     private ArrayList<Article> outputList = new ArrayList<>();
-    private static String INVALID_INPUT_MESSAGE;
-    private static String EXIT_MESSAGE;
     private SFX soundInMenu = new SFX();
     private ArrayList<Object> userInput;
     private String parameterState = "country";
@@ -301,7 +297,6 @@ public class Menu {
         soundInMenu.playClick();
         paneCountNYT.setOpacity(1); paneCountNYTHover.setOpacity(0);
         closeFilter();
-        //ArrayList<Article> countNYT = AppController.countNYT(outputList);
         String count = Long.toString(AppController.countNYT(outputList));
         GUIMessage(count);
     }
@@ -547,7 +542,7 @@ public class Menu {
                 if (values.name().equals(entry)) {
                     exists = true;
                     break;
-                };
+                }
             }
             if (exists) {
                 userInput.add(Country.valueOf(entry));
@@ -603,7 +598,7 @@ public class Menu {
                 if (values.name().equals(entry)) {
                     exists = true;
                     break;
-                };
+                }
             }
             if (exists){
                 userInput.add(Language.valueOf(entry));
