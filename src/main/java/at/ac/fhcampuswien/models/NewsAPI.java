@@ -8,15 +8,8 @@ import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-
 import java.io.IOException;
-import java.net.InetSocketAddress;
-import java.net.Socket;
-import java.net.SocketAddress;
-import java.util.concurrent.TimeUnit;
-
 import io.github.cdimascio.dotenv.Dotenv;
-import okhttp3.internal.http2.ConnectionShutdownException;
 
 public class NewsAPI {
 
