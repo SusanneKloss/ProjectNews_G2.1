@@ -10,7 +10,6 @@ import java.io.IOException;
 
 public class SFX {
 
-
     String clickPath = "src/main/resources/click.mp3";
     AudioClip click = new AudioClip(new File(clickPath).toURI().toString());
 

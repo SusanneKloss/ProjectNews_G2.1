@@ -17,7 +17,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
-
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
@@ -99,7 +98,6 @@ public class Menu {
             GUIMessage("Check your internet connection!");
             return;
         }
-
         setupTable();
 
         if (outputList != null){
