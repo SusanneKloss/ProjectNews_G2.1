@@ -78,9 +78,6 @@ public class AppController {
         url = NewsAPI.createUrl(query, source, endpoint, language, sortBy, country, category);
         NewsResponse response = NewsAPI.getNews(url);
 
-        /*if (response.getArticles() == null){
-            return new  ArrayList<>();
-        }**/
         return response.getArticles();
     }
 

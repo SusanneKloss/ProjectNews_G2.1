@@ -49,7 +49,6 @@ public class NewsAPI {
         if (query.length() > 0){
             builder.addQueryParameter("q", query);
         }
-
         if (source.length() > 0){
             builder.addQueryParameter("sources", source);
         }
@@ -64,8 +63,6 @@ public class NewsAPI {
 
         return url.toString();
     }
-
-
 
     //https://raw.githubusercontent.com/square/okhttp/master/samples/guide/src/main/java/okhttp3/guide/GetExample.java
     //https://square.github.io/okhttp/
