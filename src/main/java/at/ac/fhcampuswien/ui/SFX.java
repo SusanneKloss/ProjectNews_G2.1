@@ -11,10 +11,10 @@ import java.io.IOException;
 public class SFX {
 
 
-    String clickPath = "src/main/resources/mixkit-plastic-bubble-click-1124.mp3";
+    String clickPath = "src/main/resources/click.mp3";
     AudioClip click = new AudioClip(new File(clickPath).toURI().toString());
 
-    String hoverPath = "src/main/resources/beep-rollover-13-sound-effect-49884034.mp3";
+    String hoverPath = "src/main/resources/hover.mp3";
     AudioClip hover = new AudioClip((new File(hoverPath).toURI().toString()));
 
     String meowPath = "src/main/resources/meow.mp3";
@@ -32,7 +32,7 @@ public class SFX {
     }
 
     public void playHover(){
-        hover.setVolume(0.1);
+        hover.setVolume(0.2);
         hover.play();
     }
 
