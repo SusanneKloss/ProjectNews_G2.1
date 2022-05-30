@@ -18,6 +18,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
+import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -143,7 +145,6 @@ public class Menu {
             focusText.setOpacity(1); focusText.setDisable(false);
             buttonCloseArticle.setDisable(false);
 
-            System.out.println(articleIndex);
             focusArticle = outputList.get(articleIndex);
 
             focusText.setWrapText(true);
@@ -169,11 +170,22 @@ public class Menu {
 
         String url = focusArticle.getUrl();
 
+        File dir = new File("/Users/lenagross/IdeaProjects/ProjectNews_G2.1");
+        File[] files = dir.listFiles(new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+                return name.endsWith(".txt");
+            }
+        });
+        System.out.println(files.length);
+
+        String articleCount = "Article" + (files.length + 1) + ".txt";
+
         try (InputStream in = new URL(url)      //try with ressources
                 .openStream()) {
 
             // download and save
-            Files.copy(in, Paths.get("article.txt"), StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(in, Paths.get(articleCount), StandardCopyOption.REPLACE_EXISTING);
 
         } catch (IOException ex) {          //wrapped IOException
             ex.printStackTrace();
