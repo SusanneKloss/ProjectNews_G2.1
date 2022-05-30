@@ -573,6 +573,7 @@ public class Menu {
             }
         }
         else if (keyEvent.getCode().equals(KeyCode.ENTER) && parameterState.equals("query")){
+            soundInMenu.playClick();
             String entry = "query: " + textParameter.getText();
             userInput.add(entry);
             parameterState = "source";
@@ -581,6 +582,7 @@ public class Menu {
             groupParameter.requestFocus();
         }
         else if (keyEvent.getCode().equals(KeyCode.ENTER) && parameterState.equals("source")){
+            soundInMenu.playClick();
             String entry = "source: " + textParameter.getText();
             userInput.add(entry);
             if (userInput.get(0) == Endpoint.TOP_HEADLINES){
@@ -601,6 +603,7 @@ public class Menu {
             groupParameter.requestFocus();
         }
         else if (keyEvent.getCode().equals(KeyCode.ENTER) && parameterState.equals("language")){
+            soundInMenu.playClick();
             String entry = textParameter.getText().toUpperCase(Locale.ROOT);
             boolean exists = false;
             Language [] languages = Language.values();
