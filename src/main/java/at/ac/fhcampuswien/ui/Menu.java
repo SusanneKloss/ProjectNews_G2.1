@@ -161,6 +161,7 @@ public class Menu {
         groupErrorMessage.setOpacity(0); groupErrorMessage.setDisable(true);
         paneExitErrorMessage.setOpacity(1); paneExitErrorMessageHover.setOpacity(0);
         textErrorMessage.clear();
+        closeFilter(); closeKey(); closeCount(); closeGetNews();
         soundInMenu.playClick();
     }
 
@@ -170,16 +171,16 @@ public class Menu {
 
         String url = focusArticle.getUrl();
 
-        File dir = new File("/Users/lenagross/IdeaProjects/ProjectNews_G2.1");
+        File dir = new File(".");
         File[] files = dir.listFiles(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
                 return name.endsWith(".txt");
             }
         });
-        System.out.println(files.length);
+        String articleCount;
 
-        String articleCount = "Article" + (files.length + 1) + ".txt";
+        articleCount = "Article" + (files.length + 1) + ".txt";
 
         try (InputStream in = new URL(url)      //try with ressources
                 .openStream()) {

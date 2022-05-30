@@ -96,7 +96,7 @@ public class Article {
         articleInfo.append(System.lineSeparator());
         articleInfoBuild("Content: ", content, articleInfo);
         articleInfo.append(System.lineSeparator());
-        articleInfoBuild("Source: ", source.toString(), articleInfo);
+        articleInfoBuild("Source: ", source.getName() + " / " + source.getId(), articleInfo);
 
         return articleInfo.toString();
     }
