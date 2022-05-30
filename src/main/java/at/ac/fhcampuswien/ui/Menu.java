@@ -324,7 +324,12 @@ public class Menu {
         soundInMenu.playClick();
         paneLongestName.setOpacity(1); paneLongestNameHover.setOpacity(0);
         closeFilter();
-        GUIMessage(AppController.longestAuthorName(outputList));
+        try {
+            GUIMessage(AppController.longestAuthorName(outputList));
+        } catch (NewsApiException e) {
+            e.printStackTrace();
+            GUIMessage("Can't filter empty List!");
+        }
     }
 
     public void sortDescriptionClick(ActionEvent actionEvent) {

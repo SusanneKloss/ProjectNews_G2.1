@@ -90,7 +90,7 @@ public class AppController {
     }
 
     //Find author with the longest name
-    public static String longestAuthorName(ArrayList<Article> outputList) {
+    public static String longestAuthorName(ArrayList<Article> outputList) throws NewsApiException{
 
         Comparator<Article> compByLength = (aName, bName) -> aName.getAuthor().length() - bName.getAuthor().length();
 
@@ -98,8 +98,11 @@ public class AppController {
                 .max(Comparator.comparing(e -> e.getAuthor().length()))
                 .orElse(null);
 
-        System.out.println(article);
-        return article.getAuthor();
+        if (article == null) {
+            throw new NewsApiException();
+        } else {
+            return article.getAuthor();
+        }
     }
 
     //source: https://stackoverflow.com/questions/43616422/find-the-most-common-attribute-value-from-a-list-of-objects-using-stream
