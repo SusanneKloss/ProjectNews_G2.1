@@ -3,12 +3,9 @@ package at.ac.fhcampuswien.ui;
 import at.ac.fhcampuswien.controllers.AppController;
 import at.ac.fhcampuswien.controllers.NewsApiException;
 import at.ac.fhcampuswien.models.Article;
-import at.ac.fhcampuswien.models.NewsAPI;
-import at.ac.fhcampuswien.models.NewsResponse;
 import at.ac.fhcampuswien.models.enums.*;
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
-import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -22,23 +19,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Locale;
-import java.util.ResourceBundle;
-import java.util.Scanner;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
 
 public class Menu {
 
@@ -94,19 +82,25 @@ public class Menu {
 
     //Get News
 
+    public void verifyParameters(){
+        if((userInput.get(0) == Endpoint.EVERYTHING && userInput.get(1) instanceof String) ||
+                (userInput.get(0) == Endpoint.TOP_HEADLINES && userInput.size() > 1)){
+            displayNews();
+        }
+        else {
+            GUIMessage("Not enough search parameters!");
+        }
+    }
+
     public void displayNews(){
 
         try {
-            if((userInput.get(0) == Endpoint.EVERYTHING && userInput.get(1) instanceof String) ||
-                    (userInput.get(0) == Endpoint.TOP_HEADLINES && userInput.size() > 1)){
-                outputList = AppController.generateRequestParameter(userInput);
-            }
-            else {
-                errorMessage("Not enough search parameters!");
-            }
-        } catch (NewsApiException newsApiException) {       //final catch aus NewsApi class (kein WLAN)
+            outputList = AppController.generateRequestParameter(userInput);
+        }
+        catch (NewsApiException newsApiException) {       //final catch aus NewsApi class (kein WLAN)
             newsApiException.printStackTrace();             // message -> GUI
-            errorMessage("No internet connection!");
+            GUIMessage("No internet connection!");
+            return;
         }
         setupTable();
 
@@ -116,7 +110,7 @@ public class Menu {
             }
             if (outputList.size() == 0 && userInput.get(1)instanceof String){
                 System.out.println("Liste ist leer");   //message -> GUI
-                errorMessage("No matching articles!");
+                GUIMessage("No matching articles!");
             }
         }
         else {
@@ -124,7 +118,7 @@ public class Menu {
                 throw new NewsApiException("OutputList is null"); // wenn API Key falsch ist, no query, not propagated from NewsApi or AppController
             } catch (NewsApiException e) {
                 e.printStackTrace();            //message -> GUI
-                errorMessage("No list received!");
+                GUIMessage("No list received!");
             }
         }
 
@@ -168,6 +162,9 @@ public class Menu {
         focusText.setOpacity(0); focusText.setDisable(true);
         buttonCloseArticle.setDisable(true);
         paneCloseArticle.setOpacity(1); paneCloseArticleHover.setOpacity(0);
+        groupErrorMessage.setOpacity(0); groupErrorMessage.setDisable(true);
+        paneExitErrorMessage.setOpacity(1); paneExitErrorMessageHover.setOpacity(0);
+        textErrorMessage.clear();
         soundInMenu.playClick();
     }
 
@@ -180,23 +177,23 @@ public class Menu {
         try (InputStream in = new URL(url)
                 .openStream()) {
 
-            // download and save image
+            // download and save
             Files.copy(in, Paths.get("article.txt"), StandardCopyOption.REPLACE_EXISTING);
 
         } catch (IOException ex) {
             ex.printStackTrace();
-            errorMessage("Download nicht möglich");
-            throw new NewsApiException("Download nicht möglich");
+            GUIMessage("Download not possible!");
+            throw new NewsApiException("Download not possible!");
         }
     }
 
-    public void errorMessage(String message){
+    public void GUIMessage(String message){
         soundInMenu.playClick();
         groupErrorMessage.setOpacity(1); groupErrorMessage.setDisable(false);
         textErrorMessage.setText(message);
     }
 
-    public void exitErrorMessage(ActionEvent actionEvent) {
+    public void exitGUIMessage(ActionEvent actionEvent) {
         soundInMenu.playClick();
         groupErrorMessage.setOpacity(0); groupErrorMessage.setDisable(true);
         paneExitErrorMessage.setOpacity(1); paneExitErrorMessageHover.setOpacity(0);
@@ -264,7 +261,7 @@ public class Menu {
     //Filters (-> Streams)
     public void filterClick(ActionEvent actionEvent) {
         if (groupFilterOptions.isDisable()){
-            closeGetNews(); closeCount(); closeKey(); exitErrorMessage(actionEvent); textErrorMessage.clear();
+            closeGetNews(); closeCount(); closeKey(); exitGUIMessage(actionEvent); textErrorMessage.clear();
             groupFilterOptions.setOpacity(1);
             groupFilterOptions.setDisable(false);
         } else {
@@ -287,7 +284,7 @@ public class Menu {
             }
             if (outputList.size() == 0){
                 System.out.println("Liste ist leer");   //message -> GUI
-                errorMessage("No matching articles!");
+                GUIMessage("No matching articles!");
             }
         }
         else {
@@ -295,7 +292,7 @@ public class Menu {
                 throw new NewsApiException("OutputList is null"); // wenn API Key falsch ist, no query, not propagated from NewsApi or AppController
             } catch (NewsApiException e) {
                 e.printStackTrace();            //message -> GUI
-                errorMessage("No list received!");
+                GUIMessage("No list received!");
             }
         }
     }
@@ -306,7 +303,7 @@ public class Menu {
         closeFilter();
         //ArrayList<Article> countNYT = AppController.countNYT(outputList);
         String count = Long.toString(AppController.countNYT(outputList));
-        errorMessage(count);
+        GUIMessage(count);
     }
 
     public void headline15Click(ActionEvent actionEvent) {
@@ -322,7 +319,7 @@ public class Menu {
         soundInMenu.playClick();
         paneLongestName.setOpacity(1); paneLongestNameHover.setOpacity(0);
         closeFilter();
-        errorMessage(AppController.longestAuthorName(outputList));
+        GUIMessage(AppController.longestAuthorName(outputList));
     }
 
     public void sortDescriptionClick(ActionEvent actionEvent) {
@@ -338,7 +335,7 @@ public class Menu {
         soundInMenu.playClick();
         paneSourceMostA.setOpacity(1); paneSourceMostAHover.setOpacity(0);
         closeFilter();
-        errorMessage(AppController.mostArticleSource(outputList));
+        GUIMessage(AppController.mostArticleSource(outputList));
     }
 
     // ----------------------------------------------------------------------------
@@ -346,7 +343,7 @@ public class Menu {
     //get article count
     public void countClick(ActionEvent actionEvent) {
         if (groupCountDisplay.isDisable()){
-            closeGetNews(); closeFilter(); closeKey(); exitErrorMessage(actionEvent); textErrorMessage.clear();
+            closeGetNews(); closeFilter(); closeKey(); exitGUIMessage(actionEvent); textErrorMessage.clear();
             groupCountDisplay.setDisable(false);
             groupCountDisplay.setOpacity(1);
 
@@ -376,7 +373,7 @@ public class Menu {
     //field for api key
     public void keyClick(ActionEvent actionEvent) {
         if (APIKeyGroup.isDisable()){
-            closeGetNews(); closeFilter(); closeCount(); exitErrorMessage(actionEvent); textErrorMessage.clear();
+            closeGetNews(); closeFilter(); closeCount(); exitGUIMessage(actionEvent); textErrorMessage.clear();
             APIKeyGroup.setDisable(false);
             APIKeyGroup.setOpacity(1);
         } else {
@@ -396,7 +393,7 @@ public class Menu {
     public void getNewsClick(ActionEvent actionEvent) {
         userInput = new ArrayList<>();
         if (groupEndpoint.isDisable() && groupCategory.isDisable() && groupParaNone.isDisable() && groupSortBy.isDisable()) {
-            closeFilter(); closeCount(); closeKey(); exitErrorMessage(actionEvent); textErrorMessage.clear();
+            closeFilter(); closeCount(); closeKey(); exitGUIMessage(actionEvent); textErrorMessage.clear();
             groupEndpoint.setOpacity(1); groupEndpoint.setDisable(false);
         } else {
             closeGetNews();
@@ -514,7 +511,7 @@ public class Menu {
         else if (parameterState.equals("source")){
             if (userInput.get(0) == Endpoint.TOP_HEADLINES){
                 // article liste mit endpoint top headlines erstellen ---------------------------
-                displayNews();
+                verifyParameters();
                 for (int i = 0; i < userInput.size(); i++){
                     System.out.println(userInput.get(i));
                 }
@@ -585,7 +582,7 @@ public class Menu {
                 textParameter.setPromptText("enter country ...");
                 blendOutParameter();
                 // article liste mit endpoint top headlines erstellen ---------------------------
-                displayNews();
+                verifyParameters();
                 for (int i = 0; i < userInput.size(); i++){
                     System.out.println(userInput.get(i));
                 }
@@ -658,7 +655,7 @@ public class Menu {
     public void closeSortBy(){
         soundInMenu.playClick();
         groupSortBy.setDisable(true); groupSortBy.setOpacity(0);
-        displayNews();
+        verifyParameters();
         for (int i = 0; i < userInput.size(); i++){
             System.out.println(userInput.get(i));
         }

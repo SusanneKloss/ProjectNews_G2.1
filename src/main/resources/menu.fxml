@@ -361,34 +361,6 @@
                   </Group>
                </children>
             </Group>
-            <Group fx:id="groupErrorMessage" disable="true" layoutX="500.0" layoutY="250.0" opacity="0.0">
-               <children>
-                  <ImageView fitHeight="40.0" fitWidth="280.0">
-                     <image>
-                        <Image url="@Design/Blank.png" />
-                     </image>
-                  </ImageView>
-                  <TextField fx:id="textErrorMessage" disable="true" editable="false" prefHeight="40.0" prefWidth="280.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-text-fill: #7c7c7c; -fx-border-width: 2; -fx-border-color: #dedbdb; -fx-background-color: #e7e7e7;">
-                     <font>
-                        <Font name="Arial Black" size="12.0" />
-                     </font>
-                     <padding>
-                        <Insets left="10.0" />
-                     </padding>
-                  </TextField>
-                  <ImageView fx:id="paneExitErrorMessageHover" layoutX="222.0" layoutY="-3.0" opacity="0.0" scaleX="0.82" scaleY="0.82">
-                     <image>
-                        <Image url="@Design/PrimaryButtons/Exit_hover.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fx:id="paneExitErrorMessage" layoutX="222.0" layoutY="-3.0" scaleX="0.82" scaleY="0.82">
-                     <image>
-                        <Image url="@Design/PrimaryButtons/Exit.png" />
-                     </image>
-                  </ImageView>
-                  <Button fx:id="buttonExitErrorMessage" layoutX="222.0" layoutY="-3.0" minHeight="55.0" minWidth="60.0" mnemonicParsing="false" onAction="#exitErrorMessage" onMouseEntered="#buttonEntered" onMouseExited="#buttonExited" opacity="0.0" prefHeight="45.0" prefWidth="64.0" scaleX="0.82" scaleY="0.82" text="Exit" />
-               </children>
-            </Group>
          </children>
       </Group>
         <ScrollPane fx:id="focusPane" disable="true" hbarPolicy="NEVER" layoutY="170.0" opacity="0.0" prefHeight="550.0" prefWidth="1280.0">
@@ -430,6 +402,34 @@
                 </AnchorPane>
             </content>
         </ScrollPane>
+      <Group fx:id="groupErrorMessage" disable="true" layoutX="500.0" layoutY="250.0" opacity="0.0">
+         <children>
+            <ImageView fitHeight="40.0" fitWidth="280.0">
+               <image>
+                  <Image url="@Design/Blank.png" />
+               </image>
+            </ImageView>
+            <TextField fx:id="textErrorMessage" disable="true" editable="false" prefHeight="40.0" prefWidth="280.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-text-fill: #7c7c7c; -fx-border-width: 2; -fx-border-color: #dedbdb; -fx-background-color: #e7e7e7;">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </TextField>
+            <ImageView fx:id="paneExitErrorMessageHover" layoutX="222.0" layoutY="-3.0" opacity="0.0" scaleX="0.82" scaleY="0.82">
+               <image>
+                  <Image url="@Design/PrimaryButtons/Exit_hover.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="paneExitErrorMessage" layoutX="222.0" layoutY="-3.0" scaleX="0.82" scaleY="0.82">
+               <image>
+                  <Image url="@Design/PrimaryButtons/Exit.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="buttonExitErrorMessage" layoutX="222.0" layoutY="-3.0" minHeight="55.0" minWidth="60.0" mnemonicParsing="false" onAction="#exitGUIMessage" onMouseEntered="#buttonEntered" onMouseExited="#buttonExited" opacity="0.0" prefHeight="45.0" prefWidth="64.0" scaleX="0.82" scaleY="0.82" text="Exit" />
+         </children>
+      </Group>
     </children>
 
 </AnchorPane>
