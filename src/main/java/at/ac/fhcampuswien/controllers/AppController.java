@@ -34,22 +34,6 @@ public class AppController {
         return this.articles;
     }
 
-    public int getArticleCount(){
-        if(this.articles != null) {
-            return articles.size();
-        } else{
-            try {
-                throw new NewsApiException("List is null");
-            }catch (NewsApiException newsApiException){
-                return 0;
-            }
-        }
-    }
-    /*public int getArticleCount(){
-        if(this.articles == null){
-            return 0;}
-        else return articles.size();
-    }*/
 
     public static ArrayList<Article> generateRequestParameter(ArrayList<Object> userInput) throws NewsApiException {
         String query = "";
