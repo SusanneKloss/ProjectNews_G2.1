@@ -35,12 +35,23 @@ public class AppController {
     }
 
     public int getArticleCount(){
+        if(this.articles != null) {
+            return articles.size();
+        } else{
+            try {
+                throw new NewsApiException("List is null");
+            }catch (NewsApiException newsApiException){
+                return 0;
+            }
+        }
+    }
+    /*public int getArticleCount(){
         if(this.articles == null){
             return 0;}
         else return articles.size();
-    }
+    }*/
 
-    public static ArrayList<Article> generateRequestParameter(ArrayList<Object> userInput) throws NewsApiException{
+    public static ArrayList<Article> generateRequestParameter(ArrayList<Object> userInput) throws NewsApiException {
         String query = "";
         String source = "";
         Endpoint endpoint = null; Language language = null; SortBy sortBy = null; Country country = null; Category category = null;
@@ -78,9 +89,6 @@ public class AppController {
         url = NewsAPI.createUrl(query, source, endpoint, language, sortBy, country, category);
         NewsResponse response = NewsAPI.getNews(url);
 
-        /*if (response.getArticles() == null){
-            return new  ArrayList<>();
-        }**/
         return response.getArticles();
     }
 

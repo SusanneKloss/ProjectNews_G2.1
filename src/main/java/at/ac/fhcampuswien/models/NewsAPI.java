@@ -83,18 +83,19 @@ public class NewsAPI {
         try (Response response = client.newCall(request).execute()) {               //execute() throws IOException
 
             try {
-                return gson.fromJson(response.body().string(), NewsResponse.class); //string() NullPointer wenn response = null ???
+                return gson.fromJson(response.body().string(), NewsResponse.class); //string() may invocate NullPointerException
 
             } catch (NullPointerException nullPointerException) {
                 throw new NewsApiException("NullPointer_Custom");
             } catch (JsonSyntaxException jsonSyntaxException) {
                 System.out.println("jsonSyntaxExceptionMessage: " + jsonSyntaxException.getMessage());
-                throw new NewsApiException("JSONSyntaxException_Custom"); //wäre nötig für: url = NewsAPI.createUrl(""); das ist aber unmöglich
+                throw new NewsApiException("JSONSyntaxException_Custom"); //would be necessary for: url = NewsAPI.createUrl(""); that can't happen
 
             }
         } catch (IOException e) {
-            System.out.println(e.getMessage()); //newsapi.org: nodename nor servname provided, or not known
-            throw new NewsApiException("IOException_Custom//kann nicht ausgeführt werden - überprüfen Sie Ihre Internetverbindung"); //WLAN aus, AppController+Menu getTopHeadlines/Bitcoin
+            System.out.println(e.getMessage()); //IOException message: "newsapi.org: nodename nor servname provided, or not known"
+            throw new NewsApiException("IOException_Custom//kann nicht ausgeführt werden - überprüfen Sie Ihre Internetverbindung");
+            //No WLAN, propagated to -> AppController generateRequestParameter() -> Menu displayNews()
 
         }
     }

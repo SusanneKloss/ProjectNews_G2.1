@@ -94,20 +94,27 @@ public class Menu {
 
     //Get News
 
+    public void verifyParameters(){
+        if((userInput.get(0) == Endpoint.EVERYTHING && userInput.get(1) instanceof String) ||
+                (userInput.get(0) == Endpoint.TOP_HEADLINES && userInput.size() > 1)){
+            displayNews();
+        }
+        else {
+            GUIMessage("Not enough search parameters!");
+        }
+    }
+
     public void displayNews(){
 
         try {
-            if((userInput.get(0) == Endpoint.EVERYTHING && userInput.get(1) instanceof String) ||
-                    (userInput.get(0) == Endpoint.TOP_HEADLINES && userInput.size() > 1)){
-                outputList = AppController.generateRequestParameter(userInput);
-            }
-            else {
-                errorMessage("Not enough search parameters!");
-            }
-        } catch (NewsApiException newsApiException) {       //final catch aus NewsApi class (kein WLAN)
-            newsApiException.printStackTrace();             // message -> GUI
-            errorMessage("No internet connection!");
+            outputList = AppController.generateRequestParameter(userInput);
         }
+        catch (NewsApiException newsApiException) {       //final catch from NewsApi class (no WLAN)
+            newsApiException.printStackTrace();
+            GUIMessage("Check your internet connection!");
+            return;
+        }
+
         setupTable();
 
         if (outputList != null){
@@ -115,16 +122,16 @@ public class Menu {
                 table.getItems().add(art);
             }
             if (outputList.size() == 0 && userInput.get(1)instanceof String){
-                System.out.println("Liste ist leer");   //message -> GUI
-                errorMessage("No matching articles!");
+                System.out.println("Liste ist leer");
+                GUIMessage("No matching articles!");
             }
         }
         else {
             try {
-                throw new NewsApiException("OutputList is null"); // wenn API Key falsch ist, no query, not propagated from NewsApi or AppController
+                throw new NewsApiException("OutputList is null"); // wrong API Key, not propagated from NewsApi or AppController
             } catch (NewsApiException e) {
-                e.printStackTrace();            //message -> GUI
-                errorMessage("No list received!");
+                e.printStackTrace();
+                GUIMessage("No response - check your API Key");
             }
         }
 
@@ -172,25 +179,25 @@ public class Menu {
     }
 
     // export selected article
-    public void exportArticle(ActionEvent actionEvent)  throws NewsApiException{
+    public void exportArticle(ActionEvent actionEvent) throws NewsApiException{
         soundInMenu.playClick();
 
         String url = focusArticle.getUrl();
 
-        try (InputStream in = new URL(url)
+        try (InputStream in = new URL(url)      //try with ressources
                 .openStream()) {
 
             // download and save image
             Files.copy(in, Paths.get("article.txt"), StandardCopyOption.REPLACE_EXISTING);
 
-        } catch (IOException ex) {
+        } catch (IOException ex) {          //wrapped IOException
             ex.printStackTrace();
-            errorMessage("Download nicht möglich");
+            GUIMessage("Download not possible");
             throw new NewsApiException("Download nicht möglich");
         }
     }
 
-    public void errorMessage(String message){
+    public void GUIMessage(String message){
         soundInMenu.playClick();
         groupErrorMessage.setOpacity(1); groupErrorMessage.setDisable(false);
         textErrorMessage.setText(message);
@@ -287,15 +294,15 @@ public class Menu {
             }
             if (outputList.size() == 0){
                 System.out.println("Liste ist leer");   //message -> GUI
-                errorMessage("No matching articles!");
+                GUIMessage("No matching articles!");
             }
         }
         else {
             try {
-                throw new NewsApiException("OutputList is null"); // wenn API Key falsch ist, no query, not propagated from NewsApi or AppController
+                throw new NewsApiException("OutputList is null"); // wrong API Key
             } catch (NewsApiException e) {
-                e.printStackTrace();            //message -> GUI
-                errorMessage("No list received!");
+                e.printStackTrace();
+                GUIMessage("No response - check your API Key");
             }
         }
     }
@@ -306,7 +313,7 @@ public class Menu {
         closeFilter();
         //ArrayList<Article> countNYT = AppController.countNYT(outputList);
         String count = Long.toString(AppController.countNYT(outputList));
-        errorMessage(count);
+        GUIMessage(count);
     }
 
     public void headline15Click(ActionEvent actionEvent) {
@@ -322,7 +329,7 @@ public class Menu {
         soundInMenu.playClick();
         paneLongestName.setOpacity(1); paneLongestNameHover.setOpacity(0);
         closeFilter();
-        errorMessage(AppController.longestAuthorName(outputList));
+        GUIMessage(AppController.longestAuthorName(outputList));
     }
 
     public void sortDescriptionClick(ActionEvent actionEvent) {
@@ -338,7 +345,7 @@ public class Menu {
         soundInMenu.playClick();
         paneSourceMostA.setOpacity(1); paneSourceMostAHover.setOpacity(0);
         closeFilter();
-        errorMessage(AppController.mostArticleSource(outputList));
+        GUIMessage(AppController.mostArticleSource(outputList));
     }
 
     // ----------------------------------------------------------------------------
@@ -355,7 +362,7 @@ public class Menu {
             }
             else {
                 try {
-                    throw new NewsApiException("No Articles, OutputList is null"); //GUI 11 Artikel bei List = null ??Me
+                    throw new NewsApiException("No Articles, OutputList is null");
                 } catch (NewsApiException e) {
                     e.printStackTrace();
                     textCount.setText("No articles received");
@@ -514,7 +521,7 @@ public class Menu {
         else if (parameterState.equals("source")){
             if (userInput.get(0) == Endpoint.TOP_HEADLINES){
                 // article liste mit endpoint top headlines erstellen ---------------------------
-                displayNews();
+                verifyParameters();
                 for (int i = 0; i < userInput.size(); i++){
                     System.out.println(userInput.get(i));
                 }
@@ -585,7 +592,7 @@ public class Menu {
                 textParameter.setPromptText("enter country ...");
                 blendOutParameter();
                 // article liste mit endpoint top headlines erstellen ---------------------------
-                displayNews();
+                verifyParameters();
                 for (int i = 0; i < userInput.size(); i++){
                     System.out.println(userInput.get(i));
                 }
@@ -658,7 +665,7 @@ public class Menu {
     public void closeSortBy(){
         soundInMenu.playClick();
         groupSortBy.setDisable(true); groupSortBy.setOpacity(0);
-        displayNews();
+        verifyParameters();
         for (int i = 0; i < userInput.size(); i++){
             System.out.println(userInput.get(i));
         }
