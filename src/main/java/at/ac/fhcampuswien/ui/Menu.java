@@ -3,12 +3,9 @@ package at.ac.fhcampuswien.ui;
 import at.ac.fhcampuswien.controllers.AppController;
 import at.ac.fhcampuswien.controllers.NewsApiException;
 import at.ac.fhcampuswien.models.Article;
-import at.ac.fhcampuswien.models.NewsAPI;
-import at.ac.fhcampuswien.models.NewsResponse;
 import at.ac.fhcampuswien.models.enums.*;
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
-import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -22,23 +19,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Locale;
-import java.util.ResourceBundle;
-import java.util.Scanner;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
 
 public class Menu {
 
@@ -134,7 +122,6 @@ public class Menu {
                 GUIMessage("No response - check your API Key");
             }
         }
-
     }
 
     //quit program event
@@ -175,6 +162,9 @@ public class Menu {
         focusText.setOpacity(0); focusText.setDisable(true);
         buttonCloseArticle.setDisable(true);
         paneCloseArticle.setOpacity(1); paneCloseArticleHover.setOpacity(0);
+        groupErrorMessage.setOpacity(0); groupErrorMessage.setDisable(true);
+        paneExitErrorMessage.setOpacity(1); paneExitErrorMessageHover.setOpacity(0);
+        textErrorMessage.clear();
         soundInMenu.playClick();
     }
 
@@ -187,13 +177,13 @@ public class Menu {
         try (InputStream in = new URL(url)      //try with ressources
                 .openStream()) {
 
-            // download and save image
+            // download and save
             Files.copy(in, Paths.get("article.txt"), StandardCopyOption.REPLACE_EXISTING);
 
         } catch (IOException ex) {          //wrapped IOException
             ex.printStackTrace();
-            GUIMessage("Download not possible");
-            throw new NewsApiException("Download nicht möglich");
+            GUIMessage("Download not possible!");
+            throw new NewsApiException("Download not possible!");
         }
     }
 
@@ -203,7 +193,7 @@ public class Menu {
         textErrorMessage.setText(message);
     }
 
-    public void exitErrorMessage(ActionEvent actionEvent) {
+    public void exitGUIMessage(ActionEvent actionEvent) {
         soundInMenu.playClick();
         groupErrorMessage.setOpacity(0); groupErrorMessage.setDisable(true);
         paneExitErrorMessage.setOpacity(1); paneExitErrorMessageHover.setOpacity(0);
@@ -271,7 +261,7 @@ public class Menu {
     //Filters (-> Streams)
     public void filterClick(ActionEvent actionEvent) {
         if (groupFilterOptions.isDisable()){
-            closeGetNews(); closeCount(); closeKey(); exitErrorMessage(actionEvent); textErrorMessage.clear();
+            closeGetNews(); closeCount(); closeKey(); exitGUIMessage(actionEvent); textErrorMessage.clear();
             groupFilterOptions.setOpacity(1);
             groupFilterOptions.setDisable(false);
         } else {
@@ -353,7 +343,7 @@ public class Menu {
     //get article count
     public void countClick(ActionEvent actionEvent) {
         if (groupCountDisplay.isDisable()){
-            closeGetNews(); closeFilter(); closeKey(); exitErrorMessage(actionEvent); textErrorMessage.clear();
+            closeGetNews(); closeFilter(); closeKey(); exitGUIMessage(actionEvent); textErrorMessage.clear();
             groupCountDisplay.setDisable(false);
             groupCountDisplay.setOpacity(1);
 
@@ -383,7 +373,7 @@ public class Menu {
     //field for api key
     public void keyClick(ActionEvent actionEvent) {
         if (APIKeyGroup.isDisable()){
-            closeGetNews(); closeFilter(); closeCount(); exitErrorMessage(actionEvent); textErrorMessage.clear();
+            closeGetNews(); closeFilter(); closeCount(); exitGUIMessage(actionEvent); textErrorMessage.clear();
             APIKeyGroup.setDisable(false);
             APIKeyGroup.setOpacity(1);
         } else {
@@ -403,7 +393,7 @@ public class Menu {
     public void getNewsClick(ActionEvent actionEvent) {
         userInput = new ArrayList<>();
         if (groupEndpoint.isDisable() && groupCategory.isDisable() && groupParaNone.isDisable() && groupSortBy.isDisable()) {
-            closeFilter(); closeCount(); closeKey(); exitErrorMessage(actionEvent); textErrorMessage.clear();
+            closeFilter(); closeCount(); closeKey(); exitGUIMessage(actionEvent); textErrorMessage.clear();
             groupEndpoint.setOpacity(1); groupEndpoint.setDisable(false);
         } else {
             closeGetNews();

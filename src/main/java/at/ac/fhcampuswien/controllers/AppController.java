@@ -71,8 +71,8 @@ public class AppController {
         }
 
         url = NewsAPI.createUrl(query, source, endpoint, language, sortBy, country, category);
-        NewsResponse response = NewsAPI.getNews(url);
 
+        NewsResponse response = NewsAPI.getNews(url);
         return response.getArticles();
     }
 
@@ -140,8 +140,4 @@ public class AppController {
 
         return mostCommonSource;
     }
-
-
-
-
 }
