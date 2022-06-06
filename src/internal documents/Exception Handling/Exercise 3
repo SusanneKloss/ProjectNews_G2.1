@@ -1,3 +1,22 @@
+Final notes for exceptions:
+- NewsApiException class
+- getNews()
+execute() checked IOException try with ressources (no WLAN) -> custom exception -> AppController generateRequestParameter() -> Menu displayNews()
+string() may invocate NullpointerException -> custom exception
+JsonSyntaxException -> custom exception
+
+- Appcontroller
+generateRequestParameter(): custom exception from NewsApi getNews() -> Menu
+
+- Menu
+appropriate GUIMessage
+displayNews(),107ff: final catch from NewsApi (no WLAN)
+120ff: outputList null? (Api Key wrong)
+exportArticle(), 182ff: checked IOException, wrapped custom exception
+applyFilter(), 290ff: outputList null? (Api Key wrong)
+countClick(), 354ff: outputList null? -> no articles received
+textParameterInput(), 549ff: Enum country user input not valid (571ff), Enum language user input not valid (629ff)
+====================================================================
 Exception handling at first push into main (29.05. around 16.10):
 - NewsApi:
 getNews(String url) throws NewsApiException -> wrapped IOException for execute(), (NullPointer for string(), JSONSyntaxException for url ="")
