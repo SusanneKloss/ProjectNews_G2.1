@@ -4,36 +4,13 @@ import at.ac.fhcampuswien.models.Article;
 import at.ac.fhcampuswien.models.NewsAPI;
 import at.ac.fhcampuswien.models.NewsResponse;
 import at.ac.fhcampuswien.models.enums.*;
-import jdk.dynalink.Operation;
-
-import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 import java.util.stream.Collectors;
 import java.util.Comparator;
-import java.util.*;
 
 public class AppController {
 
-    private ArrayList<Article> articles;
-    Endpoint endpoint;
-    Category category;
-    Country country;
-    Language language;
-    SortBy sortby;
     static String url;
-
-    public void setArticles(ArrayList<Article> articles) {
-        this.articles = articles;
-    }
-
-    public ArrayList<Article> getArticle(){
-        return this.articles;
-    }
-
 
     public static ArrayList<Article> generateRequestParameter(ArrayList<Object> userInput) throws NewsApiException {
         String query = "";
@@ -71,8 +48,8 @@ public class AppController {
         }
 
         url = NewsAPI.createUrl(query, source, endpoint, language, sortBy, country, category);
-        NewsResponse response = NewsAPI.getNews(url);
 
+        NewsResponse response = NewsAPI.getNews(url);
         return response.getArticles();
     }
 
@@ -140,8 +117,4 @@ public class AppController {
 
         return mostCommonSource;
     }
-
-
-
-
 }

@@ -72,10 +72,10 @@ public class Article {
         return content;
     }
 
-    public void articleInfoBuild(String s, StringBuilder articleInfo) {
+    public void articleInfoBuild(String info, String s, StringBuilder articleInfo) {
 
         if (s != null) {
-            articleInfo.append(s).append(System.lineSeparator());
+            articleInfo.append(info).append(s).append(System.lineSeparator());
         } else {
             articleInfo.append("").append(System.lineSeparator());
         }
@@ -85,18 +85,18 @@ public class Article {
     public String toString() {
         StringBuilder articleInfo = new StringBuilder();
 
-        articleInfoBuild(title, articleInfo);
+        articleInfoBuild("Title: ", title, articleInfo);
         articleInfo.append(System.lineSeparator()); articleInfo.append(System.lineSeparator());
-        articleInfoBuild(description, articleInfo);
-        articleInfoBuild(author, articleInfo);
+        articleInfoBuild("Description: ", description, articleInfo);
+        articleInfoBuild("Author: ", author, articleInfo);
         articleInfo.append(System.lineSeparator());
-        articleInfoBuild(url, articleInfo);
-        articleInfoBuild(urlToImage, articleInfo);
-        articleInfoBuild(publishedAt, articleInfo);
+        articleInfoBuild("URL: ", url, articleInfo);
+        articleInfoBuild("URL to image: ", urlToImage, articleInfo);
+        articleInfoBuild("published at: ", publishedAt, articleInfo);
         articleInfo.append(System.lineSeparator());
-        articleInfoBuild(content, articleInfo);
+        articleInfoBuild("Content: ", content, articleInfo);
         articleInfo.append(System.lineSeparator());
-        articleInfoBuild(source.toString(), articleInfo);
+        articleInfoBuild("Source: ", source.getName() + " / " + source.getId(), articleInfo);
 
         return articleInfo.toString();
     }

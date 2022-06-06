@@ -8,20 +8,12 @@ import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-
 import java.io.IOException;
-import java.net.InetSocketAddress;
-import java.net.Socket;
-import java.net.SocketAddress;
-import java.util.concurrent.TimeUnit;
-
 import io.github.cdimascio.dotenv.Dotenv;
-import okhttp3.internal.http2.ConnectionShutdownException;
 
 public class NewsAPI {
 
     private static String API_KEY = Dotenv.load().get("API_TOKEN");
-
 
     public static String createUrl(String query, String source, Enum ... s){
 
@@ -71,9 +63,7 @@ public class NewsAPI {
         OkHttpClient client = new OkHttpClient();
         Gson gson = new Gson();
 
-        Request request;
-
-            request = new Request.Builder()
+        Request request = new Request.Builder()
                     .url(url)
                     .build();
 
@@ -81,19 +71,19 @@ public class NewsAPI {
 
             try {
                 return gson.fromJson(response.body().string(), NewsResponse.class); //string() may invocate NullPointerException
-
-            } catch (NullPointerException nullPointerException) {
+            }
+            catch (NullPointerException nullPointerException) {
                 throw new NewsApiException("NullPointer_Custom");
-            } catch (JsonSyntaxException jsonSyntaxException) {
+            }
+            catch (JsonSyntaxException jsonSyntaxException) {
                 System.out.println("jsonSyntaxExceptionMessage: " + jsonSyntaxException.getMessage());
                 throw new NewsApiException("JSONSyntaxException_Custom"); //would be necessary for: url = NewsAPI.createUrl(""); that can't happen
-
             }
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             System.out.println(e.getMessage()); //IOException message: "newsapi.org: nodename nor servname provided, or not known"
             throw new NewsApiException("IOException_Custom//kann nicht ausgeführt werden - überprüfen Sie Ihre Internetverbindung");
             //No WLAN, propagated to -> AppController generateRequestParameter() -> Menu displayNews()
-
         }
     }
 }
