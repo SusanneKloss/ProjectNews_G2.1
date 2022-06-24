@@ -42,7 +42,7 @@ public class NewsAPI {
         }
         urll.addPageSize("pageSize", String.valueOf(100), "&");
         urll.addApiKey("apiKey", API_KEY);
-
+        System.out.println(urll.toString());
         return urll.build().toString();
 
         /*

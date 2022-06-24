@@ -77,6 +77,23 @@ public class Url {
 
         public Builder(){
         }
+        @Override
+        public String toString(){
+            StringBuilder url = new StringBuilder()
+                    .append(scheme)
+                    .append(host)
+                    .append(version)
+                    .append(endpoint)
+                    .append(category)
+                    .append(language)
+                    .append(country)
+                    .append(sortBy)
+                    .append(query)
+                    .append(source)
+                    .append(pageSize)
+                    .append(apiKey);
+            return url.toString();
+        }
 
         public Builder addScheme (String scheme) {
             this.scheme = scheme;
@@ -148,6 +165,7 @@ public class Url {
         public Url build() {
             return new Url(this);
         }
+
     }
 }
 
