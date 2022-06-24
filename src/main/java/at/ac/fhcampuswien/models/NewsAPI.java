@@ -15,32 +15,35 @@ public class NewsAPI {
 
     private static String API_KEY = Dotenv.load().get("API_TOKEN");
 
-    public static class Builder{
-
-    }
-
     public static String createUrl(String query, String source, Enum ... s){
 
         //https://square.github.io/okhttp/4.x/okhttp/okhttp3/-http-url/
         //https://square.github.io/okhttp/3.x/okhttp/okhttp3/HttpUrl.Builder.html
         //-- alternative? -- https://www.gwtproject.org/javadoc/latest/com/google/gwt/http/client/UrlBuilder.html --
 
-        Url.Builder url = new Url.Builder();
-        url.addScheme("https");
-        url.addHost("newsapi.org");
-        url.addVersion("v2");
+        Url.Builder urll = new Url.Builder();
+        urll.addScheme("https://");
+        urll.addHost("newsapi.org/");
+        urll.addVersion("v2/");
 
 
         for (Enum x : s) {
-            if (x instanceof Endpoint){url.addEndpoint(((Endpoint) x).getLabel());}
-            if (x instanceof Category){url.addCategory(((Category) x).getLabel());}
-            if (x instanceof Language){url.addLanguage(((Language) x).getLabel());}
-            if (x instanceof Country){url.addCountry(((Country) x).getLabel());}
-            if (x instanceof SortBy){url.addSortBy(((SortBy) x).getLabel());}
+            if (x instanceof Endpoint){urll.addEndpoint(((Endpoint) x).getLabel(), "?");}
+            if (x instanceof Category){urll.addCategory("category=", ((Category) x).getLabel(), "&");}
+            if (x instanceof Language){urll.addLanguage("language=", ((Language) x).getLabel(), "&");}
+            if (x instanceof Country){urll.addCountry("country=", ((Country) x).getLabel(), "&");}
+            if (x instanceof SortBy){urll.addSortBy("sortBy=", ((SortBy) x).getLabel(), "&");}
         }
         if (query.length() > 0){
-            url.addQuery("q", query);
+            urll.addQuery("q", query, "&");
         }
+        if (source.length() > 0){
+            urll.addSource("sources", source, "&");
+        }
+        urll.addPageSize("pageSize", String.valueOf(100), "&");
+        urll.addApiKey("apiKey", API_KEY);
+
+        return urll.build().toString();
 
         /*
         HttpUrl.Builder builder = new HttpUrl.Builder();
@@ -69,13 +72,21 @@ public class NewsAPI {
 
         builder.addQueryParameter("pageSize", String.valueOf(100));
         builder.addQueryParameter("apiKey", API_KEY); //exception handling hier bringt hier nichts - bei falschem API Key nur NullPointerException in Menu: 68 etc.
-
         HttpUrl url = builder
                 .build();
-*/
+
         System.out.println(url);
 
         return url.toString();
+*/
+
+        //System.out.println(urll.toString());
+
+
+
+        //System.out.println(url.toString());
+
+
     }
 
     //https://raw.githubusercontent.com/square/okhttp/master/samples/guide/src/main/java/okhttp3/guide/GetExample.java
