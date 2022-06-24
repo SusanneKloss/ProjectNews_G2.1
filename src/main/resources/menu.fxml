@@ -46,7 +46,7 @@
             </Group>
             <Group fx:id="APIKeyGroup" disable="true" layoutX="960.0" layoutY="70.0" opacity="0.0">
                <children>
-                  <TextField fx:id="textAPIKey" alignment="CENTER" blendMode="DARKEN" minHeight="24.0" minWidth="300.0" promptText="API Key" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-text-fill: #7b7a7a; -fx-border-width: 2; -fx-border-color: #dedbdb;">
+                  <TextField fx:id="textSaveAll" alignment="CENTER" blendMode="DARKEN" editable="false" minHeight="24.0" minWidth="300.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-text-fill: #7b7a7a; -fx-border-width: 2; -fx-border-color: #dedbdb;">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>

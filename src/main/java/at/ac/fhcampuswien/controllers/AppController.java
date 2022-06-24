@@ -1,10 +1,12 @@
 package at.ac.fhcampuswien.controllers;
 
+import at.ac.fhcampuswien.downloader.Downloader;
 import at.ac.fhcampuswien.models.Article;
 import at.ac.fhcampuswien.models.NewsAPI;
 import at.ac.fhcampuswien.models.NewsResponse;
 import at.ac.fhcampuswien.models.enums.*;
 import java.util.*;
+import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 import java.util.Comparator;
 
@@ -52,6 +54,21 @@ public class AppController {
         NewsResponse response = NewsAPI.getNews(url);
         return response.getArticles();
     }
+
+    // returns number of downloaded article urls
+    public int downloadURLs(Downloader downloader, ArrayList<Article> outputList) throws NewsApiException, ExecutionException, InterruptedException {
+        if(outputList == null)
+            throw new NewsApiException();
+
+        List<String> urls = outputList.stream()
+                .map(Article::getUrl)
+                .collect(Collectors.toList());
+
+        // TODO extract urls from articles with java stream
+
+        return downloader.process(urls);
+    }
+
 
     // ------------------------------- STREAMS !!!
 
