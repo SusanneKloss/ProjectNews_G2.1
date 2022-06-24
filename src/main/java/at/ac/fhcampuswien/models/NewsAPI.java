@@ -18,58 +18,23 @@ public class NewsAPI {
 
     private static String API_KEY = Dotenv.load().get("API_TOKEN");
 
-    public static String createUrl(String query, String source, Enum ... s){
+    public static String createUrl(String query, String source, Enum endpoint, Enum category, Enum Language,
+                                   Enum country, Enum sortBy){
 
-        Url.Builder url = new Url.Builder("https", "newsapi.org")
-                .addVersion("v2");
-
-        for (Enum x : s) {
-            if (x instanceof Endpoint){url.addPathSegment(((Endpoint) x).getLabel());}
-            if (x instanceof Category){url.addQueryParameter("category", ((Category) x).getLabel());}
-            if (x instanceof Language){url.addQueryParameter("language", ((Language) x).getLabel());}
-            if (x instanceof Country){url.addQueryParameter("country", ((Country) x).getLabel());}
-            if (x instanceof SortBy){url.addQueryParameter("SortBy", ((SortBy) x).getLabel());}
-        }
-
-        //https://square.github.io/okhttp/4.x/okhttp/okhttp3/-http-url/
-        //https://square.github.io/okhttp/3.x/okhttp/okhttp3/HttpUrl.Builder.html
-        //-- alternative? -- https://www.gwtproject.org/javadoc/latest/com/google/gwt/http/client/UrlBuilder.html --
-/*
-        HttpUrl.Builder builder = new HttpUrl.Builder();
-        builder.scheme("https");
-        builder.host("newsapi.org");
-        builder.addPathSegment("v2");
-
-        //String endpoint = s[0].getEndpoint();
-        //First Enum needs to be an Endpoint
-
-        //https://docs.oracle.com/javase/7/docs/api/java/lang/EnumConstantNotPresentException.html
-        for (Enum x : s) {
-            if (x instanceof Endpoint){builder.addPathSegment(((Endpoint) x).getLabel());}
-            if (x instanceof Category){builder.addQueryParameter("category", ((Category) x).getLabel());}
-            if (x instanceof Language){builder.addQueryParameter("language", ((Language) x).getLabel());}
-            if (x instanceof Country){builder.addQueryParameter("country", ((Country) x).getLabel());}
-            if (x instanceof SortBy){builder.addQueryParameter("SortBy", ((SortBy) x).getLabel());}
-        }
-
-        if (query.length() > 0){
-            builder.addQueryParameter("q", query);
-        }
-        if (source.length() > 0){
-            builder.addQueryParameter("sources", source);
-        }
-
-        builder.addQueryParameter("pageSize", String.valueOf(100));
-        builder.addQueryParameter("apiKey", API_KEY); //exception handling hier bringt hier nichts - bei falschem API Key nur NullPointerException in Menu: 68 etc.
-
-        HttpUrl url = builder
-                .build();
+        Url url = new Url.Builder(API_KEY, base, pageSize)
+                .addEndpoint(endpoint.getLabel())
+                .addCategory(Category.getLabel())
+                .addLanguage(Language.getLabel())
+                .addCountry(Country.getLabel())
+                .addSortBy(SortBy.getLabel())
+                .addQuery(query)
+                .addSource(source)
+                .stream()
+                .filter(e -> notNull);
 
         System.out.println(url);
 
         return url.toString();
-
- */
     }
 
     //https://raw.githubusercontent.com/square/okhttp/master/samples/guide/src/main/java/okhttp3/guide/GetExample.java
@@ -79,9 +44,9 @@ public class NewsAPI {
         OkHttpClient client = new OkHttpClient();
         Gson gson = new Gson();
 
-        Request request = new Request.Builder()
-                    .url(url)
-                    .build();
+        Request request = new Url.Builder()
+                .url(url)
+                .build();
 
         try (Response response = client.newCall(request).execute()) {               //execute() throws IOException
 

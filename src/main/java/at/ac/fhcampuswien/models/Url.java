@@ -1,85 +1,104 @@
 package at.ac.fhcampuswien.models;
 
-public class Url {
+import at.ac.fhcampuswien.models.enums.Category;
+import at.ac.fhcampuswien.models.enums.Country;
+import at.ac.fhcampuswien.models.enums.Language;
+import at.ac.fhcampuswien.models.enums.SortBy;
 
-    private final String scheme;
-    private final String host;
-    private final String addPathSegment;
-    private final String endpoint;
+public class Url {
+    private static final String API_KEY = "729cec6715634598a41f22bd23f552e2";
+    private static final String base = "https://newsapi.org/v2/";
+    private static final String pageSize = "100";
+    private final String endpoint, category, language, country, sortBy, query, source;
+
 
     private Url (Builder builder){
-        this.scheme = builder.scheme;
-        this.host = builder.host;
-        this.addPathSegment = builder.addPathsegment;
+
         this.endpoint = builder.endpoint;
+        this.category = builder.category;
+        this.language = builder.language;
+        this.country = builder.country;
+        this.sortBy = builder.sortBy;
+        this.query = builder.query;
+        this.source = builder.source;
+
     }
 
     //nestes builder class
     public static class Builder {
 
-        private String scheme;
-        private String host;
-        private String addPathSegment;
-        private String endpoint;
+        private String endpoint, category, language, country, sortBy, query, source;
 
-        public Builder (){
+        public Builder(){
         }
 
-        public Builder addScheme(String Scheme){
-
-        }
 
         public Builder addEndpoint(String endpoint){
             this.endpoint = endpoint;
             return this;
         }
+        public Builder addCategory(String category){
+            this.category = category;
+            return this;
+        }
+        public Builder addLanguage(String language){
+            this.language = language;
+            return this;
+        }
+        public Builder addCountry(String country){
+            this.country = country;
+            return this;
+        }
+        public Builder addSortBy(String sortBy){
+            this.sortBy = sortBy;
+            return this;
+        }
+        public Builder addQuery(String query){
+            this.query = query;
+            return this;
+        }
+        public Builder addSource(String source){
+            this.source = source;
+            return this;
+        }
+
 
         public Url build() {
             return new Url(this);
         }
+
     }
 
 
+    //@Override
+    public String toString(Url url) {
+        StringBuilder stringUrl = new StringBuilder()
+                .append(base)
+                .append("&endpoint=")
+                .append(endpoint)
+                .append("&category=")
+                .append(category)
+                .append("&language=")
+                .append(language)
+                .append("&country=")
+                .append(country)
+                .append("&SortBy=")
+                .append(sortBy)
+                .append("&q=")
+                .append(query)
+                .append("&source=")
+                .append(source)
+                .append("&pageSize=")
+                .append(pageSize)
+                .append("&api_key=")
+                .append(API_KEY);
+
+        return stringUrl.toString();
+
+
+
+
+    }
 
 }
-package at.ac.fhcampuswien.models;
 
-public class Url {
-    private final String scheme;
-    private final String host;
-    private final String version;
-    private final String endpoint;
-
-    private Url (Builder builder){
-        this.scheme = builder.scheme;
-        this.host = builder.host;
-        this.version = builder.version;
-        this.endpoint = builder.endpoint;
-    }
-
-    //nestes builder class
-    public static class Builder {
-
-        private final String scheme;
-        private final String host;
-        private String version;
-        private String endpoint;
-
-        public Builder (String scheme, String host){
-            this.scheme = scheme;
-            this.host = host;
-        }
-        public Builder addVersion(String version){
-            this.version = version;
-            return this;
-        }
-        public Builder addEndpoint(String endpoint){
-            this.endpoint = endpoint;
-            return this;
-        }
-
-        public Url build() {
-            return new Url(this);
-        }
-    }
-}

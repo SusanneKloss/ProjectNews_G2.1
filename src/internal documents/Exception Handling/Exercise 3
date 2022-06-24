@@ -1,7 +1,8 @@
 Final notes for exceptions:
 - NewsApiException class
 - getNews()
-execute() checked IOException try with ressources (no WLAN) -> custom exception -> AppController generateRequestParameter() -> Menu displayNews()
+execute() checked IOException try with ressources (no WLAN) -> custom exception -> AppController generateRequestParameter()
+-> Menu displayNews()
 string() may invocate NullpointerException -> custom exception
 JsonSyntaxException -> custom exception
 
