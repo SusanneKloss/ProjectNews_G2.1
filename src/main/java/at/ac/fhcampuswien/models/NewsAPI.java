@@ -25,6 +25,18 @@ public class NewsAPI {
         //https://square.github.io/okhttp/3.x/okhttp/okhttp3/HttpUrl.Builder.html
         //-- alternative? -- https://www.gwtproject.org/javadoc/latest/com/google/gwt/http/client/UrlBuilder.html --
 
+        Url.Builder url = new Url.Builder("https", "newsapi.org")
+                .addVersion("v2");
+
+        /*for (Enum x : s) {
+            if (x instanceof Endpoint){url.addPathSegment(((Endpoint) x).getLabel());}
+            if (x instanceof Category){url.addQueryParameter("category", ((Category) x).getLabel());}
+            if (x instanceof Language){url.addQueryParameter("language", ((Language) x).getLabel());}
+            if (x instanceof Country){url.addQueryParameter("country", ((Country) x).getLabel());}
+            if (x instanceof SortBy){url.addQueryParameter("SortBy", ((SortBy) x).getLabel());}
+        }*/
+
+        /*
         HttpUrl.Builder builder = new HttpUrl.Builder();
         builder.scheme("https");
         builder.host("newsapi.org");
@@ -54,7 +66,7 @@ public class NewsAPI {
 
         HttpUrl url = builder
                 .build();
-
+*/
         System.out.println(url);
 
         return url.toString();
