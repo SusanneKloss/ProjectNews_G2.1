@@ -62,7 +62,11 @@ public class Menu {
     public Group groupErrorMessage, groupCloseArticle, groupExport;
 
     private ArrayList<Group> allGroups = new ArrayList<>();
-    private AppController controller = new AppController();
+    //private AppController controller = new AppController();
+
+    //Singleton pattern, direct call replaced with call to static creation method
+    private static AppController controller = AppController.getInstance();
+
     private ArrayList<Article> outputList = new ArrayList<>();
     private SFX soundInMenu = new SFX();
     private ArrayList<Object> userInput;

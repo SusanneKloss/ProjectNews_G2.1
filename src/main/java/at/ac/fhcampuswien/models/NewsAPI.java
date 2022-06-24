@@ -15,6 +15,10 @@ public class NewsAPI {
 
     private static String API_KEY = Dotenv.load().get("API_TOKEN");
 
+    public static class Builder{
+
+    }
+
     public static String createUrl(String query, String source, Enum ... s){
 
         //https://square.github.io/okhttp/4.x/okhttp/okhttp3/-http-url/

@@ -7,9 +7,19 @@ import at.ac.fhcampuswien.models.enums.*;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.Comparator;
-
+//Singleton-Pattern
 public class AppController {
-
+    //private static field for storing singleton instance
+    private static AppController instance = null;
+    //private constructor
+    private AppController(){}
+    //declaration of public static creation method for getting the instance
+    public static AppController getInstance(){
+        if(instance == null) {
+            instance = new AppController();
+        }
+        return instance;
+    }
     static String url;
 
     public static ArrayList<Article> generateRequestParameter(ArrayList<Object> userInput) throws NewsApiException {
