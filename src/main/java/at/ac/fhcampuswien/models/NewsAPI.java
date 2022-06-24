@@ -13,14 +13,28 @@ import io.github.cdimascio.dotenv.Dotenv;
 
 public class NewsAPI {
 
+
+
+
     private static String API_KEY = Dotenv.load().get("API_TOKEN");
 
     public static String createUrl(String query, String source, Enum ... s){
 
+        Url.Builder url = new Url.Builder("https", "newsapi.org")
+                .addVersion("v2");
+
+        for (Enum x : s) {
+            if (x instanceof Endpoint){url.addPathSegment(((Endpoint) x).getLabel());}
+            if (x instanceof Category){url.addQueryParameter("category", ((Category) x).getLabel());}
+            if (x instanceof Language){url.addQueryParameter("language", ((Language) x).getLabel());}
+            if (x instanceof Country){url.addQueryParameter("country", ((Country) x).getLabel());}
+            if (x instanceof SortBy){url.addQueryParameter("SortBy", ((SortBy) x).getLabel());}
+        }
+
         //https://square.github.io/okhttp/4.x/okhttp/okhttp3/-http-url/
         //https://square.github.io/okhttp/3.x/okhttp/okhttp3/HttpUrl.Builder.html
         //-- alternative? -- https://www.gwtproject.org/javadoc/latest/com/google/gwt/http/client/UrlBuilder.html --
-
+/*
         HttpUrl.Builder builder = new HttpUrl.Builder();
         builder.scheme("https");
         builder.host("newsapi.org");
@@ -54,6 +68,8 @@ public class NewsAPI {
         System.out.println(url);
 
         return url.toString();
+
+ */
     }
 
     //https://raw.githubusercontent.com/square/okhttp/master/samples/guide/src/main/java/okhttp3/guide/GetExample.java

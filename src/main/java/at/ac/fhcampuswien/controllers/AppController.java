@@ -94,7 +94,8 @@ public class AppController {
 
         Comparator<Article> compByLength = (aName, bName) -> aName.getAuthor().length() - bName.getAuthor().length();
 
-        Article article = outputList.stream().filter(e -> e.getAuthor() != null)
+        Article article = outputList.stream()
+                .filter(e -> e.getAuthor() != null)
                 .max(Comparator.comparing(e -> e.getAuthor().length()))
                 .orElse(null);
 
