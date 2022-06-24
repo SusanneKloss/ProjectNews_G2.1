@@ -10,17 +10,17 @@ import java.util.Comparator;
 //Singleton-Pattern
 public class AppController {
     //private static field for storing singleton instance
-    private static AppController instance = null;
+    private static AppController controller = null;
     //private constructor
     private AppController(){}
     //declaration of public static creation method for getting the instance
     public static AppController getInstance(){
-        if(instance == null) {
-            instance = new AppController();
+        if(controller == null) {
+            controller = new AppController();
         }
-        return instance;
+        return controller;
     }
-    static String url;
+    private static String url;
 
     public static ArrayList<Article> generateRequestParameter(ArrayList<Object> userInput) throws NewsApiException {
         String query = "";

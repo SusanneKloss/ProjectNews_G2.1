@@ -1,24 +1,16 @@
 package at.ac.fhcampuswien.models;
 
-import io.github.cdimascio.dotenv.Dotenv;
-
 public class Url {
-    private final String scheme;
-    private final String host;
-    private final String version;
-    private final String endpoint;
-    private final String category;
-    private final String language;
-    private final String country;
-    private final String sortBy;
-    private final String query;
-    private final String source;
-    private final String valueOfPageSize;
-    //private final String API_KEY;
-    private static String API_KEY = Dotenv.load().get("API_TOKEN");
+    private final String scheme, host, version, endpoint, category, language,
+            country, sortBy, query, source, valueOfPageSize, apiKey;
 
-
+    /*
+    Builder is passed to private constructor of Url class,
+    Construcor cannot be accessed from the outside,
+    Object creation is delegated to Builder class
+     */
     private Url (Builder builder){
+        //objects constructor parameter changed to type of Builder class
         this.scheme = builder.scheme;
         this.host = builder.host;
         this.version = builder.version;
@@ -30,24 +22,14 @@ public class Url {
         this.query = builder.query;
         this.source = builder.source;
         this.valueOfPageSize = builder.valueOfPageSize;
-        this.API_KEY = builder.API_KEY;
+        this.apiKey = builder.apiKey;
 
     }
 
-    //nestes builder class
+    //nested builder class
     public static class Builder {
-        private String scheme;
-        private String host;
-        private String version;
-        private String endpoint;
-        private String category;
-        private String language;
-        private String country;
-        private String sortBy;
-        private String query;
-        private String source;
-        private String valueOfPageSize;
-        private String API_KEY;
+        private String scheme, host, version, endpoint, category, language,
+                country, sortBy, query, source, valueOfPageSize, apiKey;
 
         public Builder(){
         }
@@ -75,22 +57,21 @@ public class Url {
             if(source != null){
                 url.append("source=").append(source).append("&");
             }
-                   url.append("pageSize=").append(String.valueOf(100)).append("&")
-                           .append("apiKey=").append(API_KEY);
+                   url
+                           .append("pageSize=").append(String.valueOf(100)).append("&")
+                           .append("apiKey=").append(apiKey);
 
             return url.toString();
         }
-
+        //each function needs to return the Builder itself
         public Builder addScheme (String scheme) {
             this.scheme = scheme;
             return this;
         }
-
         public Builder addHost(String host){
             this.host = host;
             return this;
         }
-
         public Builder addVersion(String version){
             this.version = version;
             return this;
@@ -99,14 +80,11 @@ public class Url {
             this.endpoint = endpoint;
             return this;
         }
-
         public Builder addCategory(String category){
-
             this.category = category;
             return this;
         }
         public Builder addLanguage(String language){
-
             this.language = language;
             return this;
         }
@@ -119,30 +97,28 @@ public class Url {
             return this;
         }
         public Builder addQuery(String query){
-
             this.query = query;
             return this;
         }
         public Builder addSource(String source){
-
             this.source = source;
             return this;
         }
         public Builder addPageSize(String valueOfPageSize){
-
             this.valueOfPageSize = valueOfPageSize;
             return this;
         }
-        public Builder addApiKey(String API_KEY){
-
-            this.API_KEY = API_KEY;
+        public Builder addApiKey(String apiKey){
+            this.apiKey = apiKey;
             return this;
         }
-
+        /*
+        build() method calls constructor of base class Url,
+        returns new object of Url
+         */
         public Url build() {
             return new Url(this);
         }
-
     }
 }
 

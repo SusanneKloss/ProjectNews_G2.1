@@ -1,5 +1,6 @@
 package at.ac.fhcampuswien.models;
 
+import at.ac.fhcampuswien.controllers.AppController;
 import at.ac.fhcampuswien.controllers.NewsApiException;
 import at.ac.fhcampuswien.models.enums.*;
 import com.google.gson.Gson;
@@ -11,7 +12,19 @@ import okhttp3.Response;
 import java.io.IOException;
 import io.github.cdimascio.dotenv.Dotenv;
 
+//Singleton pattern
 public class NewsAPI {
+    //private static field for storing singleton instance
+    private static NewsAPI newsAPI = null;
+    //private constructor
+    private NewsAPI(){}
+    //declaration of public static creation method for getting the instance
+    public static NewsAPI getInstance(){
+        if(newsAPI == null) {
+            newsAPI = new NewsAPI();
+        }
+        return newsAPI;
+    }
 
     private static String API_KEY = Dotenv.load().get("API_TOKEN");
 
@@ -26,7 +39,6 @@ public class NewsAPI {
         url.addHost("newsapi.org/");
         url.addVersion("v2/");
 
-
         for (Enum x : s) {
             if (x instanceof Endpoint){url.addEndpoint(((Endpoint) x).getLabel());}
             if (x instanceof Category){url.addCategory(((Category) x).getLabel());}
@@ -40,9 +52,13 @@ public class NewsAPI {
         if (source.length() > 0){
             url.addSource(source);
         }
-        url.addPageSize(String.valueOf(100));
-        url.addApiKey(API_KEY);
+        url
+                .addPageSize(String.valueOf(100))
+                .addApiKey(API_KEY)
+                .build();
+
         System.out.println(url.toString());
+
         return url.toString();
 
         /*
