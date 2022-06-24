@@ -21,29 +21,29 @@ public class NewsAPI {
         //https://square.github.io/okhttp/3.x/okhttp/okhttp3/HttpUrl.Builder.html
         //-- alternative? -- https://www.gwtproject.org/javadoc/latest/com/google/gwt/http/client/UrlBuilder.html --
 
-        Url.Builder urll = new Url.Builder();
-        urll.addScheme("https://");
-        urll.addHost("newsapi.org/");
-        urll.addVersion("v2/");
+        Url.Builder url = new Url.Builder();
+        url.addScheme("https://");
+        url.addHost("newsapi.org/");
+        url.addVersion("v2/");
 
 
         for (Enum x : s) {
-            if (x instanceof Endpoint){urll.addEndpoint(((Endpoint) x).getLabel(), "?");}
-            if (x instanceof Category){urll.addCategory("category=", ((Category) x).getLabel(), "&");}
-            if (x instanceof Language){urll.addLanguage("language=", ((Language) x).getLabel(), "&");}
-            if (x instanceof Country){urll.addCountry("country=", ((Country) x).getLabel(), "&");}
-            if (x instanceof SortBy){urll.addSortBy("sortBy=", ((SortBy) x).getLabel(), "&");}
+            if (x instanceof Endpoint){url.addEndpoint(((Endpoint) x).getLabel());}
+            if (x instanceof Category){url.addCategory(((Category) x).getLabel());}
+            if (x instanceof Language){url.addLanguage(((Language) x).getLabel());}
+            if (x instanceof Country){url.addCountry(((Country) x).getLabel());}
+            if (x instanceof SortBy){url.addSortBy(((SortBy) x).getLabel());}
         }
         if (query.length() > 0){
-            urll.addQuery("q", query, "&");
+            url.addQuery(query);
         }
         if (source.length() > 0){
-            urll.addSource("sources", source, "&");
+            url.addSource(source);
         }
-        urll.addPageSize("pageSize", String.valueOf(100), "&");
-        urll.addApiKey("apiKey", API_KEY);
-        System.out.println(urll.toString());
-        return urll.build().toString();
+        url.addPageSize(String.valueOf(100));
+        url.addApiKey(API_KEY);
+        System.out.println(url.toString());
+        return url.toString();
 
         /*
         HttpUrl.Builder builder = new HttpUrl.Builder();
@@ -79,14 +79,6 @@ public class NewsAPI {
 
         return url.toString();
 */
-
-        //System.out.println(urll.toString());
-
-
-
-        //System.out.println(url.toString());
-
-
     }
 
     //https://raw.githubusercontent.com/square/okhttp/master/samples/guide/src/main/java/okhttp3/guide/GetExample.java
