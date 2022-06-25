@@ -13,7 +13,7 @@ public class ParallelDownloader extends Downloader{
     int count;
     // returns number of downloaded article urls
     @Override
-    public int process(List<String> urls) throws NewsApiException, ExecutionException, InterruptedException {
+    public int process(List<String> urls) throws NewsApiException {
 
         // TODO implement download function using multiple threads
         // Hint: use ExecutorService with Callables
