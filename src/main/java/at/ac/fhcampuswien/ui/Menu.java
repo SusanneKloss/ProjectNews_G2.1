@@ -2,6 +2,8 @@ package at.ac.fhcampuswien.ui;
 
 import at.ac.fhcampuswien.controllers.AppController;
 import at.ac.fhcampuswien.controllers.NewsApiException;
+import at.ac.fhcampuswien.downloader.ParallelDownloader;
+import at.ac.fhcampuswien.downloader.SequentialDownloader;
 import at.ac.fhcampuswien.models.Article;
 import at.ac.fhcampuswien.models.enums.*;
 import javafx.animation.PauseTransition;
@@ -17,7 +19,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
-
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
@@ -28,6 +29,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
 
 public class Menu {
 
@@ -37,7 +39,7 @@ public class Menu {
     public ScrollPane focusPane;
 
     public TextArea focusText;
-    public TextField textParameter, textCount, textAPIKey, textErrorMessage;
+    public TextField textParameter, textCount, textSaveAll, textErrorMessage;
 
     public ImageView paneRelevancyHover, paneRelevancy, panePublishedAtHover, panePublishedAt;
     public ImageView panePopularityHover, panePopularity;
@@ -103,7 +105,6 @@ public class Menu {
             GUIMessage("Check your internet connection!");
             return;
         }
-
         setupTable();
 
         if (outputList != null){
@@ -196,6 +197,34 @@ public class Menu {
             ex.printStackTrace();
             GUIMessage("Download not possible!");
             throw new NewsApiException("Download not possible!");
+        }
+    }
+
+    private void downloadURLs(){
+        try {
+
+            long startSequential = System.currentTimeMillis();
+            int resultSequential = controller.downloadURLs(new SequentialDownloader(), outputList);
+            long endSequential = System.currentTimeMillis();
+
+            long startParallel = System.currentTimeMillis();
+            int resultParallel = controller.downloadURLs(new ParallelDownloader(), outputList);
+            long endParallel = System.currentTimeMillis();
+
+            APIKeyGroup.setDisable(false);
+            APIKeyGroup.setOpacity(1);
+            textSaveAll.setText("Your cat downloaded " + resultParallel + " articles.");
+
+            System.out.println("Articles(Parallel): " + resultParallel + " | Articles(Sequential): " + resultSequential);
+            System.out.println("Sequential downloader took " + (endSequential - startSequential) + "milliseconds");
+            System.out.println("Parallel downloader took " + (endParallel - startParallel) + "milliseconds.");
+
+        } catch (NewsApiException e){
+            System.out.println(e.getMessage());
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
@@ -330,7 +359,12 @@ public class Menu {
         soundInMenu.playClick();
         paneLongestName.setOpacity(1); paneLongestNameHover.setOpacity(0);
         closeFilter();
-        GUIMessage(AppController.longestAuthorName(outputList));
+        try {
+            GUIMessage(AppController.longestAuthorName(outputList));
+        } catch (NewsApiException e) {
+            e.printStackTrace();
+            GUIMessage("Can't filter empty List!");
+        }
     }
 
     public void sortDescriptionClick(ActionEvent actionEvent) {
@@ -385,8 +419,11 @@ public class Menu {
     public void keyClick(ActionEvent actionEvent) {
         if (APIKeyGroup.isDisable()){
             closeGetNews(); closeFilter(); closeCount(); exitGUIMessage(actionEvent); textErrorMessage.clear();
-            APIKeyGroup.setDisable(false);
-            APIKeyGroup.setOpacity(1);
+            //APIKeyGroup.setDisable(false);
+            //APIKeyGroup.setOpacity(1);
+            if(outputList.size() != 0) {
+                downloadURLs();
+            }
         } else {
             closeKey();
         }

@@ -103,7 +103,6 @@ public class NewsAPI {
 
         OkHttpClient client = new OkHttpClient();
         Gson gson = new Gson();
-
         Request request = new Request.Builder()
                     .url(url)
                     .build();

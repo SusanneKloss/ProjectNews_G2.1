@@ -1,10 +1,12 @@
 package at.ac.fhcampuswien.controllers;
 
+import at.ac.fhcampuswien.downloader.Downloader;
 import at.ac.fhcampuswien.models.Article;
 import at.ac.fhcampuswien.models.NewsAPI;
 import at.ac.fhcampuswien.models.NewsResponse;
 import at.ac.fhcampuswien.models.enums.*;
 import java.util.*;
+import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 import java.util.Comparator;
 //Singleton-Pattern
@@ -64,6 +66,21 @@ public class AppController {
         return response.getArticles();
     }
 
+    // returns number of downloaded article urls
+    public int downloadURLs(Downloader downloader, ArrayList<Article> outputList) throws NewsApiException, ExecutionException, InterruptedException {
+        if(outputList == null)
+            throw new NewsApiException();
+
+        List<String> urls = outputList.stream()
+                .map(Article::getUrl)
+                .collect(Collectors.toList());
+
+        // TODO extract urls from articles with java stream
+
+        return downloader.process(urls);
+    }
+
+
     // ------------------------------- STREAMS !!!
 
     public static ArrayList<Article> StreamTitle15(ArrayList<Article> outputList) {
@@ -101,7 +118,7 @@ public class AppController {
     }
 
     //Find author with the longest name
-    public static String longestAuthorName(ArrayList<Article> outputList) {
+    public static String longestAuthorName(ArrayList<Article> outputList) throws NewsApiException{
 
         Comparator<Article> compByLength = (aName, bName) -> aName.getAuthor().length() - bName.getAuthor().length();
 
@@ -109,8 +126,11 @@ public class AppController {
                 .max(Comparator.comparing(e -> e.getAuthor().length()))
                 .orElse(null);
 
-        System.out.println(article);
-        return article.getAuthor();
+        if (article == null) {
+            throw new NewsApiException();
+        } else {
+            return article.getAuthor();
+        }
     }
 
     //source: https://stackoverflow.com/questions/43616422/find-the-most-common-attribute-value-from-a-list-of-objects-using-stream
