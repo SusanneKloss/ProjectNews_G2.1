@@ -53,7 +53,9 @@ public class Url {
             if(sortBy != null){
                 url.append("SortBy=").append(sortBy).append("&");
             }
-                    url.append("q=").append(query).append("&");
+            if(query != null) {
+                url.append("q=").append(query).append("&");
+            }
             if(source != null){
                 url.append("source=").append(source).append("&");
             }
