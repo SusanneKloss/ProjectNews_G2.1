@@ -66,6 +66,7 @@ public class AppController {
         return response.getArticles();
     }
 
+
     // returns number of downloaded article urls
     public int downloadURLs(Downloader downloader, ArrayList<Article> outputList) throws NewsApiException, ExecutionException, InterruptedException {
         if(outputList == null)
