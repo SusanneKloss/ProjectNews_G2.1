@@ -1,10 +1,19 @@
 package at.ac.fhcampuswien.controllers;
 
+import at.ac.fhcampuswien.download.Downloader;
 import at.ac.fhcampuswien.models.Article;
 import at.ac.fhcampuswien.models.NewsAPI;
 import at.ac.fhcampuswien.models.NewsResponse;
 import at.ac.fhcampuswien.models.enums.*;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.*;
+import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 import java.util.Comparator;
 
@@ -116,5 +125,16 @@ public class AppController {
                 .map(Map.Entry::getKey).orElse(null);
 
         return mostCommonSource;
+    }
+    public int downloadURLs(Downloader downloader) throws NewsApiException, ExecutionException, InterruptedException {
+
+        ArrayList<Article> outputList = new ArrayList<>();
+
+        List<String> urls = outputList.stream()
+                .filter(e -> e != null)
+                .map(Article::getUrl)
+                .collect(Collectors.toList());
+
+        return downloader.process(urls);
     }
 }

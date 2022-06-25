@@ -2,6 +2,8 @@ package at.ac.fhcampuswien.ui;
 
 import at.ac.fhcampuswien.controllers.AppController;
 import at.ac.fhcampuswien.controllers.NewsApiException;
+import at.ac.fhcampuswien.download.ParallelDownloader;
+import at.ac.fhcampuswien.download.SequentialDownloader;
 import at.ac.fhcampuswien.models.Article;
 import at.ac.fhcampuswien.models.enums.*;
 import javafx.animation.PauseTransition;
@@ -28,6 +30,8 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 
 public class Menu {
 
@@ -678,4 +682,31 @@ public class Menu {
     public void stopPurr(MouseEvent mouseEvent) {
         soundInMenu.stopPurr();
     }
+
+    private void downloadURLs() throws NewsApiException, ExecutionException, InterruptedException {
+
+        /*
+        long startTime = System.nanoTime();
+
+        long endTime = System.nanoTime();
+
+        long startTime2 = System.nanoTime();
+
+        long endTime2 = System.nanoTime();
+
+        int resultSequential = controller.downloadURLs(new SequentialDownloader(),outputList);
+
+        int resultParallel = controller.downloadURLs(new ParallelDownloader(),outputList);
+
+        long timeElapsed = endTime - startTime;
+        long timeElapsed2 = endTime2 - startTime2;
+
+        System.out.println("Sequential : " + resultSequential);
+        System.out.println("Parallel : " + resultParallel);
+        System.out.println("Execution time in milliseconds: " + timeElapsed / 1000000);
+        System.out.println("Execution time in milliseconds: " + timeElapsed2 / 1000000);*/
+
+
+    }
+
 }
