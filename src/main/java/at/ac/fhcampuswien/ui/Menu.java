@@ -228,6 +228,7 @@ public class Menu {
         }
     }
 
+
     public void GUIMessage(String message){
         soundInMenu.playClick();
         groupErrorMessage.setOpacity(1); groupErrorMessage.setDisable(false);
