@@ -20,6 +20,7 @@ public class AppController {
         }
         return controller;
     }
+    private static NewsAPI newsAPI = NewsAPI.getInstance();
     private static String url;
 
     public static ArrayList<Article> generateRequestParameter(ArrayList<Object> userInput) throws NewsApiException {
